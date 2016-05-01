@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "拍卖秀"})
+</head>
+
+<body>
+  <div class="ice bg-yellow">
+    <div class="ice-main ice-main-bar">
+      <div class="i-hide"></div>
+      @@include('../../modules/user-mess.html')
+      <!-- 用户技能 -->
+      <div class="ice-pdlr user-skill bg-yellow-low flex col-grey02">
+        <div>拍卖项</div>
+        <div class="skill-info flex-1 txt-l textover" id="userSkills"></div>
+        <div><span class="col-orange" id="userBegin"></span></div>
+      </div>
+      <!-- 用户技能 end -->
+      <!-- 用户身价 -->
+      <div class="user-price bg-yellow-low col-grey02 flex">
+        <div class="price-col flex-1">
+          <div>售价</div>
+          <div class="col-orange">
+            <span id="userPrice">0</span> 
+            <span class="col-grey02">元</span> 
+          </div>
+        </div>
+        <div class="price-col flex-1">
+          <div>同城排行<span id="sortType"></span></div>
+          <div class="col-orange">
+            <span class="price-self" id="userCitySort">0</span> 
+            <span class="col-grey02">名</span> 
+          </div>
+        </div>
+        <div class="price-col flex-1">
+          <div>身价</div>
+          <div class="col-orange">
+            <span id="userTotal">0</span>
+            <span class="col-grey02">元</span> 
+          </div>
+        </div>
+      </div>
+      <!-- 用户身价 end -->
+      <!-- 用户聊天 -->
+      <div class="talk-list ice-pdlr" id="list">
+      </div>
+      <div class="hidden" id="listTemp">
+        <div class="list-row flex">
+          <div class="list-photo radius-50 flex-1">
+            {img}
+          </div>
+          <div class="list-content flex-1">
+            <div class="list-name col-grey02">{name}</div>
+            <div class="list-mess bg-yellow-low col-grey01">{content}</div>
+          </div>
+        </div>
+      </div>
+      <!-- 用户聊天 end -->
+    </div>
+    <div class="ice-refresh ice-refresh-bar"></div>
+    @@include('../../modules/user-bottom.html', {"button": "", "shop": "col-orange"})
+  </div>
+  @@include('../../modules/dialog-inputwx.html')
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/sell/show.js?v=100005']);
+</script>
+</html>

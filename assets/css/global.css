@@ -1,0 +1,209 @@
+body,
+div,
+ul,
+li,
+h1,
+h2,
+h3,
+input,
+textarea,
+p,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Microsoft YaHei", "PingHei", "Lucida Grande", "Lucida Sans Unicode", "STHeiti", "Helvetica", "Arial", "Verdana", "sans-serif";
+  font-size: 87.5%;
+  color: #494b4c;
+  /* 关闭字体自动调整大小 */
+  -webkit-text-size-adjust: none;
+  /* 滚动顺畅 */
+  -webkit-overflow-scrolling: touch;
+}
+
+a {
+  color: #494b4c;
+  text-decoration: none;
+  display: inline-block;
+}
+
+input {
+  outline: none;
+  border-radius: 0;
+  background-color: inherit;
+  box-shadow: none;
+
+  -webkit-box-shadow: none;
+}
+
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 86%;
+  }
+}
+
+@media screen and (min-width: 361px) and (max-width: 480px) {
+  body {
+    font-size: 100%;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 640px) {
+  body {
+    font-size: 114%;
+  }
+}
+
+@media screen and (min-width: 641px) and (max-width: 800px) {
+  body {
+    font-size: 125%;
+  }
+}
+
+@media screen and (min-width: 801px) {
+  body {
+    font-size: 137.5%;
+  }
+}
+
+a,
+img {
+  /* 长按不要呼出默认菜单 */
+  -webkit-touch-callout: none;
+  /* 点击不要虚线框 */
+  -webkit-tap-highlight-color: transparent;
+  /* 不要选中文本 */
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.user-select {
+  user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: -ms-none;
+  -o-user-select: none;
+}
+
+.clear {
+  clear: both;
+  font-size: 0;
+  height: 0;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex-1 {
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  -o-flex: 1;
+  flex: 1;
+}
+
+.box {
+  display:-ms-box;
+  display:-o-box;
+  display:-moz-box;
+  display:-webkit-box;
+  display:box;
+}
+
+.txt-l {
+  text-align: left;
+}
+
+.txt-c {
+  text-align: center;
+}
+
+.txt-r {
+  text-align: right;
+}
+
+/* 超出的字体变省略号 */
+.textover {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.textover2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+/* iconfont */
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1461733607_4005296.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1461733607_4005296.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1461733607_4005296.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+i {
+  font-family: 'iconfont' !important;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  display: inline-block;
+  margin-left: .14rem;
+  vertical-align: middle;
+}
+
+i.icon-man:before {
+  content: "\e600";
+}
+
+i.icon-woman:before {
+  content: "\e601";
+}
+
+i.icon-close:before {
+  content: "\e602"
+}

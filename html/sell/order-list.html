@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "我的买卖"})
+</head>
+
+<body>
+  <div class="ice bg-yellow-low">
+    @@include('../../modules/nav-orderList.html', {"bgcolor": "bg-yellow-low"})
+    <div class="ice-main ice-main-bar">
+      <div class="i-hide"></div>
+      <!-- 我的买卖列表 -->
+      <div class="order-list">
+        <div class="list-top ice-pdlr bg-yellow col-grey02 txt-c flex">
+          <div class="list-cell wd-5">可提现金额：</div>
+          <div class="list-cell flex-1 txt-l col-orange"><span>0</span>元</div>
+          <div class="list-cell wd-3">
+            <a class="col-blue" id="btnMoney" href="javascript:;">提现</a>
+          </div>
+        </div>
+        <div class="list-top ice-pdlr bg-yellow col-grey02 txt-c flex hidden">
+          <div class="list-cell wd-5">日期</div>
+          <div class="list-cell flex-1">身价(元)</div>
+          <div class="flex-1">购买人数</div>
+          <div class="list-cell wd-3">&nbsp;</div>
+        </div>
+        <div id="list"></div>
+      </div>
+      <div class="hidden" id="sellTemp">
+        <div class="list-row ice-pdlr flex">
+          <div class="list-cell wd-4">
+            <div class="list-photo radius-50">
+              {img}
+            </div>
+          </div>
+          <div class="list-info flex-1">
+            <div class="list-names">
+              <span class="wd-span mwd-10 textover">{name}</span>
+              <i class="icon-{sex} col-blue"></i>
+              <div class="list-info-date col-grey02">{date}</div>
+            </div>
+            <div class="list-mess col-grey02">
+              <span class="wd-span mwd-10 textover">购买：{skill}</span>
+              <div class="clear"></div>
+            </div>
+            <div class="list-mess flex col-grey02">
+              <span>消费：</span>
+              <span class="flex-1 mwd-3 textover">{price}</span>
+              <span>微信号：</span>
+              <span class="flex-1 textover">{wechat}</span>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hidden" id="buyTemp">
+        <div class="list-row ice-pdlr txt-c flex">
+          <div class="list-cell wd-5 col-orange">{date}</div>
+          <div class="list-cell flex-1">{total}</div>
+          <div class="flex-1 textover">{num}</div>
+          <div class="list-cell wd-3">
+            <a class="list-link col-grey04" href="javascript:;">详情</a>
+          </div>
+        </div>
+      </div>
+      <!-- 我的买卖列表 end -->
+    </div>
+    <div class="ice-refresh ice-refresh-bar"></div>
+    @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
+  </div>
+  @@include('../../modules/dialog-sell.html')
+  @@include('../../modules/dialog-moneyup.html')
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/sell/order-list.js?v=100005']);
+</script>
+</html>

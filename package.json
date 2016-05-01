@@ -1,0 +1,18 @@
+{
+  "name": "yinyu",
+  "version": "0.1.0",
+  "description": "音娱",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-htmlmin": "^1.3.0",
+    "grunt-contrib-imagemin": "^1.0.0",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-include-replace": "^4.0.1",
+    "imagemin-mozjpeg": "^5.1.0"
+  }
+}

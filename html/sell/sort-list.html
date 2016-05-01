@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "卖家列表"})
+</head>
+
+<body>
+  <div class="ice bg-yellow-low">
+    @@include('../../modules/nav-sortList.html', {"bgcolor": "bg-yellow-low"})
+    <div class="ice-main ice-main-bar">
+      <div class="i-hide"></div>
+      <div class="user-list-top">我的排名<span id="userSort">0</span></div>
+      <!-- 卖家列表 -->
+      <div class="user-list" id="list">
+      </div>
+      <div class="hidden" id="listTemp">
+        <div class="list-row ice-pdlr flex">
+          <div class="list-photo radius-50">
+            {img}
+            <div class="list-photo-mess">{index}</div>
+          </div>
+          <div class="list-info list-infosort flex-1">
+            <div class="list-name">
+              <span class="wd-span mwd-10 textover col-grey01">{name}</span>
+              <i class=" icon-{sex} col-orange"></i>
+            </div>
+            <div class="list-mess col-grey02 flex-1">
+              <span>身价：</span>
+              <span class="wd-span mwd-10 textover">{total}元</span>
+            </div>
+          </div>
+          <div class="list-photo radius-50 list-photoprod hidden">
+            <img src="/assets/images/prod.jpg" alt="">
+            <div class="list-photo-mess">奖品</div>
+          </div>
+        </div>
+      </div>
+      <!-- 卖家列表 end -->
+    </div>
+    <div class="ice-refresh ice-refresh-bar"></div>
+    @@include('../../modules/user-bottom.html', {"button": "hidden", "sort": "col-orange"})
+  </div>
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/sell/sort-list.js?v=100005']);
+</script>
+</html>

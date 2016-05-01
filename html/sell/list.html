@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "卖家列表"})
+</head>
+
+<body>
+  <div class="ice bg-yellow-low">
+    @@include('../../modules/nav-sellList.html', {"bgcolor": "bg-yellow-low"})
+    <div class="ice-main ice-main-bar">
+      <div class="i-hide"></div>
+      <!-- 卖家列表 -->
+      <div class="user-list" id="list">
+      </div>
+      <div class="hidden" id="listTemp">
+        <a class="list-row ice-pdlr flex" href="/html/sell/show.html?identify={id}">
+          <div class="list-photo radius-50">
+            {img}
+          </div>
+          <div class="list-info flex-1">
+            <div class="list-name">
+              <span class="wd-span mwd-10 textover col-grey01">{name}</span>
+              <i class="icon-{sex}"></i>
+            </div>
+            <div class="list-mess col-grey02 flex-1">
+              <span>拍卖项：</span>
+              <span class="wd-span mwd-7 textover">{skill}</span>
+            </div>
+            <div class="list-mess col-grey02 flex-1">
+              <span>身价：</span>
+              <span class="wd-span mwd-7 textover">{total}元</span>
+            </div>
+          </div>
+          <div class="list-price txt-c">
+            <div class="col-orange">{price}<span class="list-price-mess col-grey02">元</span></div>
+            <div class="list-price-mess col-grey02">售价</div>
+          </div>
+        </a>
+      </div>
+      <div class="hidden" id="priceTemp">
+        <a class="list-row ice-pdlr flex" href="/html/sell/show.html?identify={id}">
+          <div class="list-photo radius-50">
+            {img}
+          </div>
+          <div class="list-info flex-1">
+            <div class="list-name">
+              <span class="wd-span mwd-10 textover col-grey01">{name}</span>
+              <i class="icon-{sex}"></i>
+            </div>
+            <div class="list-mess col-grey02 flex-1">
+              <span>拍卖项：</span>
+              <span class="wd-span mwd-7 textover">{skill}</span>
+            </div>
+            <div class="list-mess col-grey02 flex-1">
+              <span>售价：</span>
+              <span class="wd-span mwd-7 textover">{price}元</span>
+            </div>
+          </div>
+          <div class="list-price txt-c">
+            <div class="col-orange">{total}<span class="list-price-mess col-grey02">元</span></div>
+            <div class="list-price-mess col-grey02">身价</div>
+          </div>
+        </a>
+      </div>
+      <div class="hidden" id="hotTemp">
+        <a class="list-row ice-pdlr flex" href="/html/sell/show.html?identify={id}">
+          <div class="list-photo radius-50">
+            {img}
+          </div>
+          <div class="list-info flex-1">
+            <div class="list-name">
+              <span class="wd-span mwd-10 textover col-grey01">{name}</span>
+              <i class="icon-{sex}"></i>
+            </div>
+            <div class="list-mess col-grey02 flex-1">
+              <span>拍卖项：</span>
+              <span class="wd-span mwd-7 textover">{skill}</span>
+            </div>
+            <div class="list-mess col-grey02 flex-1">
+              <span>售价：</span>
+              <span class="wd-span mwd-7 textover">{price}元</span>
+            </div>
+          </div>
+          <div class="list-price txt-c">
+            <div class="col-orange">{num}</div>
+            <div class="list-price-mess col-grey02">销量</div>
+          </div>
+        </a>
+      </div>
+      <!-- 卖家列表 end -->
+    </div>
+    <div class="ice-refresh ice-refresh-bar"></div>
+    @@include('../../modules/user-bottom.html', {"button": "hidden", "shop": "col-orange"})
+  </div>
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/sell/list.js?v=100005']);
+</script>
+</html>

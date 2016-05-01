@@ -1,0 +1,466 @@
+/* list-name */
+
+.list-name >i,
+.base-name >i {
+  margin-top: -.3rem;
+}
+
+
+/* 列表冠军 */
+
+.list-winner {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  overflow: hidden;
+}
+
+.list-winner >div {
+  position: absolute;
+}
+
+.list-winner .bottom {
+  left: .6rem;
+  bottom: 0;
+  width: 4.8rem;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  font-size: .92rem;
+  color: #fff;
+  text-align: center;
+  background-color: #f0354b;
+}
+
+
+/* 列表冠军 */
+
+
+/* 用户基本信息 [sell/show] */
+
+.user-base {
+  margin: .8rem 0;
+  overflow: hidden;
+}
+
+.user-base .base-photo {
+  flex: 1;
+  width: 5rem;
+  max-width: 5rem;
+  height: 5rem;
+}
+
+.user-base .base-share {
+  position: absolute;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+
+.user-base .base-info {
+  flex: 1;
+  padding-left: .4rem;
+  margin-top: .4rem;
+  font-size: .96rem;
+}
+
+.user-base .base-name {
+  height: 1.6rem;
+  line-height: 1.6rem;
+  font-size: 1.12rem;
+}
+
+.user-base .base-sort {
+  margin-top: .4rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+}
+
+
+/* 用户基本信息 */
+
+
+/* 用户技能 [sell/show] */
+
+.user-skill {
+  height: 2.6rem;
+  line-height: 2.6rem;
+  font-size: .92rem;
+  border-top: 1px solid #ebebdf;
+  overflow: hidden;
+}
+
+.user-skill .skill-info {
+  padding-left: .6rem;
+  padding-right: .6rem;
+}
+
+
+/* 用户技能 */
+
+
+/* 用户身价 [sell/show] */
+
+.user-price {
+  text-align: center;
+  overflow: hidden;
+}
+
+.user-price .price-col {
+  padding: .8rem 0;
+  border: 1px solid #ebebdf;
+  border-left: 0;
+}
+
+.user-price .price-col:last-child {
+  border-right: 0;
+}
+
+.user-price .price-col >div {
+  height: 2rem;
+  line-height: 2rem;
+  overflow: hidden;
+}
+
+.user-price .price-col .price-self {
+  font-size: 1.4rem;
+}
+
+
+/* 用户身价 */
+
+
+/* 交流列表 [sell/show] */
+
+.talk-list {}
+
+.talk-list .list-row {
+  margin-top: 1rem;
+}
+
+.talk-list .list-photo {
+  max-width: 3.8rem;
+  width: 3.8rem;
+  height: 3.8rem;
+}
+
+.talk-list .list-content {
+  padding-left: .6rem;
+  font-size: .92rem;
+}
+
+.talk-list .list-name {
+  margin-bottom: .24rem;
+}
+
+.talk-list .list-mess {
+  margin-right: 2rem;
+  padding: .24rem .6rem;
+  line-height: 1.4rem;
+  min-height: 1.4rem;
+  border-radius: 1rem;
+  border: 1px solid #eee;
+}
+
+
+/* 交流列表 */
+
+
+/* 卖家列表 [sell/list]  ---  排行榜列表 [sell/sort-list] */
+
+.user-list-top {
+  background-color: #3c86ff;
+  color: #fff;
+  text-align: center;
+  height: 2.6rem;
+  line-height: 2.6rem;
+  font-size: .92rem;
+}
+
+.user-list {}
+
+.user-list .list-row {
+  height: 4.4rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #efefef;
+}
+
+.user-list .list-photo {
+  position: relative;
+  width: 4.4rem;
+  height: 4.4rem;
+}
+
+.user-list .list-photo-mess {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(255, 69, 0, .8);
+  font-size: .88rem;
+}
+
+.user-list .list-info {
+  position: relative;
+  padding-left: .6rem;
+}
+
+.user-list .list-name {
+  line-height: 1.6rem;
+  font-size: 1.12rem;
+}
+
+.user-list .list-mess:first-child {
+  margin-top: .2rem !important;
+}
+
+.user-list .list-mess {
+  margin-top: .4rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: .96rem;
+}
+
+.user-list .list-mess span {
+  display: block;
+  float: left;
+}
+
+.user-list .list-price {
+  width: 5rem;
+  height: 4rem;
+  padding-top: .5rem;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  overflow: hidden;
+}
+
+.user-list .list-price-mess {
+  font-size: .92rem;
+}
+
+
+/* === user-list 重载  === */
+
+.user-list .list-infosort {
+  margin-top: .8rem !important;
+}
+
+.user-list .list-photoprod {
+  border-radius: 1rem !important;
+}
+
+.user-list .list-photoprod .list-photo-mess {
+  background-color: rgba(0, 0, 0, .5);
+}
+
+
+/* === user-list 重载  === */
+
+
+/* 卖家列表 */
+
+
+/* 我的买卖 [sell/order-list] */
+
+.order-list {}
+
+.order-list .list-top {
+  height: 3rem;
+  line-height: 3rem;
+  border-bottom: 1px solid #efefef;
+}
+
+.order-list .list-cell {
+  font-size: .96rem;
+}
+
+.order-list .list-row {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #efefef;
+}
+
+.order-list .list-photo {
+  margin: 0 auto;
+  width: 3.8rem;
+  height: 3.8rem;
+}
+
+.order-list .list-names {
+  line-height: 1.4rem;
+}
+
+.order-list .list-names i {
+  margin-top: -.1rem;
+}
+
+.order-list .list-info {
+  position: relative;
+  padding-left: .6rem;
+}
+
+.order-list .list-info-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: .8rem;
+}
+
+.order-list .list-mess {
+  font-size: .8rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+}
+
+
+/* 我的买卖 */
+
+
+/* 表单编辑 [sell/edit] */
+
+.user-edit {}
+
+.user-edit .edit-title {
+  border-left: .3rem solid #90bbfb;
+  padding-left: .6rem;
+  margin-top: 1.4rem;
+  margin-bottom: .8rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+}
+
+.form-edit {
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+}
+
+.form-edit .edit-options {}
+
+.form-edit .edit-option,
+.form-edit .edit-text {
+  float: left;
+  margin: .3rem 0;
+  margin-right: .4rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-size: .9rem;
+}
+
+.form-edit .edit-option {
+  display: block;
+  padding: .5rem .6rem;
+  border: 1px solid #abaeb3;
+  cursor: pointer;
+}
+
+.form-edit .edit-text {
+  width: 100%;
+  padding: .5rem;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.form-edit .edit-option.option-choose {
+  background-color: #fa702a;
+  border-color: #fa702a;
+  color: #fff;
+}
+
+
+/* 表单编辑 */
+
+
+/* 提现弹窗 */
+
+.dialog-moneyup {
+  padding: 2rem 2rem 1rem 2rem;
+  margin: 0 auto;
+  font-size: .9rem;
+}
+
+
+/* 提现弹窗 */
+
+/* 输入微信弹窗 */
+
+.dialog-inputwx {
+  padding: 2rem 2rem 1rem 2rem;
+  margin: 0 auto;
+  font-size: .74rem;
+}
+
+.dialog-inputwx input {
+  border: 1px solid #ddd;
+  width: 14rem;
+  padding: .6rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: .6rem;
+}
+
+.dialog-moneyup img,
+.dialog-inputwx img {
+  width: 8rem !important;
+  height: 8rem !important;
+}
+
+
+/* 输入微信弹窗 */
+
+
+/* 卖家信息弹窗 */
+
+.dialog-sell {
+  width: 17.6rem;
+  z-index: 5 !important;
+  overflow: hidden;
+  font-size: 1rem;
+}
+
+.dialog-sell .sell-top {
+  height: 3rem;
+}
+
+.dialog-sell .sell-title {
+  line-height: 2.4rem;
+  float: left;
+  padding-left: .8rem;
+  padding-right: 1rem;
+  color: #fff;
+  background-color: #3386ff;
+}
+
+.dialog-sell i {
+  float: right;
+  font-size: 1.76rem;
+  padding: .4rem .6rem;
+}
+
+.dialog-sell .sell-photo {
+  margin: 0 auto;
+  width: 5rem;
+  height: 5rem;
+}
+
+.dialog-sell .sell-photo {
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: .8rem;
+  width: 6rem;
+  height: 6rem;
+}
+
+.dialog-sell .sell-info {
+  padding-bottom: 1rem;
+  line-height: 2rem;
+  font-size: 1.12rem;
+}
+
+.dialog-sell .sell-name {
+  width: 6rem;
+  overflow: hidden;
+  text-align: right;
+}
+
+
+/* 卖家信息弹窗 */

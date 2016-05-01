@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "拍卖秀"})
+</head>
+
+<body>
+  <div class="ice bg-yellow">
+    <div class="ice-main ice-main-bar">
+      <div class="i-hide"></div>
+      @@include('../../modules/user-mess.html')
+      <!-- 用户编辑 -->
+      <div class="user-edit ice-pdlr col-grey02">
+        <div class="edit-title">拍卖项</div>
+      </div>
+      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
+        <div id="skills">
+          <div class="edit-option" data-value="教你撩妹">教你撩妹</div>
+          <div class="edit-option" data-value="语音聊天">语音聊天</div>
+          <div class="edit-option" data-value="喊麦唱歌">喊麦唱歌</div>
+          <div class="edit-option" data-value="恋爱演习">恋爱演习</div>
+          <div class="edit-option" data-value="情感治愈">情感治愈</div>
+          <div class="edit-option" data-value="荤段子">荤段子</div>
+          <div class="edit-option" data-value="玩游戏">玩游戏</div>
+          <div class="edit-option" data-value="玩诱惑">玩诱惑</div>
+          <div class="edit-option" data-value="逗开心">逗开心</div>
+          <div class="clear"></div>
+        </div>
+        <div class="edit-options flex">
+          <input class="edit-text col-grey02" id="txtSkill" type="text" placeholder="自定义技能，请输入1~6个字" maxlength="6">
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="user-edit ice-pdlr col-grey02">
+        <div class="edit-title">拍卖价格</div>
+      </div>
+      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
+        <div id="prices">
+          <div class="edit-option" data-value="0.5">0.5元</div>
+          <div class="edit-option" data-value="1">1元</div>
+          <div class="edit-option" data-value="2">2元</div>
+          <div class="edit-option" data-value="3">3元</div>
+          <div class="edit-option" data-value="5">5元</div>
+          <div class="edit-option" data-value="8">8元</div>
+          <div class="edit-option" data-value="10">10元</div>
+          <div class="edit-option" data-value="12">12元</div>
+          <div class="edit-option" data-value="15">15元</div>
+          <div class="edit-option" data-value="20">20元</div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="edit-options flex">
+        <input class="edit-text col-grey02" id="txtPrice" type="text" placeholder="自定义价格，请输入0.01~999.99的数字" maxlength="4">
+      </div>
+      <div class="clear"></div>
+      <div class="user-edit ice-pdlr col-grey02">
+        <div class="edit-title">服务时长(分钟)</div>
+      </div>
+      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
+        <div id="expires">
+          <div class="edit-option" data-value="10">10</div>
+          <div class="edit-option" data-value="20">20</div>
+          <div class="edit-option" data-value="30">30</div>
+          <div class="edit-option" data-value="40">40</div>
+          <div class="edit-option" data-value="50">50</div>
+          <div class="edit-option" data-value="60">60</div>
+          <div class="edit-option" data-value="90">90</div>
+          <div class="clear"></div>
+        </div>
+        <div class="edit-options flex">
+          <input class="edit-text col-grey02" id="txtExpires" type="text" placeholder="自定义时长，请输入1-180的整数" maxlength="3">
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="user-edit ice-pdlr col-grey02">
+        <div class="edit-title">微信号</div>
+      </div>
+      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
+        <div class="flex">
+          <input class="edit-text col-grey02" id="txtWechat" type="text" placeholder="点击输入微信号，方便买家联系您~" maxlength="30">
+        </div>
+      </div>
+      <!-- 用户编辑 end -->
+    </div>
+    <div class="ice-bar txt-c flex">
+      <a class="ice-endbtn i-orange i-disabled" id="submit" href="javascript:;">更新资料</a>
+    </div>
+  </div>
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/sell/edit.js?v=100005']);
+</script>
+</html>

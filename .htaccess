@@ -1,0 +1,26 @@
+AddDefaultCharset utf-8
+<ifmodule mod_headers.c>
+  # html,php 页面不要缓存
+  <filesmatch "\.(html|php)$">
+  header set cache-control "max-age=0"
+  </filesmatch>
+
+  # css, js, swf类的文件缓存一个星期
+  <filesmatch "\.(css|js|swf)$">
+  header set cache-control "max-age=604800"
+  </filesmatch>
+
+  # jpg,gif,jpeg,png,ico,flv,pdf等文件缓存一年
+  <filesmatch "\.(ico|gif|jpg|jpeg|png|flv|pdf)$">
+  header set cache-control "max-age=604800"
+  </filesmatch>
+</ifmodule>
+
+<ifmodule mod_deflate.c>
+  AddOutputFilter DEFLATE html xml php js css png gif jpg jpeg ico json
+</ifmodule>
+
+<ifmodule mod_rewrite.c>
+  RewriteEngine on
+  RewriteRule ^(.*)\.json$ $1.php [NC]
+</ifmodule>
