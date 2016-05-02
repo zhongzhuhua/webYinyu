@@ -5,14 +5,10 @@ define(function(require, exports, module) {
     url: gm.getUrl()
   };
 
-  ice.ajax({
-    url: '/wechat/wechat/ticket.php',
-    type: 'post',
-    cache: false,
-    dataType: 'json',
+  gm.ajax({
+    url: '/wechat/wechat/ticket.json',
     data: mydata,
     success: function(data) {
-      gm.statusDeel(data);
       try {
         if (data.status == '200') {
           data = data.value;
@@ -43,13 +39,12 @@ define(function(require, exports, module) {
 
       // 用户支付 options.id 要买的用户id options.success = function() {}
       exports.pay = function(options) {
-        ice.ajax({
+        gm.ajax({
           url: '/wechat/version/previous/service/buy.json',
           data: {
             service_record_identify: options.id
           },
           success: function(data) {
-            gm.statusDeel(data);
             try {
               localStorage.setItem('_wx_pi', data.prepay_id);
               localStorage.setItem('_wx_w', data.wechat);

@@ -1,13 +1,6 @@
 define(function(require, exports, module) {
   require('layer');
 
-  // 默认参数
-  ice.ajaxDefault({
-    cache: false,
-    dataType: 'json',
-    type: 'post'
-  });
-
   // 公用调用
   var domNav = ice.query('.ice-nav');
   var domMain = ice.query('.ice-main');
@@ -160,7 +153,7 @@ define(function(require, exports, module) {
 
   // 获取用户信息 isback = true 的时候，不跳回 list
   exports.getUser = function(identify, _callback, isback) {
-    ice.ajax({
+    ajax({
       url: '/wechat/version/previous/user/information.json',
       async: false,
       data: {
@@ -168,7 +161,6 @@ define(function(require, exports, module) {
         size: ''
       },
       success: function(data) {
-        statusDeel(data);
         try {
           var status = data.status;
           var user = null;
@@ -205,6 +197,7 @@ define(function(require, exports, module) {
       if (data != null) {
         var status = data.status;
         var msg = data.msg;
+
         if (status == '200') {
           if (msg != null && msg != '') {
             mess(msg);
@@ -215,6 +208,9 @@ define(function(require, exports, module) {
             // 获取用户 code
             ice.ajax({
               url: '/wechat/wechat/code.json',
+              data: {
+                url: document.URL
+              },
               success: function(data) {
                 localStorage.setItem('_cuws', data.value.state);
                 go(data.value.url);
@@ -245,5 +241,30 @@ define(function(require, exports, module) {
       console.log(e);
     }
   };
-  exports.statusDeel = statusDeel;
+
+  // 统一 ajax
+  function ajax(o) {
+    o = o == null ? {} : o;
+    ice.ajax({
+      url: o.url,
+      type: 'post',
+      cache: false,
+      dataType: 'json',
+      data: JSON.stringify(o.data == null ? {} : o.data),
+      header: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'CUI': ice.toEmpty(localStorage.getItem('_C_CUI_')),
+        'CUT': ice.toEmpty(localStorage.getItem('_C_CUT_'))
+      },
+      async: o.async,
+      success: function(data) {
+        statusDeel(data);
+        // 公用处理
+        if(ice.isFunction(o.success)) {
+          o.success(data);
+        }
+      }
+    }); 
+  };
+  exports.ajax = ajax;
 });

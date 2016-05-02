@@ -7,7 +7,7 @@
 
 	$result = new JsonResult();
 	try {
-		$url = $_POST['url'];
+		$url = json_decode($GLOBALS['HTTP_RAW_POST_DATA'])->url;
 		if(!empty($url)) {
 			$signature = WechatUtil::buildSignature($url);
 
@@ -20,6 +20,7 @@
 		}
 
 		$result->value = $data;
+		$result->post = $url;
     $result->success('');
 	} catch(Exception $e) {
 		$result->error($e->errorMessage());

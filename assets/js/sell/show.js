@@ -26,7 +26,9 @@ define(function(require, exports, module) {
  
   gm.bindScroll(function() {
     Search(true);
-  }, Search);
+  }, function() {
+    Search(false);
+  });
 
   // 本人信息
   var userInfo = {
@@ -51,8 +53,9 @@ define(function(require, exports, module) {
 
   // 查询当前用户和要查看的用户
   function FindUser() {
-
+    var myModel = '';
     gm.getUser(null, function(model) {
+      myModel = model;
       try {
         userInfo.name = ice.toEmpty(model.nick);
         userInfo.id = ice.toEmpty(model.identify);
@@ -73,7 +76,7 @@ define(function(require, exports, module) {
 
     if (identify != '') {
       gm.getUser(identify, function(model) {
-        SetSellInfo(model);
+        SetSellInfo(myModel);
       });
     }
   };
@@ -90,6 +93,7 @@ define(function(require, exports, module) {
       var total = ice.parseFloat(model.total_price);
       var price = ice.parseFloat(model.service_price);
       var citySort = ice.parseInt(model.ranking_city);
+      var expires = ice.parseInt(model.expires);
 
       var sexName = ice.toEmpty(gm.enum.sexName[model.sex]);
       if(sexName != '') {
@@ -100,7 +104,7 @@ define(function(require, exports, module) {
       $userPhoto.src = photo;
       $userSort.innerHTML = sort;
       $userSex.className = 'icon-' + sex;
-      $userSkills.innerHTML = skills;
+      $userSkills.innerHTML = skills + '（' + expires + '分钟）';
       $userTotal.innerHTML = total;
       $userPrice.innerHTML = price;
       $userCitySort.innerHTML = citySort;
@@ -121,15 +125,12 @@ define(function(require, exports, module) {
       gm.scrollStart();
       haveNext = true;
     };
-    var layer = gm.loading();
-    console.log(mydata);
 
     // 执行查询
-    ice.ajax({
+    gm.ajax({
       url: '/wechat/version/previous/user/comment.json',
       data: mydata,
       success: function(data) {
-        gm.statusDeel(data);
         try {
           var status = data.status;
           if (status == '200') {
@@ -157,10 +158,7 @@ define(function(require, exports, module) {
             if ($first == null) {
               $first = ice.query('#list div');
             }
-          } else {
-            gm.mess(data.msg);
           }
-          gm.close(layer);
         } catch (e) {
           console.log('findlist error:' + e.message);
         }
@@ -171,12 +169,14 @@ define(function(require, exports, module) {
   // 执行查询
   function Search(isfirst) {
     var layer = gm.loading();
+
     if (isfirst) {
       FindUser();
       $list.innerHTML = '';
-    }
+    } 
 
-    FindList();
+    FindList(); 
+    
     gm.close(layer);
   };
 
@@ -189,7 +189,7 @@ define(function(require, exports, module) {
         var sendMess = ice.trim(ice.removeAttr(ice.query('#layerSendMess').value));
         if (sendMess > 0) {
           var _layer = gm.loading();
-          ice.ajax({
+          gm.ajax({
             url: '/wechat/version/previous/user/comment/add.json',
             data: {
               comment: sendMess
@@ -249,7 +249,7 @@ define(function(require, exports, module) {
   // 记录用户信息
   function MySubmit(wechat) {
     var prepay_id = gm_wechat.getPrepayId();
-    ice.ajax({
+    gm.ajax({
       url: '/wechat/wechat/query.json',
       data: {
         prepay_id: prepay_id,

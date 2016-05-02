@@ -17,7 +17,7 @@ define(function(require, exports, module) {
   };
 
   // 弹窗数据
-  var sellData = {};
+  var buyData = {};
 
   // 弹窗
   var winSellTemp = ice.query('#winSell').innerHTML;
@@ -45,11 +45,10 @@ define(function(require, exports, module) {
     console.log(mydata);
 
     // 执行查询
-    ice.ajax({
+    gm.ajax({
       url: listUrl[mydata.type],
       data: mydata,
       success: function(data) {
-        gm.statusDeel(data);
         try {
           var status = data.status;
           if (status == '200') {
@@ -71,26 +70,25 @@ define(function(require, exports, module) {
               var date = ice.toEmpty(model.time);
               var wechat = ice.toEmpty(model.wechat);
               var price = ice.parseFloat(model.price);
+              var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
+              var img = '<img src="' + photo + '" alt="">';
+              var sex = gm.enum.sex[model.sex];
+              var sexName = gm.enum.sexName[model.sex];
+              var skill = ice.toEmpty(model.service_name);
 
               // 获取独立数据
               if (mydata.type == '1') {
-                var sex = gm.enum.sex[model.sex];
-                var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
-                var skill = ice.toEmpty(model.service_name);
-                var img = '<img src="' + photo + '" alt="">';
-
-                // sellData[id] = {
-                //   name: name,
-                //   price: price,
-                //   sex: sex,
-                //   wechat: wechat,
-                //   img: img
-                // };
                 html += listTemp[mydata.type].replace('{date}', date).replace('{name}', name).replace('{img}', img)
                   .replace('{sex}', sex).replace('{price}', price).replace('{wechat}', wechat).replace('{skill}', skill);
               } else {
-                var num = ice.parseFloat(model.buy_num);
-                html += listTemp[mydata.type].replace('{date}', date).replace('{total}', price).replace('{num}', num);
+                buyData[id] = {
+                  price: price,
+                  name: name,
+                  sex: sexName,
+                  wechat: wechat,
+                  skill: skill
+                };
+                html += listTemp[mydata.type].replace('{id}', id).replace('{date}', date).replace('{img}', img).replace('{name}', name);
               }
 
             }
@@ -129,19 +127,18 @@ define(function(require, exports, module) {
 
   // 绑定详情点击方法 -- 暂时不用
   function bindOpen() {
-    return;
     $list.addEventListener(ice.tapClick, function(e) {
       try {
         var node = e.srcElement.nodeName.toLowerCase();
         if (node == 'a') {
-          if (mydata.type == '1') {
-            var index = gm.open(winSellTemp);
+          if (mydata.type == '2') {
+            var data = buyData[e.srcElement.getAttribute('data-value')];
+            var html = winSellTemp.replace('{price}', data['price']).replace('{sex}', data['sex']).replace('{wechat}', data['wechat']).replace('{skill}', data['skill']).replace('{name}', data['name']);
+            var index = gm.open(html);
             // 关闭弹窗
             ice.query('#layermbox' + index + ' .icon-close').addEventListener(ice.tapClick, function() {
               gm.close(index, 0);
             });
-          } else {
-            gm.mess('敬请期待...');
           }
         }
       } catch (e) {

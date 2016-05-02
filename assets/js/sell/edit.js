@@ -121,7 +121,7 @@ define(function(require, exports, module) {
         var layer = gm.loading();
 
         // 执行查询
-        ice.ajax({
+        gm.ajax({
           url: '/wechat/version/previous/service/setting.json',
           data: {
             name: mydata.skills,
@@ -131,7 +131,6 @@ define(function(require, exports, module) {
             audio: ''
           },
           success: function(data) {
-            gm.statusDeel(data);
             try {
               var status = data.status;
               if (status == '200') {

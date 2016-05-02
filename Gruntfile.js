@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 
     // ============== 图片压缩 =============
     imagemin: {
-      dynamic: {
+      main: {
         options: {
           //定义 jpg png 图片优化水平
           optimizationLevel: 4,
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
       },
       lib: {
         files: ['assets/lib/*.js', 'assets/lib/*/*.js'],
-        tasks: ['concat', 'libs']
+        tasks: ['concat', 'libs', 'jsmin']
       },
       scripts: {
         files: 'assets/js/**/*',

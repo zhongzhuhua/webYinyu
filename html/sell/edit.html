@@ -9,7 +9,7 @@
   <div class="ice bg-yellow">
     <div class="ice-main ice-main-bar">
       <div class="i-hide"></div>
-      @@include('../../modules/user-mess.html')
+      @@include('../../modules/user-mess.html', {"shard": "hidden"})
       <!-- 用户编辑 -->
       <div class="user-edit ice-pdlr col-grey02">
         <div class="edit-title">拍卖项</div>
@@ -49,9 +49,9 @@
           <div class="edit-option" data-value="20">20元</div>
           <div class="clear"></div>
         </div>
-      </div>
-      <div class="edit-options flex">
-        <input class="edit-text col-grey02" id="txtPrice" type="text" placeholder="自定义价格，请输入0.01~999.99的数字" maxlength="4">
+        <div class="edit-options flex">
+          <input class="edit-text col-grey02" id="txtPrice" type="text" placeholder="自定义价格，请输入0.01~999.99的数字" maxlength="4">
+        </div>
       </div>
       <div class="clear"></div>
       <div class="user-edit ice-pdlr col-grey02">

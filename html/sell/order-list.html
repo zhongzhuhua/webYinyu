@@ -21,8 +21,8 @@
         </div>
         <div class="list-top ice-pdlr bg-yellow col-grey02 txt-c flex hidden">
           <div class="list-cell wd-5">日期</div>
-          <div class="list-cell flex-1">身价(元)</div>
-          <div class="flex-1">购买人数</div>
+          <div class="list-cell wd-4">卖家头像</div>
+          <div class="flex-1">卖家昵称</div>
           <div class="list-cell wd-3">&nbsp;</div>
         </div>
         <div id="list"></div>
@@ -55,18 +55,20 @@
         </div>
       </div>
       <div class="hidden" id="buyTemp">
-        <div class="list-row ice-pdlr txt-c flex">
-          <div class="list-cell wd-5 col-orange">{date}</div>
-          <div class="list-cell flex-1">{total}</div>
-          <div class="flex-1 textover">{num}</div>
+        <div class="list-row list-rowone ice-pdlr txt-c flex">
+          <div class="list-cell wd-5">{date}</div>
+          <div class="list-cell wd-4">  
+            <div class="list-photo radius-50">{img}</div>
+          </div>
+          <div class="flex-1 textover">{name}</div>
           <div class="list-cell wd-3">
-            <a class="list-link col-grey04" href="javascript:;">详情</a>
+            <a class="list-link col-blue" data-value="{id}" href="javascript:;">详情</a>
           </div>
         </div>
       </div>
       <!-- 我的买卖列表 end -->
+      <div class="ice-refresh"></div>
     </div>
-    <div class="ice-refresh ice-refresh-bar"></div>
     @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
   </div>
   @@include('../../modules/dialog-sell.html')

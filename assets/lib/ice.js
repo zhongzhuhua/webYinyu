@@ -222,32 +222,22 @@
     return xmlHttp;
   };
 
-  // 内置参数
-  var _ajax = {
+  // 默认参数
+  var ajaxDefault = {
+    url: null,
     cache: true,
-    dataType: 'text',
+    async: true,
     type: 'get',
-    async: true
-  };
-
-  // 修改默认参数
-  ice.ajaxDefault = function(o) {
-    ice.extend(_ajax, o);
-  };
-
-  // 获取默认参数
-  function getAjaxOption() {
-    return {
-      cache: _ajax.cache,
-      dataType: _ajax.dataType,
-      type: _ajax.type,
-      async: _ajax.async
-    };
+    dataType: 'text',
+    // application/x-www-form-urlencoded application/json; charset=UTF-8
+    header: {
+      'Content-type': 'application/x-www-form-urlencoded'
+    }
   };
 
   // ajax 请求
   ice.ajax = function(o) {
-    var options = ice.extend(getAjaxOption(), o);
+    var options = ice.extend(ajaxDefault, o);
     var myurl = options.url;
     var myhttp = createHttpRequest();
 
@@ -271,31 +261,41 @@
           havep = true;
         }
         // 请求类型
-        for (var k in data) {
-          var v = data[k];
-          v = v == null ? '' : v;
-          params += '&' + k + '=' + v;
+        if(typeof data != 'string') {
+          for (var k in data) {
+            var v = data[k];
+            v = v == null ? '' : v;
+            params += '&' + k + '=' + v;
+          } 
+        } else {
+          params = data;
         }
 
         if (isget) {
           myurl = myurl + (havep ? '?' : '') + params;
         }
       }
-
+ 
       // 请求
-      myhttp.open(type, myurl, options.async);
+      var async = options.async == null ? true : options.async;
+      myhttp.open(type, myurl, async);
       if (!isget) {
-        myhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        var header = options.header;
+        if(header != null) {
+          for(var key in header) {
+            myhttp.setRequestHeader(key, header[key]);
+          }
+        }
         myhttp.send(params);
       } else {
         myhttp.send(null);
       }
 
-      if (options.async === false) {
+      if (options.async == false) {
         ice.ajaxResult(myhttp, options);
       } else {
         myhttp.onreadystatechange = function() {
-          ice.ajaxResult(myhttp, options);
+          ice.ajaxResult(myhttp, options); 
         };
       }
     }
@@ -314,6 +314,7 @@
         if (options.dataType == 'json') {
           result = ice.parseJson(result);
         }
+
         options.success(result);
       } else {
         options.error('request error');

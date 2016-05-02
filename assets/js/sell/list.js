@@ -27,11 +27,10 @@ define(function(require, exports, module) {
     console.log(mydata);
 
     // 执行查询
-    ice.ajax({
+    gm.ajax({
       url: '/wechat/version/previous/seller/list.json',
       data: mydata,
       success: function(data) {
-        gm.statusDeel(data);
         try {
           var status = data.status;
           if (status == '200') {
@@ -95,7 +94,7 @@ define(function(require, exports, module) {
     }, function() {
       FindList(false);
     });
-
+ 
     // 绑定选择
     navChoose();
 

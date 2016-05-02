@@ -18,12 +18,23 @@ a {
 }
 
 .ice-refresh {
-  position: fixed;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  color: #aaa;
+}
+
+.ice-refresh:after {
+  content: '加载更多';
+}
+
+/*
+.ice-refresh {
   display: none;
   width: 100%;
   height: 3rem;
   line-height: 3rem;
-  bottom: 0;
   text-align: center;
   color: #999;
 }
@@ -39,6 +50,7 @@ a {
 .ice-refresh.ice-refresh-bar {
   bottom: 3rem;
 }
+*/
 
 .ice-nav {
   position: relative;
@@ -69,12 +81,11 @@ a {
 .ice-main {
   position: absolute;
   width: 100%;
-  top: -3rem;
+  top: -5rem;
   bottom: 0rem;
   left: 0;
   right: 0;
   overflow: auto;
-  padding-bottom: 1rem;
 }
 
 
@@ -85,8 +96,8 @@ a {
 }
 
 .ice-main .i-hide {
-  height: 3rem;
-  line-height: 3rem;
+  height: 5rem;
+  line-height: 5rem;
   text-align: center;
 }
 
@@ -95,7 +106,7 @@ a {
 }
 
 .ice-nav ~ .ice-main {
-  top: 0;
+  top: -2rem;
 }
 
 .ice-mess {
@@ -289,12 +300,12 @@ a {
 /* ======== 公用顶部 ======== */
 
 .ice-nav-top {
-  border-bottom: 1px solid #e6e3da;
 }
 
 .ice-nav-top >div {
   height: 100%;
   font-size: 1rem;
+  border-bottom: 1px solid #e6e3da;
   text-align: center;
 }
 
@@ -431,3 +442,24 @@ a {
 }
 
 /* ======== 公用文本框  =========== */
+
+/* ======== 公用背景  ============ */
+
+.bg-lv {
+  display: inline-block;
+  width: 3rem;
+  height: 1.6rem;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.bg-lv01 {
+  background-image: url('/assets/images/level/1.png');
+}
+
+.bg-lv02 {
+  background-image: url('/assets/images/level/2.png');
+}
+
+/* ======== 公用背景  ============ */
