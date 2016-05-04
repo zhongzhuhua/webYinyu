@@ -145,7 +145,7 @@ module.exports = function(grunt) {
       },
       scripts: {
         files: 'assets/js/**/*',
-        tasks: ['jsmin']
+        tasks: ['uglify']
       },
       css: {
         files: 'assets/css/*.css',

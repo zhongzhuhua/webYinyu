@@ -69,16 +69,17 @@ define(function(require, exports, module) {
               var name = ice.toEmpty(model.nick);
               var date = ice.toEmpty(model.time);
               var wechat = ice.toEmpty(model.wechat);
-              var price = ice.parseFloat(model.price);
+              var price = (model.price);
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var img = '<img src="' + photo + '" alt="">';
               var sex = gm.enum.sex[model.sex];
               var sexName = gm.enum.sexName[model.sex];
               var skill = ice.toEmpty(model.service_name);
+              var lv = gm.enum.getLevel(model.consumption_level);
 
               // 获取独立数据
               if (mydata.type == '1') {
-                html += listTemp[mydata.type].replace('{date}', date).replace('{name}', name).replace('{img}', img)
+                html += listTemp[mydata.type].replace('{date}', date).replace('{lv}', lv).replace('{name}', name).replace('{img}', img)
                   .replace('{sex}', sex).replace('{price}', price).replace('{wechat}', wechat).replace('{skill}', skill);
               } else {
                 buyData[id] = {
@@ -86,7 +87,8 @@ define(function(require, exports, module) {
                   name: name,
                   sex: sexName,
                   wechat: wechat,
-                  skill: skill
+                  skill: skill,
+                  lv: lv
                 };
                 html += listTemp[mydata.type].replace('{id}', id).replace('{date}', date).replace('{img}', img).replace('{name}', name);
               }

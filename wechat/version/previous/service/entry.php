@@ -1,16 +1,17 @@
 {
   "status": "200",
   "value": { 
+    "is_auction": false,
   	"self": true,
   	"nick": "小苹果",
   	"sex": 2,
   	"city": "深圳",
-  	"recommend": {
+  	"recommend": [{
   		"identify": "",
   		"name": ""
-  	},
-  	"current": "陪你撩妹",
-  	"price": 20,
+  	}],
+  	"current": "逗开心",
+  	"price": 30.00,
   	"expires": 20,
   	"audio": "",
   	"wechat": "samll apple"

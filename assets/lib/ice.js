@@ -80,7 +80,7 @@
     // css3 选择器
     query: function(s, dom) {
       dom = dom == null ? document : dom;
-      return document.querySelector(s);
+      return dom.querySelector(s);
     },
     // css3 选择器
     queryAll: function(s, dom) {
@@ -104,7 +104,7 @@
     parseInt: function(str) {
       try {
         var v = parseInt(str, 10);
-        return isNaN(v) || v == undefined ? 0 : v;
+        return isNaN(v) || v == null ? 0 : v;
       } catch (e) {
         return 0;
       }
@@ -112,7 +112,7 @@
     parseFloat: function(str, point) {
       try {
         var v = parseFloat(str);
-        return isNaN(v) || v == undefined ? 0 : v.toFixed(point == undefined ? 0 : point);
+        return isNaN(v) || v == null ? 0 : point == null ? v : v.toFixed(point);
       } catch (e) {
         return 0;
       }
@@ -120,7 +120,7 @@
     parseDate: function(str) {
       var date = null;
       try {
-        if (str != undefined && str != '') {
+        if (str != null && str != '') {
           var regNum = /^[1-3][0-9]{7}$/;
           if (str instanceof Date) {
             date = str
@@ -261,12 +261,12 @@
           havep = true;
         }
         // 请求类型
-        if(typeof data != 'string') {
+        if (typeof data != 'string') {
           for (var k in data) {
             var v = data[k];
             v = v == null ? '' : v;
             params += '&' + k + '=' + v;
-          } 
+          }
         } else {
           params = data;
         }
@@ -275,14 +275,14 @@
           myurl = myurl + (havep ? '?' : '') + params;
         }
       }
- 
+
       // 请求
       var async = options.async == null ? true : options.async;
       myhttp.open(type, myurl, async);
       if (!isget) {
         var header = options.header;
-        if(header != null) {
-          for(var key in header) {
+        if (header != null) {
+          for (var key in header) {
             myhttp.setRequestHeader(key, header[key]);
           }
         }
@@ -295,7 +295,7 @@
         ice.ajaxResult(myhttp, options);
       } else {
         myhttp.onreadystatechange = function() {
-          ice.ajaxResult(myhttp, options); 
+          ice.ajaxResult(myhttp, options);
         };
       }
     }
@@ -330,7 +330,7 @@
       children: 'div',
       // 选中时附加的 class 样式
       chooseClass: '',
-      // 默认选中
+      // 默认选中下标，如果是 dom 数组，则为对应 selector 的选中元素
       chooseIndex: 0,
       // function 绑定 click 事件执行的方法
       success: null
@@ -346,21 +346,30 @@
       var isbind = $domSel.getAttribute('ichoose');
       if (isbind !== '1') {
         $domSel.setAttribute('ichoose', '1');
-        navBind($domSel, options);
+        navBind($domSel, options, i);
       }
     }
   };
 
   // 绑定选择事件
-  function navBind($domSel, options) {
+  function navBind($domSel, options, i) {
     var clazz = options.chooseClass;
     var isfun = ice.isFunction(options.success);
     // 查询绑定子项
     var $doms = ice.queryAll(options.children, $domSel);
     var len = $doms == null ? 0 : $doms.length;
     if (len > 0) {
-      var $choose = $doms[options.chooseIndex];
-      ice.addClass($choose, clazz);
+      var $choose = null;
+      var cidx = options.chooseIndex;
+      if (cidx != null) {
+        if (typeof cidx == 'number') {
+          $choose = $doms[options.chooseIndex];
+        } else if (cidx.length >= i) {
+          $choose = options.chooseIndex[i];
+        }
+      }
+      ice.addClass($choose, options.chooseClass);
+
       for (var i = 0; i < len; i++) {
         (function(idx) {
           var $dom = $doms[idx];

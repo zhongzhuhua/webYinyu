@@ -11,8 +11,10 @@ define(function(require, exports, module) {
   var winInputwx = ice.query('#winInputwx').innerHTML;
 
   // 查询条件
+  var identify = ice.request('identify');
   var mydata = {
-    identify: '',
+    identify: identify,
+    service_record_identify: '',
     flag: '',
     index: 1
   };
@@ -22,7 +24,6 @@ define(function(require, exports, module) {
   var $btnCommont = ice.query('#btnCommont');
   var $btnWantBuy = ice.query('#btnWantBuy');
 
-  var identify = ice.request('identify');
  
   gm.bindScroll(function() {
     Search(true);
@@ -30,12 +31,6 @@ define(function(require, exports, module) {
     Search(false);
   });
 
-  // 本人信息
-  var userInfo = {
-    id: '',
-    photo: '',
-    name: ''
-  };
   // 查询用户数据
   var $userName = ice.query('#userName');
   var $userPhoto = ice.query('#userPhoto');
@@ -51,21 +46,26 @@ define(function(require, exports, module) {
   // 底部菜单
   var $bottomEdit = ice.query('#bottomEdit');
 
-  // 查询当前用户和要查看的用户
+  // 查询卖家
   function FindUser() {
     var myModel = '';
-    gm.getUser(null, function(model) {
+    gm.getUser(identify, function(model) {
+      // 微信分享配置
+      gm_wechat.init(model);
+
       myModel = model;
       try {
-        userInfo.name = ice.toEmpty(model.nick);
-        userInfo.id = ice.toEmpty(model.identify);
+        var name = ice.toEmpty(model.nick);
+        mydata.service_record_identify = ice.toEmpty(model.service_record_identify);
+        var _self = model.self;
+
         var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
         photo = '<img src="' + photo + '" alt="">';
-        userInfo.photo = photo;
+
+        SetSellInfo(myModel);
 
         // 如果是自己看自己的
-        if (identify == '') {
-          SetSellInfo(model);
+        if (_self) {
           $bottomEdit.innerHTML = '编辑';
         }
 
@@ -73,12 +73,6 @@ define(function(require, exports, module) {
         console.log(e.message);
       }
     }, true);
-
-    if (identify != '') {
-      gm.getUser(identify, function(model) {
-        SetSellInfo(myModel);
-      });
-    }
   };
 
   // 添加用户信息
@@ -88,12 +82,12 @@ define(function(require, exports, module) {
       var sex = gm.enum.sex[model.sex];
       var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
       var name = ice.toEmpty(model.nick);
-      var sort = ice.parseInt(model.ranking_country);
+      var sort = (model.ranking_country);
       var skills = ice.toEmpty(model.service_name);
-      var total = ice.parseFloat(model.total_price);
-      var price = ice.parseFloat(model.service_price);
-      var citySort = ice.parseInt(model.ranking_city);
-      var expires = ice.parseInt(model.expires);
+      var total = model.total_price;
+      var price = model.service_price;
+      var citySort = (model.ranking_city);
+      var expires = (model.expires);
 
       var sexName = ice.toEmpty(gm.enum.sexName[model.sex]);
       if(sexName != '') {
@@ -122,10 +116,12 @@ define(function(require, exports, module) {
     if (clear) {
       $list.innerHTML = '';
       mydata.index = 1;
+      mydata.flag = '';
       gm.scrollStart();
       haveNext = true;
     };
 
+    console.log(mydata);
     // 执行查询
     gm.ajax({
       url: '/wechat/version/previous/user/comment.json',
@@ -137,6 +133,7 @@ define(function(require, exports, module) {
             // 列表判断
             data = data.value;
             haveNext = data.next;
+            mydata.flag = data.flag;
             if (!haveNext) gm.scrollEnd();
             mydata.index = ice.toEmpty(data.index);
 
@@ -149,8 +146,9 @@ define(function(require, exports, module) {
               var name = ice.toEmpty(model.nick);
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var img = '<img src="' + photo + '" alt="">';
+              var lv = gm.enum.getLevel(model.consumption_level);
               var content = ice.removeAttr(model.comment);
-              html += listTemp.replace('{img}', img).replace('{name}', name).replace('{content}', content);
+              html += listTemp.replace('{lv}', lv).replace('{img}', img).replace('{name}', name).replace('{content}', content);
             }
             var divs = document.createElement('div');
             divs.innerHTML = html;
@@ -173,9 +171,9 @@ define(function(require, exports, module) {
     if (isfirst) {
       FindUser();
       $list.innerHTML = '';
-    } 
+    }
 
-    FindList(); 
+    FindList();
     
     gm.close(layer);
   };
@@ -187,22 +185,28 @@ define(function(require, exports, module) {
       var layer = gm.confirm(html, function() {
         gm.close(layer, 0);
         var sendMess = ice.trim(ice.removeAttr(ice.query('#layerSendMess').value));
-        if (sendMess > 0) {
+        if (sendMess.length > 0) {
           var _layer = gm.loading();
           gm.ajax({
             url: '/wechat/version/previous/user/comment/add.json',
             data: {
+              identify: identify,
               comment: sendMess
             },
             success: function(data) {
-              gm.statusDeel(data);
               try {
                 // 评论成功
                 var status = data.status;
-                console.log(status);
                 if (status == '200') {
+                  var model = data.value;
+                  // 用户信息
+                  var name = ice.toEmpty(model.nick);
+                  var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
+                  photo = '<img src="' + photo + '" alt="">';
+                  var lv = gm.enum.getLevel(model.consumption_level);
+
                   var div = document.createElement('div');
-                  div.innerHTML = listTemp.replace('{img}', userInfo.photo).replace('{name}', userInfo.name).replace('{content}', sendMess);
+                  div.innerHTML = listTemp.replace('{lv}', lv).replace('{img}', photo).replace('{name}', name).replace('{content}', sendMess);
                   $list.insertBefore(div, $first);
                 }
                 gm.close(_layer);
@@ -222,7 +226,7 @@ define(function(require, exports, module) {
   function BindBuy() {
     $btnWantBuy.addEventListener(ice.tapClick, function() {
       gm_wechat.pay({
-        id: userInfo.id,
+        service_record_identify: mydata.service_record_identify,
         success: function(data) {
           // 成功之后
           inputLayer = gm.alert(winInputwx, function() {
@@ -256,7 +260,6 @@ define(function(require, exports, module) {
         wechat: wechat
       },
       success: function(data) {
-        gm.statusDeel(data);
         gm.close(inputLayer, 0);
       },
       error: function() {

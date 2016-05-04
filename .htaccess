@@ -24,3 +24,5 @@ AddDefaultCharset utf-8
   RewriteEngine on
   RewriteRule ^(.*)\.json$ $1.php [NC]
 </ifmodule>
+
+DirectoryIndex /html/home/index.html /html/home/index.php 

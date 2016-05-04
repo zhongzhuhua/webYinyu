@@ -2,7 +2,7 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-  @@include('../../modules/meta.html', {"title": "卖家列表"})
+  @@include('../../modules/meta.html', {"title": "排行榜"})
 </head>
 
 <body>
@@ -24,6 +24,7 @@
             <div class="list-name">
               <span class="wd-span mwd-10 textover col-grey01">{name}</span>
               <i class=" icon-{sex} col-orange"></i>
+              <span class="{lv}"></span>
             </div>
             <div class="list-mess col-grey02 flex-1">
               <span>身价：</span>
@@ -37,7 +38,6 @@
         </div>
       </div>
       <!-- 卖家列表 end -->
-      <div class="ice-refresh"></div>
     </div>
     @@include('../../modules/user-bottom.html', {"button": "hidden", "sort": "col-orange"})
   </div>

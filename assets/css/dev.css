@@ -5,7 +5,7 @@
   margin-top: -.3rem;
 }
 
- 
+  
 /* 列表冠军 */
 
 .list-winner {
@@ -158,7 +158,7 @@
   min-height: 1.4rem;
   border-radius: 1rem;
   border: 1px solid #eee;
-}
+} 
 
 
 /* 交流列表 */
@@ -457,8 +457,8 @@
 
 .dialog-sell .sell-info {
   padding-bottom: 1rem;
-  line-height: 2rem;
-  font-size: 1.12rem;
+  line-height: 1.8rem;
+  font-size: 1.08rem;
 }
 
 .dialog-sell .sell-name {

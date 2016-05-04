@@ -26,8 +26,9 @@ a {
 }
 
 .ice-refresh:after {
-  content: '加载更多';
+  content: '上拉加载更多';
 }
+
 
 /*
 .ice-refresh {
@@ -170,8 +171,8 @@ a {
 /* 普通黄色 */
 
 .bg-yellow {
-  background-color: #f4f1e7;
   background-color: #fdf9e5;
+  background-color: #f4f1e7;
 }
 
 
@@ -299,8 +300,7 @@ a {
 
 /* ======== 公用顶部 ======== */
 
-.ice-nav-top {
-}
+.ice-nav-top {}
 
 .ice-nav-top >div {
   height: 100%;
@@ -431,6 +431,7 @@ a {
 
 /* ======== 公用文本框  =========== */
 
+
 /* 弹窗输入 */
 
 .input01 {
@@ -441,25 +442,116 @@ a {
   padding: .8rem .5rem;
 }
 
+
 /* ======== 公用文本框  =========== */
+
 
 /* ======== 公用背景  ============ */
 
 .bg-lv {
   display: inline-block;
-  width: 3rem;
-  height: 1.6rem;
+  width: 2.6rem;
+  height: 1.2rem;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
-.bg-lv01 {
+.bg-lv1 {
   background-image: url('/assets/images/level/1.png');
 }
 
-.bg-lv02 {
+.bg-lv2 {
   background-image: url('/assets/images/level/2.png');
 }
+
+.bg-lv3 {
+  background-image: url('/assets/images/level/3.png');
+}
+
+.bg-lv4 {
+  background-image: url('/assets/images/level/4.png');
+}
+
+.bg-lv5 {
+  background-image: url('/assets/images/level/5.png');
+}
+
+.bg-lv6 {
+  background-image: url('/assets/images/level/6.png');
+}
+
+.bg-lv7 {
+  background-image: url('/assets/images/level/7.png');
+}
+
+.bg-lv8 {
+  background-image: url('/assets/images/level/8.png');
+}
+
+.bg-lv9 {
+  background-image: url('/assets/images/level/9.png');
+}
+
+.bg-lv10 {
+  background-image: url('/assets/images/level/10.png');
+}
+
+.bg-lv11 {
+  background-image: url('/assets/images/level/11.png');
+}
+
+.bg-lv12 {
+  background-image: url('/assets/images/level/12.png');
+}
+
+.bg-lv13 {
+  background-image: url('/assets/images/level/13.png');
+}
+
+.bg-lv14 {
+  background-image: url('/assets/images/level/14.png');
+}
+
+.bg-lv15 {
+  background-image: url('/assets/images/level/15.png');
+}
+
+.bg-lv16 {
+  background-image: url('/assets/images/level/16.png');
+}
+
+.bg-lv17 {
+  background-image: url('/assets/images/level/17.png');
+}
+
+.bg-lv18 {
+  background-image: url('/assets/images/level/18.png');
+}
+
+.bg-lv19 {
+  background-image: url('/assets/images/level/19.png');
+}
+
+.bg-lv20 {
+  background-image: url('/assets/images/level/20.png');
+}
+
+.bg-lv21 {
+  background-image: url('/assets/images/level/21.png');
+}
+
+.bg-lv22 {
+  background-image: url('/assets/images/level/22.png');
+}
+
+.bg-lv23 {
+  background-image: url('/assets/images/level/23.png');
+}
+
+.bg-lv24 {
+  background-image: url('/assets/images/level/24.png');
+}
+
 
 /* ======== 公用背景  ============ */

@@ -9,7 +9,7 @@
   <div class="ice bg-yellow">
     <div class="ice-main ice-main-bar">
       <div class="i-hide"></div>
-      @@include('../../modules/user-mess.html', {"shard": "hidden"})
+      @@include('../../modules/user-mess.html', {"shard": "hidden", "sort": "hidden"})
       <!-- 用户编辑 -->
       <div class="user-edit ice-pdlr col-grey02">
         <div class="edit-title">拍卖项</div>
@@ -37,20 +37,20 @@
       </div>
       <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
         <div id="prices">
-          <div class="edit-option" data-value="0.5">0.5元</div>
-          <div class="edit-option" data-value="1">1元</div>
-          <div class="edit-option" data-value="2">2元</div>
-          <div class="edit-option" data-value="3">3元</div>
-          <div class="edit-option" data-value="5">5元</div>
-          <div class="edit-option" data-value="8">8元</div>
-          <div class="edit-option" data-value="10">10元</div>
-          <div class="edit-option" data-value="12">12元</div>
-          <div class="edit-option" data-value="15">15元</div>
-          <div class="edit-option" data-value="20">20元</div>
+          <div class="edit-option" data-value="0.50">0.5元</div>
+          <div class="edit-option" data-value="1.00">1元</div>
+          <div class="edit-option" data-value="2.00">2元</div>
+          <div class="edit-option" data-value="3.00">3元</div>
+          <div class="edit-option" data-value="5.00">5元</div>
+          <div class="edit-option" data-value="8.00">8元</div>
+          <div class="edit-option" data-value="10.00">10元</div>
+          <div class="edit-option" data-value="12.00">12元</div>
+          <div class="edit-option" data-value="15.00">15元</div>
+          <div class="edit-option" data-value="20.00">20元</div>
           <div class="clear"></div>
         </div>
         <div class="edit-options flex">
-          <input class="edit-text col-grey02" id="txtPrice" type="text" placeholder="自定义价格，请输入0.01~999.99的数字" maxlength="4">
+          <input class="edit-text col-grey02" id="txtPrice" type="text" placeholder="自定义价格，请输入0.01~999.99的数字" maxlength="6">
         </div>
       </div>
       <div class="clear"></div>

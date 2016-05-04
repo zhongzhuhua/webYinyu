@@ -38,7 +38,7 @@ define(function(require, exports, module) {
             haveNext = data.next;
             if(!haveNext) gm.scrollEnd();
 
-            $userSort.innerHTML = ice.parseInt(data.ranking);
+            $userSort.innerHTML = (data.ranking);
             // 构建列表
             var list = data.list;
             var len = list == null ? 0 : list.length;
@@ -46,12 +46,14 @@ define(function(require, exports, module) {
             for (var i = 0; i < len; i++) {
               var model = list[i];
               var name = ice.toEmpty(model.nick);
-              var total = ice.parseFloat(model.total_price);
-              var index = ice.parseInt(model.index);
+              var total = (model.total_price);
+              var index = (model.index);
               var sex = gm.enum.sex[model.sex];
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var img = '<img src="' + photo + '" alt="">';
-              html += listTemp.replace('{total}', total).replace('{index}', index).replace('{sex}', sex)
+              var lv = mydata.type == '2' ? gm.enum.getLevel(model.consumption_level) : 'hidden';
+
+              html += listTemp.replace('{total}', total).replace('{lv}', lv).replace('{index}', index).replace('{sex}', sex)
                 .replace('{img}', img).replace('{name}', name);
             }
             var divs = document.createElement('div');
@@ -88,9 +90,6 @@ define(function(require, exports, module) {
     // 绑定滚动加载
     gm.bindScroll(function() {
       FindList(true);
-    }, function() {
-      console.log('yes');
-      FindList();
     });
     gm.scrollEnd();
 

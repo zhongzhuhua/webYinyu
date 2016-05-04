@@ -8,13 +8,13 @@ define(function(require, exports, module) {
   var $txtWechat = ice.query('#txtWechat');
   var $btnSubmit = ice.query('#submit');
 
-  var $choosePrice = ice.query('#prices div');
-  var $chooseSkill = ice.query('#skills div');
-  var $chooseExpires = ice.query('#expires div');
+  var $choosePrice = null;
+  var $chooseSkill = null;
+  var $chooseExpires = null;
   var mydata = {
-    prices: $choosePrice.getAttribute('data-value'),
-    skills: $chooseSkill.getAttribute('data-value'),
-    expires: $chooseExpires.getAttribute('data-value'),
+    prices: '',
+    skills: '',
+    expires: '',
     wechat: '',
     canSubmit: false
   };
@@ -28,6 +28,7 @@ define(function(require, exports, module) {
     ice.choose({
       selector: '#skills,#prices,#expires',
       chooseClass: 'option-choose',
+      chooseIndex: [$chooseSkill, $choosePrice, $chooseExpires],
       success: function($dom, $selector) {
         var id = $selector.getAttribute('id');
         if (id == 'skills') {
@@ -43,6 +44,7 @@ define(function(require, exports, module) {
           $txtExpires.value = '';
           mydata.expires = $dom.getAttribute('data-value');
         }
+        CheckSubmit();
       }
     });
   };
@@ -53,17 +55,20 @@ define(function(require, exports, module) {
       this.value = gm.edit.price(this.value);
       mydata.prices = this.value;
       ice.removeClass($choosePrice, 'option-choose');
+      CheckSubmit();
     };
 
     $txtSkill.onchange = function() {
       mydata.skills = this.value;
       ice.removeClass($chooseSkill, 'option-choose');
+      CheckSubmit();
     };
 
     $txtExpires.onchange = function() {
       this.value = gm.edit.expires(this.value);
       mydata.prices = this.value;
       ice.removeClass($chooseExpires, 'option-choose');
+      CheckSubmit();
     };
   };
 
@@ -72,14 +77,19 @@ define(function(require, exports, module) {
     $txtWechat.onkeyup = function() {
       var val = ice.trim(this.value);
       mydata.wechat = val;
-      if (val.length < 2) {
-        mydata.canSubmit = false;
-        ice.addClass($btnSubmit, 'i-disabled');
-      } else {
-        mydata.canSubmit = true;
-        ice.removeClass($btnSubmit, 'i-disabled');
-      }
+      CheckSubmit();
     };
+  };
+
+  // 判断是否可以提交
+  function CheckSubmit() {
+    if(!ice.isEmpty(mydata.prices) && !ice.isEmpty(mydata.skills) && !ice.isEmpty(mydata.expires) && !ice.isEmpty(mydata.wechat) && mydata.wechat.length >= 2) {
+      mydata.canSubmit = true;
+      ice.removeClass($btnSubmit, 'i-disabled');
+    } else {
+      mydata.canSubmit = false;
+      ice.addClass($btnSubmit, 'i-disabled');
+    }
   };
 
   // 获取用户信息
@@ -90,15 +100,44 @@ define(function(require, exports, module) {
         var sex = gm.enum.sex[model.sex];
         var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
         var name = ice.toEmpty(model.nick);
-        var sort = ice.parseInt(model.ranking_country);
+        var isbegin = model.is_auction;
 
         ice.query('#userName').innerHTML = name;
         ice.query('#userPhoto').src = photo;
-        ice.query('#userSort').innerHTML = sort;
         ice.query('#userSex').className = 'icon-' + sex;
+        $btnSubmit.innerHTML = !!isbegin ? '更新资料' : '开始拍卖'; 
         if (city != null) {
           ice.query('#userArea').innerHTML = city;
         }
+        $txtWechat.value = ice.toEmpty(model.wechat);
+
+        // 初始化参数
+        mydata.prices = model.price;
+        mydata.skills = model.current;
+        mydata.expires = model.expires;
+        mydata.wechat = model.wechat;
+
+        var domS = ice.queryAll('#skills >div[data-value="' + mydata.skills + '"]');
+        var domP = ice.queryAll('#prices >div[data-value="' + mydata.prices + '"]');
+        var domE = ice.queryAll('#expires >div[data-value="' + mydata.expires + '"]');
+        if(domS && domS.length > 0) {
+          $chooseSkill = domS[0];
+        } else {
+          $txtSkill.value = mydata.skills;
+        }
+        if(domP && domP.length > 0) {
+          $choosePrice = domP[0];
+        } else {
+          $txtPrice.value = mydata.prices;
+        }
+        if(domE && domE.length > 0) {
+          $chooseExpires = domE[0];
+        } else {
+          $txtExpires.value = mydata.expires;
+        }
+
+        // 校验是否可以登录
+        CheckSubmit();
       } catch (e) {
         console.log(e.message);
       }

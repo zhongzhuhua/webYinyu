@@ -9,7 +9,7 @@
   <div class="ice bg-yellow">
     <div class="ice-main ice-main-bar">
       <div class="i-hide"></div>
-      @@include('../../modules/user-mess.html')
+      @@include('../../modules/user-mess.html', {"sort": ""})
       <!-- 用户技能 -->
       <div class="ice-pdlr user-skill bg-yellow-low flex col-grey02">
         <div>拍卖项</div>
@@ -51,7 +51,10 @@
             {img}
           </div>
           <div class="list-content flex-1">
-            <div class="list-name col-grey02">{name}</div>
+            <div class="list-name col-grey02">
+              {name}
+              <span class="{lv}"></span>
+            </div>
             <div class="list-mess bg-yellow-low col-grey01">{content}</div>
           </div>
         </div>

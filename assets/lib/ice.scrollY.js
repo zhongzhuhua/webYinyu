@@ -113,7 +113,10 @@
             if (g.isRefresh && g.refreshFun) {
               g.refreshFun();
             } else if (g.loadFun) {
-              g.loadFun(g.refresh);
+              var cango = dom.getAttribute('scroll-go');
+              if(!(cango != null && cango == '0')) {
+                g.loadFun(g.refresh);
+              }
             }
           } catch (e) {
             console.log(e.message);
@@ -151,6 +154,16 @@
           g.isMove = true;
         }
       };
+    };
+
+    // 可以滚动
+    ice.scrollY.start = function(dom) {
+      dom.setAttribute('scroll-go', '1');
+    };
+
+    // 禁用滚动
+    ice.scrollY.stop = function(dom) {
+      dom.setAttribute('scroll-go', '0');
     };
   }
 })(ice);

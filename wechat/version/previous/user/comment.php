@@ -4,6 +4,8 @@
   	"valid": true,
   	"index": 2,
   	"next": true,
+	  "size": 10,
+	  "flag": 2,
   	"list": [{
   	  "time": "12月17日",
 			"identify": "1001",
@@ -11,6 +13,7 @@
 			"service_name": "开玩笑",
 			"face": "/assets/images/user.png",
 			"sex": "1",
+			"consumption_level": "22",
 			"comment": "我是&nbsp;<div></div>\"中国人\",'哈哈'"
   	},{
   	  "time": "12月17日",
@@ -19,6 +22,7 @@
 			"service_name": "讲故事",
 			"face": "/assets/images/user.png",
 			"sex": "2",
+			"consumption_level": "17",
 			"comment": "这是我说的话"
   	},{
   	  "time": "12月17日",
@@ -26,6 +30,7 @@
 			"nick": "小苹果3",
 			"face": "/assets/images/user.png",
 			"sex": "2",
+			"consumption_level": "12",
 			"comment": "这是我说的话"
   	},{
   	  "time": "12月17日",
@@ -33,7 +38,8 @@
 			"nick": "小苹果4",
 			"face": "/assets/images/user.png",
 			"sex": "1",
-			"comment": ""
+			"consumption_level": "2",
+			"comment": "zhongzhuhua"
   	}]
   },
   "code": "",

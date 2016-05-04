@@ -2,6 +2,9 @@
   // 生产线公用配置项
   class configs
   {
+    // 是否测试环境
+    static $istest = false;
+    
     // 微信配置
     static $wechat = array(
       'token' => 'ice',

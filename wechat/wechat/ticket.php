@@ -12,7 +12,7 @@
 			$signature = WechatUtil::buildSignature($url);
 
 			$data = array(				
-				'appid' => $signature['appId'],
+				'app_id' => $signature['appId'],
 				'timestamp' => $signature['timestamp'],
 				'random' => $signature['nonceStr'],
 				'signature' => $signature['signature']

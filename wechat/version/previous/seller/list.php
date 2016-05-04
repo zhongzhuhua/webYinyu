@@ -13,7 +13,8 @@
 			"city": "深圳",
 			"price": "10",
 			"amount": 200,
-			"total_price": "20"
+			"total_price": "20",
+			"origin_price": "200"
   	},{
 			"identify": "1002",
 			"nick": "小苹果2",
@@ -23,7 +24,8 @@
 			"city": "广州",
 			"price": "40",
 			"amount": 300,
-			"total_price": "80"
+			"total_price": "80",
+			"origin_price": "200"
   	},{
 			"identify": "1003",
 			"nick": "小苹果3",
@@ -33,7 +35,8 @@
 			"city": "东莞",
 			"price": "60",
 			"amount": 250,
-			"total_price": "120"
+			"total_price": "120",
+			"origin_price": "200"
   	},{
 			"identify": "1004",
 			"nick": "小苹果4",
@@ -43,7 +46,8 @@
 			"city": "佛山",
 			"price": "5",
 			"amount": 320,
-			"total_price": "20"
+			"total_price": "20",
+			"origin_price": "200"
   	}]
   },
   "code": "",

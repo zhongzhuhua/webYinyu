@@ -22,7 +22,6 @@
             <div class="list-name">
               <span class="wd-span mwd-10 textover col-grey01">{name}</span>
               <i class="icon-{sex}"></i>
-              <span class="bg-lv bg-lv01"></span>
             </div>
             <div class="list-mess col-grey02 flex-1">
               <span>拍卖项：</span>
@@ -34,8 +33,8 @@
             </div>
           </div>
           <div class="list-price txt-c">
-            <div class="col-orange">{price}<span class="list-price-mess col-grey02">元</span></div>
-            <div class="list-price-mess col-grey02">售价</div>
+            <div class="col-orange">￥{price}</div>
+            <div class="list-price-mess col-grey03 line-through">￥{oprice}</div>
           </div>
         </a>
       </div>
@@ -54,8 +53,8 @@
               <span class="wd-span mwd-7 textover">{skill}</span>
             </div>
             <div class="list-mess col-grey02 flex-1">
-              <span>售价：</span>
-              <span class="wd-span mwd-7 textover">{price}元</span>
+              <span class="col-grey03 line-through">￥{oprice}</span>
+              <span class="wd-span mwd-7 textover">&nbsp;&nbsp;￥{price}</span>
             </div>
           </div>
           <div class="list-price txt-c">
@@ -79,8 +78,8 @@
               <span class="wd-span mwd-7 textover">{skill}</span>
             </div>
             <div class="list-mess col-grey02 flex-1">
-              <span>售价：</span>
-              <span class="wd-span mwd-7 textover">{price}元</span>
+              <span class="col-grey03 line-through">￥{oprice}</span>
+              <span class="wd-span mwd-7 textover">&nbsp;&nbsp;￥{price}</span>
             </div>
           </div>
           <div class="list-price txt-c">
@@ -97,6 +96,6 @@
 </body>
 @@include('../../modules/script.html')
 <script>
-  require(['/assets/js/sell/list.js?v=100005']);
+  require(['/assets/js/sell/list.js?v=100006']);
 </script>
 </html>

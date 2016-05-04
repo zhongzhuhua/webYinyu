@@ -1,6 +1,10 @@
 define(function(require, exports, module) {
   require('layer');
 
+  // 统一 ajax ，生产线 http://api.haoyoumm.com
+  var ctx = location.host.indexOf('mm') > -1 ? 'http://api.haoyoumm.com' : '';
+  exports.ctx = ctx;
+
   // 公用调用
   var domNav = ice.query('.ice-nav');
   var domMain = ice.query('.ice-main');
@@ -24,9 +28,9 @@ define(function(require, exports, module) {
   };
 
   // 打开弹窗
-  exports.open = function(content) {
+  exports.open = function(content, style) {
     return layer.open({
-      style: 'padding: 0;',
+      style: (style == null ? 'padding: 0;' : style),
       content: content
     });
   };
@@ -37,7 +41,7 @@ define(function(require, exports, module) {
       content: content,
       btn: ['朕知道了'],
       yes: function(index) {
-        if(ice.isFunction(_callback)) {
+        if (ice.isFunction(_callback)) {
           _callback();
         } else {
           layer.close(index);
@@ -100,12 +104,12 @@ define(function(require, exports, module) {
 
   // 最后一页
   exports.scrollEnd = function() {
-    ice.addClass(domRefresh, 'i-last');
+    ice.scrollY.stop(domMain);
   };
 
   // 重置分页
   exports.scrollStart = function() {
-    ice.removeClass(domRefresh, 'i-last');
+    ice.scrollY.start(domMain);
   };
 
   // 正则校验
@@ -123,13 +127,20 @@ define(function(require, exports, module) {
     sexName: {
       '1': '男',
       '2': '女'
+    },
+    getLevel: function(l) {
+      l = ice.parseInt(l);
+      if (!(l > 0 && l < 25)) {
+        return 'hidden';
+      }
+      return 'bg-lv bg-lv' + l;
     }
   };
 
   // 默认头像
   exports.photo = '/assets/images/user.png';
 
-  // 身价
+  // 身价 
   exports.edit = {
     price: function(s) {
       var v = ice.parseFloat(s);
@@ -153,8 +164,13 @@ define(function(require, exports, module) {
 
   // 获取用户信息 isback = true 的时候，不跳回 list
   exports.getUser = function(identify, _callback, isback) {
+    var _url = '/wechat/version/previous/user/information.json';
+    if (location.href.indexOf('/html/sell/edit.html') > -1) {
+      _url = '/wechat/version/previous/service/entry.json';
+    }
+
     ajax({
-      url: '/wechat/version/previous/user/information.json',
+      url: _url,
       async: false,
       data: {
         identify: (identify == null ? '' : identify),
@@ -198,41 +214,36 @@ define(function(require, exports, module) {
         var status = data.status;
         var msg = data.msg;
 
+        if(data.cookies) {
+          for (var i = data.cookies.length - 1; i >= 0; i--) {
+            var cookie = data.cookies[i];
+            localStorage.setItem('_C_' + cookie.name + '_', cookie.value);
+          }
+        }
+
         if (status == '200') {
           if (msg != null && msg != '') {
             mess(msg);
           }
         } else if (status == '302') {
-          var cuws = localStorage.getItem('_cuws');
-          if (typeof cuws != 'string' || cuws.length == 0) {
-            // 获取用户 code
-            ice.ajax({
-              url: '/wechat/wechat/code.json',
-              data: {
-                url: document.URL
-              },
-              success: function(data) {
-                localStorage.setItem('_cuws', data.value.state);
-                go(data.value.url);
-              }
-            });
-          } else {
-            // 获取用户 token
-            ice.ajax({
-              url: '/wechat/wechat/token.json',
-              data: {
-                code: ice.request('code'),
-                origin: cuws,
-                state: ice.request('state')
-              },
-              success: function() {
-                localStorage.setItem('_cuws', '');
-              },
-              error: function() {
-                localStorage.setItem('_cuws', '');
-              }
-            });
-          }
+          var rurl = document.URL;
+          rurl = rurl.indexOf('?') > -1 ? (rurl + '?') : rurl;
+          sessionStorage.setItem('_C_RETURN_', rurl);
+          ice.ajax({
+            url: ctx + '/wechat/wechat/code.json',
+            type: 'post',
+            cache: false,
+            dataType: 'json',
+            data: JSON.stringify({
+              'url': 'http://' + location.host + '/html/wechat/return.html'
+            }),
+            header: {
+              'Content-type': 'application/json; charset=UTF-8'
+            },
+            success: function(data) {
+              go(data.value.url);
+            }
+          });
         } else if (status == '307') {
           go(data.value.url);
         }
@@ -242,11 +253,10 @@ define(function(require, exports, module) {
     }
   };
 
-  // 统一 ajax
   function ajax(o) {
     o = o == null ? {} : o;
     ice.ajax({
-      url: o.url,
+      url: ctx + o.url,
       type: 'post',
       cache: false,
       dataType: 'json',
@@ -260,11 +270,11 @@ define(function(require, exports, module) {
       success: function(data) {
         statusDeel(data);
         // 公用处理
-        if(ice.isFunction(o.success)) {
+        if (ice.isFunction(o.success)) {
           o.success(data);
         }
       }
-    }); 
+    });
   };
   exports.ajax = ajax;
 });

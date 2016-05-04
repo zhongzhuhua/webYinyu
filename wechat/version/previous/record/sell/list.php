@@ -14,7 +14,8 @@
 			"sex": "1",
 			"city": "深圳",
 			"price": "10",
-			"buy_num": "10"
+			"buy_num": "10",
+			"consumption_level": "24"
   	},{
   	  "time": "12月17日",
   	  "wechat": "zhuhua1",
@@ -25,7 +26,8 @@
 			"sex": "2",
 			"city": "广州",
 			"price": "40",
-			"buy_num": "50"
+			"buy_num": "50",
+			"consumption_level": "18"
   	},{
   	  "time": "12月17日",
   	  "wechat": "zhuhua1",
@@ -36,7 +38,8 @@
 			"sex": "2",
 			"city": "东莞",
 			"price": "60",
-			"buy_num": "40"
+			"buy_num": "40",
+			"consumption_level": "11"
   	},{
   	  "time": "12月17日",
   	  "wechat": "zhuhua1",
@@ -47,7 +50,8 @@
 			"sex": "1",
 			"city": "佛山",
 			"price": "5",
-			"buy_num": "30"
+			"buy_num": "30",
+			"consumption_level": "2"
   	}]
   },
   "code": "",

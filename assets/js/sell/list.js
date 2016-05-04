@@ -48,17 +48,19 @@ define(function(require, exports, module) {
             for (var i = 0; i < len; i++) {
               var model = list[i];
               var name = ice.toEmpty(model.nick);
-              var total = ice.parseFloat(model.total_price);
-              var price = ice.parseFloat(model.price);
+              var total = (model.total_price);
+              var price = (model.price);
               var city = ice.toEmpty(model.city);
               var sex = gm.enum.sex[model.sex];
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var skill = ice.toEmpty(model.service_name);
-              var num = ice.parseInt(model.amount);
+              var num = (model.amount);
               var img = '<img src="' + photo + '" alt="">';
+              var oprice = (model.origin_price);
               var id = ice.toEmpty(model.identify);
-              html += temp.replace('{total}', total).replace('{price}', price).replace('{sex}', sex).replace('{num}', num).replace('{id}', id)
-                .replace('{img}', img).replace('{city}', city).replace('{skill}', skill).replace('{name}', name);
+              html += temp.replace('{total}', total).replace('{price}', price).replace('{oprice}', oprice)
+                .replace('{sex}', sex).replace('{num}', num).replace('{id}', id).replace('{img}', img)
+                .replace('{city}', city).replace('{skill}', skill).replace('{name}', name);
             }
             var divs = document.createElement('div');
             divs.innerHTML = html;
