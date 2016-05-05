@@ -44,6 +44,28 @@
 			"sex": "1",
 			"city": "佛山",
 			"price": "5",
+			"total_price": "110",
+			"consumption_level": "8"
+  	},{
+  		"index": 5,
+			"identify": "1005",
+			"nick": "小苹果5",
+			"service_name": "陪吃饭",
+			"face": "/assets/images/user.png",
+			"sex": "2",
+			"city": "东莞",
+			"price": "22",
+			"total_price": "80",
+			"consumption_level": "11"
+  	},{
+  		"index": 6,
+			"identify": "1006",
+			"nick": "小苹果6",
+			"service_name": "压马路",
+			"face": "/assets/images/user.png",
+			"sex": "1",
+			"city": "佛山",
+			"price": "52",
 			"total_price": "20",
 			"consumption_level": "8"
   	}]

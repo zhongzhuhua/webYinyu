@@ -1,7 +1,7 @@
 <?php 
   if (!session_id()) {
     session_start();
-  } 
+  }
   error_reporting(0);
   ini_set('zlib.output_compression', 'On');
   ini_set('zlib.output_compression_level', '4');

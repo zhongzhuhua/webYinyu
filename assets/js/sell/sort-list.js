@@ -52,8 +52,9 @@ define(function(require, exports, module) {
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var img = '<img src="' + photo + '" alt="">';
               var lv = mydata.type == '2' ? gm.enum.getLevel(model.consumption_level) : 'hidden';
+              var type = mydata.type == '2' ? '消费' : '身价';
 
-              html += listTemp.replace('{total}', total).replace('{lv}', lv).replace('{index}', index).replace('{sex}', sex)
+              html += listTemp.replace('{total}', total).replace('{type}', type).replace('{lv}', lv).replace('{index}', index).replace('{sex}', sex)
                 .replace('{img}', img).replace('{name}', name);
             }
             var divs = document.createElement('div');

@@ -7,11 +7,12 @@
 
 <body>
   <div class="ice bg-yellow">
+    <div class="ice-refresh ice-refresh-nav"><span></span></div>
+    <div class="ice-loading"><span></span></div>
     <div class="ice-main ice-main-bar">
-      <div class="i-hide"></div>
       @@include('../../modules/user-mess.html', {"sort": ""})
       <!-- 用户技能 -->
-      <div class="ice-pdlr user-skill bg-yellow-low flex col-grey02">
+      <div class="pd-lr user-skill bg-yellow-low flex col-grey02">
         <div>拍卖项</div>
         <div class="skill-info flex-1 txt-l textover" id="userSkills"></div>
         <div><span class="col-orange" id="userBegin"></span></div>
@@ -43,7 +44,7 @@
       </div>
       <!-- 用户身价 end -->
       <!-- 用户聊天 -->
-      <div class="talk-list ice-pdlr" id="list">
+      <div class="talk-list pd-lr" id="list">
       </div>
       <div class="hidden" id="listTemp">
         <div class="list-row flex">
@@ -60,14 +61,13 @@
         </div>
       </div>
       <!-- 用户聊天 end -->
-      <div class="ice-refresh"></div>
     </div>
-    @@include('../../modules/user-bottom.html', {"button": "", "shop": "col-orange"})
+    @@include('../../modules/user-bottom.html', {"button": ""})
   </div>
   @@include('../../modules/dialog-inputwx.html')
 </body>
 @@include('../../modules/script.html')
 <script>
-  require(['/assets/js/sell/show.js?v=100005']);
+  require(['/assets/js/sell/show.js?v=' + myargs + '001']);
 </script>
 </html>

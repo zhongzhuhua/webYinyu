@@ -8,13 +8,14 @@
 <body>
   <div class="ice bg-yellow-low">
     @@include('../../modules/nav-sellList.html', {"bgcolor": "bg-yellow-low"})
-    <div class="ice-main ice-main-bar">
-      <div class="i-hide"></div>
+    <div class="ice-refresh"><span></span></div>
+    <div class="ice-loading"><span></span></div>
+    <div class="ice-main ice-main-bar ice-main-nav">
       <!-- 卖家列表 -->
       <div class="user-list" id="list">
       </div>
       <div class="hidden" id="listTemp">
-        <a class="list-row ice-pdlr flex" href="/html/sell/show.html?identify={id}">
+        <a class="list-row pd-lr flex" href="/html/sell/show.html?identify={id}">
           <div class="list-photo radius-50">
             {img}
           </div>
@@ -39,7 +40,7 @@
         </a>
       </div>
       <div class="hidden" id="priceTemp">
-        <a class="list-row ice-pdlr flex" href="/html/sell/show.html?identify={id}">
+        <a class="list-row pd-lr flex" href="/html/sell/show.html?identify={id}">
           <div class="list-photo radius-50">
             {img}
           </div>
@@ -64,7 +65,7 @@
         </a>
       </div>
       <div class="hidden" id="hotTemp">
-        <a class="list-row ice-pdlr flex" href="/html/sell/show.html?identify={id}">
+        <a class="list-row pd-lr flex" href="/html/sell/show.html?identify={id}">
           <div class="list-photo radius-50">
             {img}
           </div>
@@ -89,13 +90,12 @@
         </a>
       </div>
       <!-- 卖家列表 end -->
-      <div class="ice-refresh"></div>
     </div>
     @@include('../../modules/user-bottom.html', {"button": "hidden", "shop": "col-orange"})
   </div>
 </body>
 @@include('../../modules/script.html')
 <script>
-  require(['/assets/js/sell/list.js?v=100006']);
+  require(['/assets/js/sell/list.js?v=' + myargs + '001']);
 </script>
 </html>

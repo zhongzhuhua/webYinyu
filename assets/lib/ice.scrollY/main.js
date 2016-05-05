@@ -4,25 +4,21 @@
     ice.scrollY = function(dom, options) {
       if (dom == null || dom.getAttribute('scrollY') == '') {
         return;
-      }
-
+      } 
+ 
       // 配置
       var g = {
-        // 顶部 dom 元素
-        arrow: options ? options.arrow : null,
-        // 刷新块
+        // 刷新 dom 元素
         refresh: options ? options.refresh : null,
+        // 加载更多 dom 元素
+        load: options ? options.load : null,
         // 刷新函数
         refreshFun: options ? options.refreshFun : null,
-        // 加载函数
+        // 加载更多函数
         loadFun: options ? options.loadFun : null,
-        // 什么样式不执行事件
+        // 什么样式不执行 scroll 事件
         noClass: 'option',
 
-        // 是否可以执行刷新
-        isRefresh: false,
-        // 是否加载更多
-        isLoad: false,
         // 是否按住
         isBegin: false,
         // 是否执行了移动事件
@@ -32,23 +28,36 @@
         // 控件全部高度
         scrollHeight: dom.scrollHeight,
         // 移动高度占比
-        moveHeight: dom.clientHeight / 2,
+        moveHeight: dom.clientHeight / 2.5,
         start: 0,
         end: 0,
-        // 是否上拉超过一秒
-        isLoadTimer: null,
         // 当前滚动条高度
-        st: 0
+        st: 0,
+        // 上拉超过多少 rem 的时候，可以执行函数加载
+        runHeight: 1.8,
+        // 是否执行刷新和加载
+        isRun: false,
+        // 目前移动距离
+        runDiff: 0,
+        // 按住多少毫秒执行事件
+        runTime: 500,
+        runBegin: 0
       };
 
-      g.arrowHeight = g.arrow instanceof HTMLElement ? g.arrow.clientHeight : 0;
-      if (g.arrowHeight > 0) {
+      dom.setAttribute('scroll-load', '1');
+
+      // 计算实际高度
+      g.runHeightRealy = g.runHeight * 10 / 0.625;
+
+      // 箭头
+      g.arrow = g.refresh ? g.refresh.querySelector('span') : null;
+      if (g.arrow) {
         ice.css(g.arrow, {
           'transition': 'all .2s'
         });
-      };
+      }
 
-      // 绑定事件
+      // 按下事件
       dom.addEventListener(ice.tapStart, function(e) {
         e = e || window.event;
         g.st = dom.scrollTop;
@@ -59,33 +68,34 @@
         var node = e.srcElement;
         var nodeName = node.nodeName.toLowerCase();
         var clazz = node.className;
-        if(nodeName == 'input' || nodeName == 'select' || (clazz && clazz.indexOf(g.noClass) > -1)) {
+        if (nodeName == 'input' || nodeName == 'select' || (clazz && clazz.indexOf(g.noClass) > -1)) {
           return;
         }
         g.isBegin = true;
+        g.runBegin = new Date().getTime();
       });
 
+      // 滑动事件
       dom.addEventListener(ice.tapMove, function(e) {
         var myEvent = e.touches ? e.touches[0] : (e || window.event);
         // 计算移动的比例，如果大于0，则是下拉，如果小于0则是上拉
         var diff = myEvent.pageY - g.start;
         if (g.isBegin) {
-          // 如果是下拉，则 scrollTop 小于 0 的时候才阻止滚动事件
           if (diff > 0 && g.st <= 0) {
-            g.isLoad = false;
+            // 如果是下拉，则 scrollTop 小于 0 的时候才执行事件
+            g.isMove = true;
             stopDefault(e);
             stepRun(diff);
-            // 箭头是否变化
-            if (g.arrowHeight > 0) {
-              var deg = diff > g.arrowHeight ? '180deg' : '0';
-              g.isRefresh = deg !== '0';
+
+            if (g.arrow) {
+              var deg = (Math.abs(g.runDiff) > g.runHeightRealy) ? '180deg' : '0';
               ice.css(g.arrow, {
                 'transform': 'rotate(' + deg + ')'
               });
             }
-          } else if (diff < 0 && dom.scrollTop + dom.clientHeight >= dom.scrollHeight - 1) {
-            g.isRefresh = false;
-            g.isLoad = true;
+          } else if (diff < 0 && dom.scrollTop + dom.clientHeight >= dom.scrollHeight) {
+            // 如果是上拉，超出滚动条的时候，才执行事件
+            g.isMove = true;
             stopDefault(e);
             stepRun(diff);
           }
@@ -94,60 +104,60 @@
         }
       });
 
+      // 松开事件
       dom.addEventListener(ice.tapEnd, function(e) {
+        // 初始化
         if (g.isMove) {
-          ice.removeClass(dom, 'user-select');
+          ice.removeClass(dom, 'ice-user-select');
           dom.onselectstart = dom.ondrag = null;
-          ice.css(dom, {
-            'transition': 'all .6s',
-            'transform': 'translateY(0)'
-          });
         }
 
-        ice.css(g.arrow, {
-          'transform': 'rotate(0)'
-        });
-
-        if (g.isMove) {
-          try {
-            if (g.isRefresh && g.refreshFun) {
+        // 如果超过则执行函数
+        if(new Date().getTime() - g.runBegin > g.runTime) {
+          if (Math.abs(g.runDiff) > g.runHeightRealy) {
+            if (g.runDiff > 0 && g.refresh && g.refreshFun) {
               g.refreshFun();
-            } else if (g.loadFun) {
-              var cango = dom.getAttribute('scroll-go');
-              if(!(cango != null && cango == '0')) {
-                g.loadFun(g.refresh);
+            } else if (g.runDiff < 0 && g.load && g.loadFun) {
+              if(dom.getAttribute('scroll-load') !== '0') {
+                g.loadFun();
               }
             }
-          } catch (e) {
-            console.log(e.message);
           }
+        }
+
+        if (g.isMove) {
+          stepRun(0);
         }
 
         g.isBegin = false;
         g.isMove = false;
-
-        // 清除定时器
-        g.isLoad = false;
-        if (g.isLoadTimer != null) {
-          clearTimeout(g.isLoadTimer);
-          g.isLoadTimer = null;
-        }
       });
 
       // 计算滚动高度
       function stepRun(diff) {
         var percentage = (diff / g.height).toFixed(2) * g.moveHeight;
+        g.runDiff = percentage;
         ice.css(dom, {
-          'transition': '',
           'transform': 'translateY(' + percentage + 'px)'
         });
+
+        if (!!g.refresh && percentage >= 0) {
+          ice.css(g.refresh, {
+            'transform': 'translateY(' + percentage + 'px)'
+          });
+        }
+        if (!!g.load && percentage <= 0) {
+          ice.css(g.load, {
+            'transform': 'translateY(' + percentage + 'px)'
+          });
+        }
       };
 
       // 阻止默认事件
       function stopDefault(e, buildTimer) {
         e.preventDefault();
         if (!g.isMove) {
-          ice.addClass(dom, 'user-select user-select');
+          ice.addClass(dom, 'ice-user-select');
           dom.onselectstart = dom.ondrag = function() {
             return false;
           };
@@ -158,12 +168,12 @@
 
     // 可以滚动
     ice.scrollY.start = function(dom) {
-      dom.setAttribute('scroll-go', '1');
+      dom.setAttribute('scroll-load', '1');
     };
 
     // 禁用滚动
     ice.scrollY.stop = function(dom) {
-      dom.setAttribute('scroll-go', '0');
+      dom.setAttribute('scroll-load', '0');
     };
   }
 })(ice);

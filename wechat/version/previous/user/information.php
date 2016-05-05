@@ -7,7 +7,7 @@
     "face": "/assets/images/user.png",
   	"sex": 2,
   	"city": "深圳",
-    "service_record_identify": "",
+    "service_record_identify": "0000",
     "service_name": "教你撩妹",
     "service_price": 10,
     "total_price": 40,

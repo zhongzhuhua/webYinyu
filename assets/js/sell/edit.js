@@ -44,7 +44,7 @@ define(function(require, exports, module) {
           $txtExpires.value = '';
           mydata.expires = $dom.getAttribute('data-value');
         }
-        CheckSubmit();
+        checkSubmit();
       }
     });
   };
@@ -55,20 +55,20 @@ define(function(require, exports, module) {
       this.value = gm.edit.price(this.value);
       mydata.prices = this.value;
       ice.removeClass($choosePrice, 'option-choose');
-      CheckSubmit();
+      checkSubmit();
     };
 
     $txtSkill.onchange = function() {
       mydata.skills = this.value;
       ice.removeClass($chooseSkill, 'option-choose');
-      CheckSubmit();
+      checkSubmit();
     };
 
     $txtExpires.onchange = function() {
       this.value = gm.edit.expires(this.value);
       mydata.prices = this.value;
       ice.removeClass($chooseExpires, 'option-choose');
-      CheckSubmit();
+      checkSubmit();
     };
   };
 
@@ -77,13 +77,13 @@ define(function(require, exports, module) {
     $txtWechat.onkeyup = function() {
       var val = ice.trim(this.value);
       mydata.wechat = val;
-      CheckSubmit();
+      checkSubmit();
     };
   };
 
   // 判断是否可以提交
-  function CheckSubmit() {
-    if(!ice.isEmpty(mydata.prices) && !ice.isEmpty(mydata.skills) && !ice.isEmpty(mydata.expires) && !ice.isEmpty(mydata.wechat) && mydata.wechat.length >= 2) {
+  function checkSubmit() {
+    if (!ice.isEmpty(mydata.prices) && !ice.isEmpty(mydata.skills) && !ice.isEmpty(mydata.expires) && !ice.isEmpty(mydata.wechat) && mydata.wechat.length >= 2) {
       mydata.canSubmit = true;
       ice.removeClass($btnSubmit, 'i-disabled');
     } else {
@@ -105,39 +105,56 @@ define(function(require, exports, module) {
         ice.query('#userName').innerHTML = name;
         ice.query('#userPhoto').src = photo;
         ice.query('#userSex').className = 'icon-' + sex;
-        $btnSubmit.innerHTML = !!isbegin ? '更新资料' : '开始拍卖'; 
+        $btnSubmit.innerHTML = !!isbegin ? '更新资料' : '开始拍卖';
         if (city != null) {
           ice.query('#userArea').innerHTML = city;
         }
         $txtWechat.value = ice.toEmpty(model.wechat);
 
         // 初始化参数
-        mydata.prices = model.price;
         mydata.skills = model.current;
+        mydata.prices = model.price;
         mydata.expires = model.expires;
         mydata.wechat = model.wechat;
 
-        var domS = ice.queryAll('#skills >div[data-value="' + mydata.skills + '"]');
-        var domP = ice.queryAll('#prices >div[data-value="' + mydata.prices + '"]');
-        var domE = ice.queryAll('#expires >div[data-value="' + mydata.expires + '"]');
-        if(domS && domS.length > 0) {
-          $chooseSkill = domS[0];
+        if (mydata.skills != null && mydata.skills != '') {
+          var dom = ice.queryAll('#skills >div[data-value="' + mydata.skills + '"]');
+          if (dom && dom.length > 0) {
+            $chooseSkill = dom[0];
+          } else {
+            $txtSkill.value = mydata.skills;
+          }
         } else {
-          $txtSkill.value = mydata.skills;
+          $chooseSkill = ice.query('#skills >div');
+          mydata.skills = $chooseSkill.getAttribute('data-value');
         }
-        if(domP && domP.length > 0) {
-          $choosePrice = domP[0];
+
+        if (mydata.prices != null && mydata.prices != '') {
+          var dom = ice.queryAll('#prices >div[data-value="' + mydata.prices + '"]');
+          if (dom && dom.length > 0) {
+            $choosePrice = dom[0];
+          } else {
+            $txtPrice.value = mydata.prices;
+          }
         } else {
-          $txtPrice.value = mydata.prices;
+          $choosePrice = ice.query('#prices >div');
+          mydata.prices = $choosePrice.getAttribute('data-value');
         }
-        if(domE && domE.length > 0) {
-          $chooseExpires = domE[0];
+
+        if (mydata.expires != null && mydata.expires != '') {
+          var dom = ice.queryAll('#expires >div[data-value="' + mydata.expires + '"]');
+          if (dom && dom.length > 0) {
+            $chooseExpires = dom[0];
+          } else {
+            $txtExpires.value = mydata.expires;
+          }
         } else {
-          $txtExpires.value = mydata.expires;
+          $chooseExpires = ice.query('#expires >div');
+          mydata.expires = $chooseExpires.getAttribute('data-value');
         }
 
         // 校验是否可以登录
-        CheckSubmit();
+        checkSubmit();
       } catch (e) {
         console.log(e.message);
       }
@@ -164,7 +181,7 @@ define(function(require, exports, module) {
           url: '/wechat/version/previous/service/setting.json',
           data: {
             name: mydata.skills,
-            price: mydata.prices * 100,
+            price: mydata.prices * 1000,
             expires: mydata.expires,
             wechat: mydata.wechat,
             audio: ''

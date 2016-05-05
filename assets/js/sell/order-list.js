@@ -27,8 +27,9 @@ define(function(require, exports, module) {
   var $btnMoney = ice.query('#btnMoney');
 
   // 查询条件
+  var chooseIndex = ice.parseInt(location.hash.replace('#', ''));
   var mydata = {
-    type: ice.query('#navTopList div').getAttribute('data-value'),
+    type: ice.queryAll('#navTopList div')[chooseIndex].getAttribute('data-value'),
     index: 1
   };
   var haveNext = true;
@@ -88,6 +89,7 @@ define(function(require, exports, module) {
                   sex: sexName,
                   wechat: wechat,
                   skill: skill,
+                  img: img,
                   lv: lv
                 };
                 html += listTemp[mydata.type].replace('{id}', id).replace('{date}', date).replace('{img}', img).replace('{name}', name);
@@ -113,6 +115,7 @@ define(function(require, exports, module) {
     ice.choose({
       selector: '#navTopList',
       chooseClass: 'nav-choose',
+      chooseIndex: chooseIndex,
       success: function($dom) {
         mydata.type = $dom.getAttribute('data-value');
         if (mydata.type == '1') {
@@ -125,9 +128,13 @@ define(function(require, exports, module) {
         FindList(true);
       }
     });
+    if(chooseIndex == '1') {
+      ice.removeClass($listTop[1], 'hidden');
+      ice.addClass($listTop[0], 'hidden');
+    }
   };
 
-  // 绑定详情点击方法 -- 暂时不用
+  // 绑定详情点击方法
   function bindOpen() {
     $list.addEventListener(ice.tapClick, function(e) {
       try {
@@ -135,7 +142,7 @@ define(function(require, exports, module) {
         if (node == 'a') {
           if (mydata.type == '2') {
             var data = buyData[e.srcElement.getAttribute('data-value')];
-            var html = winSellTemp.replace('{price}', data['price']).replace('{sex}', data['sex']).replace('{wechat}', data['wechat']).replace('{skill}', data['skill']).replace('{name}', data['name']);
+            var html = winSellTemp.replace('{img}', data['img']).replace('{price}', data['price']).replace('{sex}', data['sex']).replace('{wechat}', data['wechat']).replace('{skill}', data['skill']).replace('{name}', data['name']);
             var index = gm.open(html);
             // 关闭弹窗
             ice.query('#layermbox' + index + ' .icon-close').addEventListener(ice.tapClick, function() {

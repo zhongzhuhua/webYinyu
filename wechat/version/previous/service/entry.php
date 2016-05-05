@@ -10,11 +10,11 @@
   		"identify": "",
   		"name": ""
   	}],
-  	"current": "逗开心",
-  	"price": 30.00,
-  	"expires": 20,
+  	"current": "",
+  	"price": "2",
+  	"expires": "12",
   	"audio": "",
-  	"wechat": "samll apple"
+  	"wechat": ""
   },
   "code": "",
   "msg": "",

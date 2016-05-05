@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   var gm = require('global');
   var ice = gm.ice;
-
+ 
   ice.ajax({
     url: gm.ctx + '/wechat/wechat/token.json',
     type: 'post',

@@ -5,7 +5,6 @@ define(function(require, exports, module) {
 
   var $list = ice.query('#list');
   var listTemp = ice.query('#listTemp').innerHTML;
-  var $first = null;
 
   // 弹窗
   var winInputwx = ice.query('#winInputwx').innerHTML;
@@ -153,9 +152,6 @@ define(function(require, exports, module) {
             var divs = document.createElement('div');
             divs.innerHTML = html;
             $list.appendChild(divs);
-            if ($first == null) {
-              $first = ice.query('#list div');
-            }
           }
         } catch (e) {
           console.log('findlist error:' + e.message);
@@ -173,7 +169,7 @@ define(function(require, exports, module) {
       $list.innerHTML = '';
     }
 
-    FindList();
+    FindList(isfirst);
     
     gm.close(layer);
   };
@@ -207,7 +203,7 @@ define(function(require, exports, module) {
 
                   var div = document.createElement('div');
                   div.innerHTML = listTemp.replace('{lv}', lv).replace('{img}', photo).replace('{name}', name).replace('{content}', sendMess);
-                  $list.insertBefore(div, $first);
+                  $list.insertBefore(div, ice.query('#list div'));
                 }
                 gm.close(_layer);
               } catch (e) {

@@ -8,18 +8,19 @@
 <body>
   <div class="ice bg-yellow-low">
     @@include('../../modules/nav-orderList.html', {"bgcolor": "bg-yellow-low"})
-    <div class="ice-main ice-main-bar">
-      <div class="i-hide"></div>
+    <div class="ice-refresh"><span></span></div>
+    <div class="ice-loading"><span></span></div>
+    <div class="ice-main ice-main-bar ice-main-nav">
       <!-- 我的买卖列表 -->
       <div class="order-list">
-        <div class="list-top ice-pdlr bg-yellow col-grey02 txt-c flex">
+        <div class="list-top pd-lr bg-yellow col-grey02 txt-c flex">
           <div class="list-cell wd-5">可提现金额：</div>
           <div class="list-cell flex-1 txt-l col-orange"><span>0</span>元</div>
           <div class="list-cell wd-3">
             <a class="col-blue" id="btnMoney" href="javascript:;">提现</a>
           </div>
         </div>
-        <div class="list-top ice-pdlr bg-yellow col-grey02 txt-c flex hidden">
+        <div class="list-top pd-lr bg-yellow col-grey02 txt-c flex hidden">
           <div class="list-cell wd-5">日期</div>
           <div class="list-cell wd-4">卖家头像</div>
           <div class="flex-1">卖家昵称</div>
@@ -28,7 +29,7 @@
         <div id="list"></div>
       </div>
       <div class="hidden" id="sellTemp">
-        <div class="list-row ice-pdlr flex">
+        <div class="list-row pd-lr flex">
           <div class="list-cell wd-4">
             <div class="list-photo radius-50">
               {img}
@@ -56,7 +57,7 @@
         </div>
       </div>
       <div class="hidden" id="buyTemp">
-        <div class="list-row list-rowone ice-pdlr txt-c flex">
+        <div class="list-row list-rowone pd-lr txt-c flex">
           <div class="list-cell wd-5">{date}</div>
           <div class="list-cell wd-4">  
             <div class="list-photo radius-50">{img}</div>
@@ -68,7 +69,6 @@
         </div>
       </div>
       <!-- 我的买卖列表 end -->
-      <div class="ice-refresh"></div>
     </div>
     @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
   </div>
@@ -77,6 +77,6 @@
 </body>
 @@include('../../modules/script.html')
 <script>
-  require(['/assets/js/sell/order-list.js?v=100006']);
+  require(['/assets/js/sell/order-list.js?v=' + myargs + '001']);
 </script>
 </html>

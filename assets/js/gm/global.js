@@ -8,15 +8,34 @@ define(function(require, exports, module) {
   // 公用调用
   var domNav = ice.query('.ice-nav');
   var domMain = ice.query('.ice-main');
-  var domArrow = ice.query('.ice-main .i-hide');
   var domRefresh = ice.query('.ice-refresh');
+  var domLoading = ice.query('.ice-loading');
+
+  // 绑定下拉刷新
+  exports.bindScroll = function(_reload, _load) {
+    ice.scrollY(domMain, {
+      refresh: domRefresh,
+      load: domLoading,
+      refreshFun: _reload,
+      loadFun: _load
+    });
+  };
+
+  // 最后一页
+  exports.scrollEnd = function() {
+    ice.scrollY.stop(domMain);
+  };
+
+  // 重置分页
+  exports.scrollStart = function() {
+    ice.scrollY.start(domMain);
+  };
 
   if (domNav != null) {
     domNav.addEventListener(ice.tapStart, function(e) {
       e.stopPropagation();
     });
   };
-
 
   // 插件
   exports.ice = ice;
@@ -85,32 +104,12 @@ define(function(require, exports, module) {
   function mess(m) {
     return layer.open({
       shade: false,
-      className: 'ice-mess',
+      className: 'alert-mess',
       content: (m == null || m == '' ? '操作成功' : m),
       time: 3
     });
   };
   exports.mess = mess;
-
-  // 绑定下拉刷新
-  exports.bindScroll = function(_reload, _load) {
-    ice.scrollY(domMain, {
-      arrow: domArrow,
-      refresh: domRefresh,
-      refreshFun: _reload,
-      loadFun: _load
-    });
-  };
-
-  // 最后一页
-  exports.scrollEnd = function() {
-    ice.scrollY.stop(domMain);
-  };
-
-  // 重置分页
-  exports.scrollStart = function() {
-    ice.scrollY.start(domMain);
-  };
 
   // 正则校验
   exports.reg = {

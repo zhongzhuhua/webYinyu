@@ -117,6 +117,8 @@ img {
 
 .flex {
   display: -webkit-box;
+  display: box;
+
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
@@ -125,19 +127,17 @@ img {
 }
 
 .flex-1 {
+  -webkit-box-flex: 1;
+  box-flex: 1;
+
   -webkit-flex: 1;
   -moz-flex: 1;
   -ms-flex: 1;
   -o-flex: 1;
   flex: 1;
-}
 
-.box {
-  display:-ms-box;
-  display:-o-box;
-  display:-moz-box;
-  display:-webkit-box;
-  display:box;
+  display: block;
+  overflow: hidden;
 }
 
 .txt-l {
@@ -179,45 +179,8 @@ img {
 .hidden {
   display: none !important;
 }
-/* iconfont */
 
-@font-face {
-  font-family: 'iconfont';
-  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot'); /* IE9*/
-  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('//at.alicdn.com/t/font_1461733607_4005296.woff') format('woff'), /* chrome、firefox */
-  url('//at.alicdn.com/t/font_1461733607_4005296.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url('//at.alicdn.com/t/font_1461733607_4005296.svg#iconfont') format('svg'); /* iOS 4.1- */
-}
-
-i {
-  font-family: 'iconfont' !important;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;
-  font-style: normal;
-  display: inline-block;
-  margin-left: .14rem;
-  vertical-align: middle;
-}
-
-i.icon-man:before {
-  content: "\e600";
-}
-
-i.icon-woman:before {
-  content: "\e601";
-}
-
-i.icon-close:before {
-  content: "\e602"
-}
-/* ========== 框架布局 ========== */
-
-a {
-  color: inherit;
-}
-
+/* 框架入口 */
 .ice {
   position: absolute;
   left: 0;
@@ -231,100 +194,140 @@ a {
   z-index: 1;
 }
 
+/* 刷新块 */
 .ice-refresh {
+  position: fixed;
+  top: 0;
   width: 100%;
-  height: 3rem;
-  line-height: 3rem;
+  height: 1rem;
+  padding-top: .5rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+  color: #aaa;
+}
+ 
+.ice-refresh span {
+  display: block;
+}
+
+/* 加载块 */
+.ice-refresh span:after {
+  content: '↓'
+}
+
+.ice-loading {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 1rem;
+  padding-top: 1.5rem;
   text-align: center;
   color: #aaa;
 }
 
-.ice-refresh:after {
+.ice-loading span:after {
   content: '上拉加载更多';
 }
 
-
-/*
-.ice-refresh {
-  display: none;
-  width: 100%;
-  height: 3rem;
-  line-height: 3rem;
-  text-align: center;
-  color: #999;
-}
-
-.ice-refresh:after {
-  content: '按住松手加载更多';
-}
-
-.ice-refresh.i-last:after {
-  content: '已显示全部内容';
-}
-
-.ice-refresh.ice-refresh-bar {
-  bottom: 3rem;
-}
-*/
-
+/* 顶部 */
 .ice-nav {
-  position: relative;
+  position: fixed;
   width: 100%;
   height: 3rem;
   line-height: 3rem;
-  background-color: #f3f3f3;
+  background-color: #fff;
   z-index: 2 !important;
 }
 
+/* 底部 */
 .ice-bar {
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 3rem;
   line-height: 3rem;
-  background-color: #f3f3f3;
+  background-color: #fff;
   z-index: 2 !important;
 }
 
-.ice-bar .i-link {
-  display: block;
-  border-top: 1px solid #d6d4d0;
-  border-right: 1px solid #d6d4d0;
-  font-size: .96rem;
-}
 
+/* 主内容 */
 .ice-main {
   position: absolute;
   width: 100%;
-  top: -5rem;
-  bottom: 0rem;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   overflow: auto;
+  overflow-x: hidden;
 }
 
+/* 文字不能选择 */
+.ice-user-select {
+  user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: -ms-none;
+  -o-user-select: none;
+}
 
-/* 有 ice-bar 的 ice-main */
+/* 其他布局 */
+.ice-refresh.ice-refresh-nav {
+  top: -3rem !important; 
+}
+
+.ice-loading.ice-loading-bar {
+  bottom: -3rem !important; 
+}
 
 .ice-main.ice-main-bar {
   bottom: 3rem !important;
 }
 
-.ice-main .i-hide {
-  height: 5rem;
-  line-height: 5rem;
+.ice-main.ice-main-nav {
+  top: 3rem !important;
+}
+/* ========== 重写框架布局 ========== */
+
+a {
+  color: inherit;
+}
+
+.ice-bar .i-link {
+  display: block;
+  border-top: 1px solid #D6D4D0;
+  border-right: 1px solid #D6D4D0;
+  font-size: .96rem;
+}
+
+.ice-nav-top {}
+
+.ice-nav-top >div {
+  display: block;
+  height: 100%;
+  font-size: 1rem;
+  border-bottom: 1px solid #e6e3da;
   text-align: center;
 }
 
-.ice-main .i-hide:after {
-  content: '↓'
+.ice-nav-top >div >a {
+  display: block;
 }
 
-.ice-nav ~ .ice-main {
-  top: -2rem;
+.ice-nav-top >div.nav-choose {
+  height: 2.78rem;
+  border-bottom: .3rem solid #fa702a;
+  color: #fa702a;
 }
 
-.ice-mess {
+
+/* ========== 重写框架布局 ========== */
+
+
+/* ========== 公用弹出信息 ========== */
+
+.alert-mess {
   position: absolute;
   top: 0;
   left: 0;
@@ -338,13 +341,8 @@ a {
   overflow: hidden;
 }
 
-.ice-pdlr {
-  padding-left: .6rem;
-  padding-right: .6rem;
-}
 
-
-/* ========== 框架布局 ========== */
+/* ========== 公用弹出信息 ========== */
 
 
 /* ======= 重写 layer ========= */
@@ -361,13 +359,13 @@ a {
   padding: 0;
 }
 
-.ice-mess.layermchild {
+.alert-mess.layermchild {
   z-index: 3 !important;
   max-width: 100% !important;
   border-radius: 0 !important;
 }
 
-.ice-mess .layermcont {
+.alert-mess .layermcont {
   line-height: 1.8rem !important;
   line-height: none;
 }
@@ -512,27 +510,6 @@ a {
 /* ======== 公用按钮 ======== */
 
 
-/* ======== 公用顶部 ======== */
-
-.ice-nav-top {}
-
-.ice-nav-top >div {
-  height: 100%;
-  font-size: 1rem;
-  border-bottom: 1px solid #e6e3da;
-  text-align: center;
-}
-
-.ice-nav-top >div.nav-choose {
-  height: 2.78rem;
-  border-bottom: .3rem solid #fa702a;
-  color: #fa702a;
-}
-
-
-/* ======== 公用顶部 ======== */
-
-
 /* ======== 公用宽 ========= */
 
 .wd-span {
@@ -602,6 +579,11 @@ a {
 
 .mg-auto {
   margin: 0 auto;
+}
+
+.pd-lr {
+  padding-left: .6rem;
+  padding-right: .6rem;
 }
 
 
@@ -770,12 +752,52 @@ a {
 
 /* ======== 公用背景  ============ */
 
+
+/* iconfont */
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot');
+  /* IE9*/
+  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1461733607_4005296.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1461733607_4005296.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1461733607_4005296.svg#iconfont') format('svg');
+  /* iOS 4.1- */
+}
+
+i {
+  font-family: 'iconfont' !important;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  display: inline-block;
+  margin-left: .14rem;
+  vertical-align: middle;
+}
+
+i.icon-man:before {
+  content: "\e600";
+}
+
+i.icon-woman:before {
+  content: "\e601";
+}
+
+i.icon-close:before {
+  content: "\e602"
+}
+
+
+/* iconfont */
+
 /* list-name */
 
 .list-name >i,
 .base-name >i {
   margin-top: -.3rem;
-}
+} 
 
   
 /* 列表冠军 */

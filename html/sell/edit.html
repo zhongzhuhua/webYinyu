@@ -7,14 +7,14 @@
 
 <body>
   <div class="ice bg-yellow">
+    <div class="ice-refresh ice-refresh-nav"><span></span></div>
     <div class="ice-main ice-main-bar">
-      <div class="i-hide"></div>
       @@include('../../modules/user-mess.html', {"shard": "hidden", "sort": "hidden"})
       <!-- 用户编辑 -->
-      <div class="user-edit ice-pdlr col-grey02">
+      <div class="user-edit pd-lr col-grey02">
         <div class="edit-title">拍卖项</div>
       </div>
-      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
+      <div class="form-edit pd-lr bg-yellow-low col-grey01">
         <div id="skills">
           <div class="edit-option" data-value="教你撩妹">教你撩妹</div>
           <div class="edit-option" data-value="语音聊天">语音聊天</div>
@@ -28,36 +28,40 @@
           <div class="clear"></div>
         </div>
         <div class="edit-options flex">
-          <input class="edit-text col-grey02" id="txtSkill" type="text" placeholder="自定义技能，请输入1~6个字" maxlength="6">
+          <div class="flex-1">
+            <input class="edit-text col-grey02" id="txtSkill" type="text" placeholder="自定义技能，请输入1~6个字" maxlength="6">
+          </div>
         </div>
       </div>
       <div class="clear"></div>
-      <div class="user-edit ice-pdlr col-grey02">
+      <div class="user-edit pd-lr col-grey02">
         <div class="edit-title">拍卖价格</div>
       </div>
-      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
+      <div class="form-edit pd-lr bg-yellow-low col-grey01">
         <div id="prices">
-          <div class="edit-option" data-value="0.50">0.5元</div>
-          <div class="edit-option" data-value="1.00">1元</div>
-          <div class="edit-option" data-value="2.00">2元</div>
-          <div class="edit-option" data-value="3.00">3元</div>
-          <div class="edit-option" data-value="5.00">5元</div>
-          <div class="edit-option" data-value="8.00">8元</div>
-          <div class="edit-option" data-value="10.00">10元</div>
-          <div class="edit-option" data-value="12.00">12元</div>
-          <div class="edit-option" data-value="15.00">15元</div>
-          <div class="edit-option" data-value="20.00">20元</div>
+          <div class="edit-option" data-value="0.5">0.5元</div>
+          <div class="edit-option" data-value="1">1元</div>
+          <div class="edit-option" data-value="2">2元</div>
+          <div class="edit-option" data-value="3">3元</div>
+          <div class="edit-option" data-value="5">5元</div>
+          <div class="edit-option" data-value="8">8元</div>
+          <div class="edit-option" data-value="10">10元</div>
+          <div class="edit-option" data-value="12">12元</div>
+          <div class="edit-option" data-value="15">15元</div>
+          <div class="edit-option" data-value="20">20元</div>
           <div class="clear"></div>
         </div>
         <div class="edit-options flex">
-          <input class="edit-text col-grey02" id="txtPrice" type="text" placeholder="自定义价格，请输入0.01~999.99的数字" maxlength="6">
+          <div class="flex-1">
+            <input class="edit-text col-grey02" id="txtPrice" type="text" placeholder="自定义价格，请输入0.01~999.99的数字" maxlength="6">
+          </div>
         </div>
       </div>
       <div class="clear"></div>
-      <div class="user-edit ice-pdlr col-grey02">
+      <div class="user-edit pd-lr col-grey02">
         <div class="edit-title">服务时长(分钟)</div>
       </div>
-      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
+      <div class="form-edit pd-lr bg-yellow-low col-grey01">
         <div id="expires">
           <div class="edit-option" data-value="10">10</div>
           <div class="edit-option" data-value="20">20</div>
@@ -69,16 +73,20 @@
           <div class="clear"></div>
         </div>
         <div class="edit-options flex">
-          <input class="edit-text col-grey02" id="txtExpires" type="text" placeholder="自定义时长，请输入1-180的整数" maxlength="3">
+          <div class="flex-1">
+            <input class="edit-text col-grey02" id="txtExpires" type="text" placeholder="自定义时长，请输入1-180的整数" maxlength="3">
+          </div>
         </div>
       </div>
       <div class="clear"></div>
-      <div class="user-edit ice-pdlr col-grey02">
+      <div class="user-edit pd-lr col-grey02">
         <div class="edit-title">微信号</div>
       </div>
-      <div class="form-edit ice-pdlr bg-yellow-low col-grey01">
-        <div class="flex">
-          <input class="edit-text col-grey02" id="txtWechat" type="text" placeholder="点击输入微信号，方便买家联系您~" maxlength="30">
+      <div class="form-edit pd-lr bg-yellow-low col-grey01">
+        <div class="edit-options flex">
+          <div class="flex-1">
+            <input class="edit-text col-grey02" id="txtWechat" type="text" placeholder="点击输入微信号，方便买家联系您~" maxlength="30">
+          </div>
         </div>
       </div>
       <!-- 用户编辑 end -->
@@ -90,6 +98,7 @@
 </body>
 @@include('../../modules/script.html')
 <script>
-  require(['/assets/js/sell/edit.js?v=100005']);
+require(['/assets/js/sell/edit.js?v=' + myargs + '001']);
 </script>
+
 </html>
