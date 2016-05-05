@@ -34,6 +34,8 @@ body {
   -webkit-text-size-adjust: none;
   /* 滚动顺畅 */
   -webkit-overflow-scrolling: touch;
+  /* 安卓点击蓝色边框 */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 a {
@@ -47,7 +49,6 @@ input {
   border-radius: 0;
   background-color: inherit;
   box-shadow: none;
-
   -webkit-box-shadow: none;
 }
 
@@ -117,7 +118,6 @@ img {
 .flex {
   display: -webkit-box;
   display: box;
-
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
@@ -128,13 +128,11 @@ img {
 .flex-1 {
   -webkit-box-flex: 1;
   box-flex: 1;
-
   -webkit-flex: 1;
   -moz-flex: 1;
   -ms-flex: 1;
   -o-flex: 1;
   flex: 1;
-
   display: block;
   overflow: hidden;
 }
@@ -155,7 +153,9 @@ img {
   text-decoration: line-through;
 }
 
+
 /* 超出的字体变省略号 */
+
 .textover {
   overflow: hidden;
   text-overflow: ellipsis;

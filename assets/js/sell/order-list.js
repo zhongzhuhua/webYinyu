@@ -2,6 +2,9 @@ define(function(require, exports, module) {
   var gm = require('global');
   var ice = gm.ice;
 
+  // 可提现金额
+  var $available = ice.query('#available');
+
   // 列表模版
   var $list = ice.query('#list');
   var $listTop = ice.queryAll('.list-top');
@@ -34,7 +37,7 @@ define(function(require, exports, module) {
   };
   var haveNext = true;
 
-  function FindList(clear) {
+  function findList(clear) {
     if (!haveNext) return;
     if (clear) {
       $list.innerHTML = '';
@@ -58,6 +61,8 @@ define(function(require, exports, module) {
             haveNext = data.next;
             if (!haveNext) gm.scrollEnd();
             mydata.index = ice.toEmpty(data.index);
+
+            $available.innerHTML = data.available;
 
             // 构建列表
             var list = data.list;
@@ -125,7 +130,7 @@ define(function(require, exports, module) {
           ice.removeClass($listTop[1], 'hidden');
           ice.addClass($listTop[0], 'hidden');
         }
-        FindList(true);
+        findList(true);
       }
     });
     if(chooseIndex == '1') {
@@ -160,9 +165,9 @@ define(function(require, exports, module) {
   (function() {
     // 绑定滚动加载
     gm.bindScroll(function() {
-      FindList(true);
+      findList(true);
     }, function() {
-      FindList(false);
+      findList(false);
     });
 
     // 绑定事件
@@ -174,6 +179,6 @@ define(function(require, exports, module) {
     });
 
     // 查询列表
-    FindList(false);
+    findList(false);
   })();
 });

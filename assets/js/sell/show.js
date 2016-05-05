@@ -23,11 +23,11 @@ define(function(require, exports, module) {
   var $btnCommont = ice.query('#btnCommont');
   var $btnWantBuy = ice.query('#btnWantBuy');
 
- 
+
   gm.bindScroll(function() {
-    Search(true);
+    search(true);
   }, function() {
-    Search(false);
+    search(false);
   });
 
   // 查询用户数据
@@ -46,7 +46,7 @@ define(function(require, exports, module) {
   var $bottomEdit = ice.query('#bottomEdit');
 
   // 查询卖家
-  function FindUser() {
+  function findUser() {
     var myModel = '';
     gm.getUser(identify, function(model) {
       // 微信分享配置
@@ -89,7 +89,7 @@ define(function(require, exports, module) {
       var expires = (model.expires);
 
       var sexName = ice.toEmpty(gm.enum.sexName[model.sex]);
-      if(sexName != '') {
+      if (sexName != '') {
         $sortType.innerHTML = '(' + sexName + ')';
       }
 
@@ -110,7 +110,7 @@ define(function(require, exports, module) {
   };
 
   // 查询评论
-  function FindList(clear) {
+  function findList(clear) {
     if (!haveNext) return;
     if (clear) {
       $list.innerHTML = '';
@@ -161,21 +161,21 @@ define(function(require, exports, module) {
   };
 
   // 执行查询
-  function Search(isfirst) {
+  function search(isfirst) {
     var layer = gm.loading();
 
     if (isfirst) {
-      FindUser();
+      findUser();
       $list.innerHTML = '';
     }
 
-    FindList(isfirst);
-    
+    findList(isfirst);
+
     gm.close(layer);
   };
 
   // 绑定发表评论
-  function BindSend() {
+  function bindSend() {
     var html = '<input id="layerSendMess" class="input01 col-grey02" placeHolder="请输入您的评论" maxlength="80">';
     $btnCommont.addEventListener(ice.tapClick, function() {
       var layer = gm.confirm(html, function() {
@@ -219,57 +219,70 @@ define(function(require, exports, module) {
 
   // 购买
   var inputLayer;
-  function BindBuy() {
-    $btnWantBuy.addEventListener(ice.tapClick, function() {
-      gm_wechat.pay({
-        service_record_identify: mydata.service_record_identify,
-        success: function(data) {
-          // 成功之后
-          inputLayer = gm.alert(winInputwx, function() {
-            try {
-              var $_wx = ice.query('.layermbox input');
-              var wechat = ice.trim($_wx.value);
-              if(wechat == '' || wechat.length < 2) {
-                $_wx.focus();
-                $_wx.style['borderColor'] = 'red';
-              } else {
-                MySubmit($_wx.value);
-              }
-            } catch(e) {}
-          });
 
-          var $wechat = ice.query('.layermbox input');
-          $wechat.value = gm_wechat.getWechat();
-          $wechat.focus();
-        }
-      });
+  function bindBuy() {
+    $btnWantBuy.addEventListener(ice.tapClick, payMoney);
+  };
+
+  // 支付
+  function payMoney() {
+    gm_wechat.pay({
+      service_record_identify: mydata.service_record_identify,
+      success: function(data) {
+        submitWx();
+      }
     });
   };
 
+  // 成功之后提交微信号
+  function submitWx() { 
+    inputLayer = gm.alert(winInputwx, function() {
+      try {
+        var $_wx = ice.query('.layermbox input');
+        var wechat = ice.trim($_wx.value);
+        if(wechat == '' || wechat.length < 2) {
+          $_wx.focus();
+          $_wx.style['borderColor'] = 'red';
+        } else {
+          mySubmit($_wx.value);
+        }
+      } catch(e) {}
+    });
+
+    var $wechat = ice.query('.layermbox input');
+    $wechat.value = gm_wechat.getWechat();
+    $wechat.focus();
+  };
+
   // 记录用户信息
-  function MySubmit(wechat) {
+  function mySubmit(wechat) {
     var prepay_id = gm_wechat.getPrepayId();
     gm.ajax({
       url: '/wechat/wechat/query.json',
+      async: false,
       data: {
         prepay_id: prepay_id,
         wechat: wechat
       },
       success: function(data) {
-        gm.close(inputLayer, 0);
+        if (data.status == '200') {
+          gm.close(inputLayer, 0);
+        } else {
+          gm.alert('<div style="padding: 1rem;">微信号无效</div>', submitWx);
+        }
       },
       error: function() {
-        gm.mess('提交微信号失败');
+        gm.alert('<div style="padding: 1rem;">微信号无效</div>', submitWx);
       }
     });
   };
 
   // 初始化
   (function() {
-    Search(true);
+    search(true);
 
     // 绑定事件
-    BindSend();
-    BindBuy();
+    bindSend();
+    bindBuy();
   })();
 });

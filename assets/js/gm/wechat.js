@@ -4,14 +4,6 @@ define(function(require, exports, module) {
   // 分享按钮
   var ice = gm.ice;
   $btnShard = ice.query('#btnShard');
-  var shardTemp = {
-    title: '',
-    desc: '',
-    link: '',
-    imgUrl: '',
-    type: '',
-    dataUrl: '',
-  };
 
   // 是否已经初始化
   var isinit = false;
@@ -90,17 +82,26 @@ define(function(require, exports, module) {
         });
       };
 
+      var shardTemp = {
+        title: config.share.title,
+        desc: config.share.description,
+        link: '',
+        imgUrl: config.share.icon,
+        type: config.share.type,
+        dataUrl: config.share.url,
+      };
+
       // 分享到朋友圈
-      shardTemp.link = config.link_wx_blog;
+      shardTemp.link = config.share.link_wx_blog;
       wx.onMenuShareTimeline(shardTemp);
       // 微信好友
-      shardTemp.link = config.link_wx_friend;
+      shardTemp.link = config.share.link_wx_friend;
       wx.onMenuShareAppMessage(shardTemp);
       //  QQ
-      shardTemp.link = config.link_qq_friend;
+      shardTemp.link = config.share.link_qq_friend;
       wx.onMenuShareQQ(shardTemp);
       // 腾讯微博
-      shardTemp.link = config.link_qq_tencent;
+      shardTemp.link = config.share.link_qq_tencent;
       wx.onMenuShareWeibo(shardTemp);
       // QQ 空间
       shardTemp.link = config.link_qq_qzone;

@@ -15,7 +15,7 @@ define(function(require, exports, module) {
   };
 
   // 查询列表
-  function FindList(clear) {
+  function findList(clear) {
     if (clear) {
       $list.innerHTML = '';
       haveNext = true;
@@ -81,7 +81,7 @@ define(function(require, exports, module) {
         var arrs = $dom.getAttribute('data-value').split('|');
         mydata.type = arrs[0];
         mydata.status = arrs[1];
-        FindList(true);
+        findList(true);
       }
     });
   };
@@ -90,7 +90,7 @@ define(function(require, exports, module) {
   (function() {
     // 绑定滚动加载
     gm.bindScroll(function() {
-      FindList(true);
+      findList(true);
     });
     gm.scrollEnd();
 
@@ -98,6 +98,6 @@ define(function(require, exports, module) {
     navChoose();
 
     // 查询列表
-    FindList(false);
+    findList(false);
   })();
 });

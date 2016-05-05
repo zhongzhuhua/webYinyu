@@ -58,6 +58,7 @@ define(function(require, exports, module) {
   exports.alert = function(content, _callback) {
     return layer.open({
       content: content,
+      shadeClose: false,
       btn: ['朕知道了'],
       yes: function(index) {
         if (ice.isFunction(_callback)) {
@@ -106,7 +107,7 @@ define(function(require, exports, module) {
       shade: false,
       className: 'alert-mess',
       content: (m == null || m == '' ? '操作成功' : m),
-      time: 3
+      //time: 3
     });
   };
   exports.mess = mess;
