@@ -23,12 +23,12 @@ define(function(require, exports, module) {
 
   // 最后一页
   exports.scrollEnd = function() {
-    ice.scrollY.stop(domMain);
+    ice.scrollY.stop(domMain, domLoading);
   };
 
   // 重置分页
   exports.scrollStart = function() {
-    ice.scrollY.start(domMain);
+    ice.scrollY.start(domMain, domLoading);
   };
 
   if (domNav != null) {

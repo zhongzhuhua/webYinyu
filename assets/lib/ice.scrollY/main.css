@@ -30,10 +30,11 @@
   display: block;
 }
 
-/* 加载块 */
 .ice-refresh span:after {
   content: '↓'
 }
+
+/* 加载块 */
 
 .ice-loading {
   position: fixed;
@@ -47,6 +48,10 @@
 
 .ice-loading span:after {
   content: '上拉加载更多';
+}
+
+.ice-loading.ice-loadend span:after {
+  content: '已加载完所有数据';
 }
 
 /* 顶部 */

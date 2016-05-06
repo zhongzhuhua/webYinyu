@@ -18,6 +18,8 @@
         loadFun: options ? options.loadFun : null,
         // 什么样式不执行 scroll 事件
         noClass: 'option',
+        // 数据加载完成之后的样式
+        loadEndClass: 'ice-loadend',
 
         // 是否按住
         isBegin: false,
@@ -93,7 +95,7 @@
                 'transform': 'rotate(' + deg + ')'
               });
             }
-          } else if (diff < 0 && dom.scrollTop + dom.clientHeight >= dom.scrollHeight) {
+          } else if (diff < 0 && dom.scrollTop + dom.clientHeight >= dom.scrollHeight - 1) {
             // 如果是上拉，超出滚动条的时候，才执行事件
             g.isMove = true;
             stopDefault(e);
@@ -170,13 +172,15 @@
     };
 
     // 可以滚动
-    ice.scrollY.start = function(dom) {
+    ice.scrollY.start = function(dom, load) {
       dom.setAttribute('scroll-load', '1');
+      ice.removeClass(load, 'ice-loadend');
     };
 
     // 禁用滚动
-    ice.scrollY.stop = function(dom) {
+    ice.scrollY.stop = function(dom, load) {
       dom.setAttribute('scroll-load', '0');
+      ice.addClass(load, 'ice-loadend');
     };
   }
 })(ice);
