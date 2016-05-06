@@ -92,20 +92,50 @@ define(function(require, exports, module) {
       };
 
       // 分享到朋友圈
-      shardTemp.link = config.share.link_wx_blog;
-      wx.onMenuShareTimeline(shardTemp);
+      wx.onMenuShareTimeline({
+        title: config.share.title,
+        desc: config.share.description,
+        link: config.share.link_wx_blog,
+        imgUrl: config.share.icon,
+        type: config.share.type,
+        dataUrl: config.share.url,
+      });
       // 微信好友
-      shardTemp.link = config.share.link_wx_friend;
-      wx.onMenuShareAppMessage(shardTemp);
+      wx.onMenuShareAppMessage({
+        title: config.share.title,
+        desc: config.share.description,
+        link: config.share.link_wx_friend,
+        imgUrl: config.share.icon,
+        type: config.share.type,
+        dataUrl: config.share.url,
+      });
       //  QQ
-      shardTemp.link = config.share.link_qq_friend;
-      wx.onMenuShareQQ(shardTemp);
+      wx.onMenuShareQQ({
+        title: config.share.title,
+        desc: config.share.description,
+        link: config.share.link_qq_friend,
+        imgUrl: config.share.icon,
+        type: config.share.type,
+        dataUrl: config.share.url,
+      });
       // 腾讯微博
-      shardTemp.link = config.share.link_qq_tencent;
-      wx.onMenuShareWeibo(shardTemp);
+      wx.onMenuShareWeibo({
+        title: config.share.title,
+        desc: config.share.description,
+        link: config.share.link_qq_tencent,
+        imgUrl: config.share.icon,
+        type: config.share.type,
+        dataUrl: config.share.url,
+      });
       // QQ 空间
-      shardTemp.link = config.link_qq_qzone;
-      wx.onMenuShareQZone(shardTemp);
+      wx.onMenuShareQZone({
+        title: config.share.title,
+        desc: config.share.description,
+        link: config.share.link_qq_qzone,
+        imgUrl: config.share.icon,
+        type: config.share.type,
+        dataUrl: config.share.url,
+      });
     });
 
     // 如果初始化失败

@@ -6,6 +6,7 @@
     tapMove: ('ontouchmove' in document) ? 'touchmove' : 'mousemove',
     tapEnd: ('ontouchend' in document) ? 'touchend' : 'mouseup',
     tapClick: ('ontouchstart' in document) ? 'touchstart' : 'click',
+    tapKeyup: ('oninput' in document) ? 'input' : 'keyup',
     // 获取参数 url 
     request: function(key) {
       var s = location.search.match(new RegExp('[?&]' + key + '=([^&]*)(&?)', 'i'));

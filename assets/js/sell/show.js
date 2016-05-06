@@ -147,7 +147,8 @@ define(function(require, exports, module) {
               var img = '<img src="' + photo + '" alt="">';
               var lv = gm.enum.getLevel(model.consumption_level);
               var content = ice.removeAttr(model.comment);
-              html += listTemp.replace('{lv}', lv).replace('{img}', img).replace('{name}', name).replace('{content}', content);
+              var col = model.type === '1' ? 'col-orange' : 'col-grey01';
+              html += listTemp.replace('{lv}', lv).replace('{col}', col).replace('{img}', img).replace('{name}', name).replace('{content}', content);
             }
             var divs = document.createElement('div');
             divs.innerHTML = html;
@@ -195,15 +196,7 @@ define(function(require, exports, module) {
                 var status = data.status;
                 if (status == '200') {
                   var model = data.value;
-                  // 用户信息
-                  var name = ice.toEmpty(model.nick);
-                  var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
-                  photo = '<img src="' + photo + '" alt="">';
-                  var lv = gm.enum.getLevel(model.consumption_level);
-
-                  var div = document.createElement('div');
-                  div.innerHTML = listTemp.replace('{lv}', lv).replace('{img}', photo).replace('{name}', name).replace('{content}', sendMess);
-                  $list.insertBefore(div, ice.query('#list div'));
+                  addMess(model, sendMess, '11');
                 }
                 gm.close(_layer);
               } catch (e) {
@@ -215,6 +208,18 @@ define(function(require, exports, module) {
       });
       ice.query('#layerSendMess').focus();
     });
+  };
+
+  // 添加一个信息
+  function addMess(model, sendMess, type) {
+    var name = ice.toEmpty(model.nick);
+    var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
+    photo = '<img src="' + photo + '" alt="">';
+    var lv = gm.enum.getLevel(model.consumption_level);
+    var col = type === '1' ? 'col-orange' : 'col-grey01';
+    var div = document.createElement('div');
+    div.innerHTML = listTemp.replace('{lv}', lv).replace('{col}', col).replace('{img}', photo).replace('{name}', name).replace('{content}', sendMess);
+    $list.insertBefore(div, ice.query('#list div'));
   };
 
   // 购买
@@ -235,18 +240,20 @@ define(function(require, exports, module) {
   };
 
   // 成功之后提交微信号
-  function submitWx() { 
+  function submitWx() {
     inputLayer = gm.alert(winInputwx, function() {
       try {
         var $_wx = ice.query('.layermbox input');
         var wechat = ice.trim($_wx.value);
-        if(wechat == '' || wechat.length < 2) {
+        if (wechat == '' || wechat.length < 2) {
           $_wx.focus();
           $_wx.style['borderColor'] = 'red';
         } else {
           mySubmit($_wx.value);
         }
-      } catch(e) {}
+      } catch (e) {
+        console.log(e.message);
+      }
     });
 
     var $wechat = ice.query('.layermbox input');
@@ -262,13 +269,16 @@ define(function(require, exports, module) {
       async: false,
       data: {
         prepay_id: prepay_id,
-        wechat: wechat
+        wechat: wechat,
+        service_record_identify: mydata.service_record_identify
       },
       success: function(data) {
         if (data.status == '200') {
+          var model = data.value;
+          addMess(model, model.comment, '1');
           gm.close(inputLayer, 0);
         } else {
-          gm.alert('<div style="padding: 1rem;">微信号无效</div>', submitWx);
+          gm.alert('<div style="padding: 1rem;">' + data.msg + '</div>', submitWx);
         }
       },
       error: function() {

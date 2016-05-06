@@ -51,39 +51,39 @@ define(function(require, exports, module) {
 
   // 绑定输入框事件
   function bindInput() {
-    $txtPrice.onchange = function() {
-      this.value = gm.edit.price(this.value);
+    $txtPrice.addEventListener(ice.tapKeyup, function() {
+      this.value = ice.trim(this.value);
       mydata.prices = this.value;
       ice.removeClass($choosePrice, 'option-choose');
       checkSubmit();
-    };
+    });
 
-    $txtSkill.onchange = function() {
-      mydata.skills = this.value;
+    $txtSkill.addEventListener(ice.tapKeyup, function() {
+      mydata.skills = ice.trim(this.value);
       ice.removeClass($chooseSkill, 'option-choose');
       checkSubmit();
-    };
+    });
 
-    $txtExpires.onchange = function() {
-      this.value = gm.edit.expires(this.value);
-      mydata.prices = this.value;
+    $txtExpires.addEventListener(ice.tapKeyup, function() {
+      this.value = ice.trim(this.value);
+      mydata.expires = this.value;
       ice.removeClass($chooseExpires, 'option-choose');
       checkSubmit();
-    };
+    });
   };
 
   // 绑定微信号 keyup 事件
   function bindWechat() {
-    $txtWechat.onkeyup = function() {
+    $txtWechat.addEventListener(ice.tapKeyup, function() {
       var val = ice.trim(this.value);
       mydata.wechat = val;
       checkSubmit();
-    };
+    });
   };
 
   // 判断是否可以提交
   function checkSubmit() {
-    if (!ice.isEmpty(mydata.prices) && !ice.isEmpty(mydata.skills) && !ice.isEmpty(mydata.expires) && !ice.isEmpty(mydata.wechat) && mydata.wechat.length >= 2) {
+    if (gm.edit.prices(mydata.prices) && !ice.isEmpty(mydata.skills) && gm.edit.prices(mydata.expires) && !ice.isEmpty(mydata.wechat) && mydata.wechat.length >= 2) {
       mydata.canSubmit = true;
       ice.removeClass($btnSubmit, 'i-disabled');
     } else {

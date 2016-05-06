@@ -69,6 +69,12 @@ a {
   padding: 0;
 }
 
+.layermbtn {
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  overflow: hidden;
+}
+
 .alert-mess.layermchild {
   z-index: 3 !important;
   max-width: 100% !important;
@@ -179,6 +185,8 @@ a {
   border-width: 2px;
   border-style: solid;
   z-index: 3;
+
+  -webkit-border-radius: 50%;
 }
 
 .ice-roundbtn.i-btn1 {
@@ -307,6 +315,11 @@ a {
   overflow: hidden;
   border: 1px solid #d6d4d0;
   background-color: #fff;
+
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 .rotate-180 {

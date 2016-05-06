@@ -142,23 +142,13 @@ define(function(require, exports, module) {
 
   // 身价 
   exports.edit = {
-    price: function(s) {
+    prices: function(s) {
       var v = ice.parseFloat(s);
-      if (v < 0.01) {
-        return 0.01;
-      } else if (v > 999.99) {
-        return 999.99;
-      }
-      return v;
+      return v >= 0.01 && v <= 999.99
     },
     expires: function(s) {
       var v = ice.parseInt(s);
-      if (v < 1) {
-        return 1;
-      } else if (v > 180) {
-        return 180;
-      }
-      return v;
+      return v >= 1 && v <= 180;
     }
   };
 
@@ -214,7 +204,7 @@ define(function(require, exports, module) {
         var status = data.status;
         var msg = data.msg;
 
-        if(data.cookies) {
+        if (data.cookies) {
           for (var i = data.cookies.length - 1; i >= 0; i--) {
             var cookie = data.cookies[i];
             localStorage.setItem('_C_' + cookie.name + '_', cookie.value);
@@ -246,6 +236,10 @@ define(function(require, exports, module) {
           });
         } else if (status == '307') {
           go(data.value.url);
+        } else {
+          if (msg != null && msg != '') {
+            mess(msg);
+          }
         }
       }
     } catch (e) {

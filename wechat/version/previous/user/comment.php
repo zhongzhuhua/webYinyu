@@ -7,6 +7,7 @@
 	  "size": 10,
 	  "flag": 2,
   	"list": [{
+  		"type": "11",
   	  "time": "12月17日",
 			"identify": "1001",
 			"nick": "小苹果1",
@@ -16,6 +17,7 @@
 			"consumption_level": "22",
 			"comment": "我是&nbsp;<div></div>\"中国人\",'哈哈'"
   	},{
+  		"type": "11",
   	  "time": "12月17日",
 			"identify": "1002",
 			"nick": "小苹果2",
@@ -25,6 +27,7 @@
 			"consumption_level": "17",
 			"comment": "这是我说的话"
   	},{
+  		"type": "1",
   	  "time": "12月17日",
 			"identify": "1003",
 			"nick": "小苹果3",
@@ -33,6 +36,7 @@
 			"consumption_level": "12",
 			"comment": "这是我说的话"
   	},{
+  		"type": "11",
   	  "time": "12月17日",
 			"identify": "1004",
 			"nick": "小苹果4",
@@ -41,6 +45,7 @@
 			"consumption_level": "2",
 			"comment": "zhongzhuhua"
   	},{
+  		"type": "1",
   	  "time": "12月17日",
 			"identify": "1003",
 			"nick": "小苹果3",
@@ -49,6 +54,7 @@
 			"consumption_level": "12",
 			"comment": "测试"
   	},{
+  		"type": "11",
   	  "time": "12月17日",
 			"identify": "1004",
 			"nick": "小苹果4",
