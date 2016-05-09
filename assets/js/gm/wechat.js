@@ -9,7 +9,7 @@ define(function(require, exports, module) {
   var isinit = false;
 
   // 获取微信配置
-  exports.init = function(config) {
+  exports.init = function(config, _fun) {
     gm.ajax({
       url: '/wechat/wechat/ticket.json',
       data: {
@@ -20,7 +20,7 @@ define(function(require, exports, module) {
         try {
           if (data.status == '200') {
             data = data.value;
-            wxconfig(data, config);
+            wxconfig(data, config, _fun);
           }
         } catch (e) {
           console.log('get wxconfig error:' + e.message);
@@ -33,7 +33,7 @@ define(function(require, exports, module) {
   };
 
   // 初始化微信配置
-  function wxconfig(data, config) {
+  function wxconfig(data, config, _fun) {
     if(isinit) return;
     isinit = true;
 
@@ -136,6 +136,11 @@ define(function(require, exports, module) {
         type: config.share.type,
         dataUrl: config.share.url,
       });
+
+      // 初始化方法
+      if(ice.isFunction(_fun)) {
+        _fun();
+      }
     });
 
     // 如果初始化失败
@@ -162,7 +167,6 @@ define(function(require, exports, module) {
 
   // 发起一个支付
   exports.pay = function(options) {
-    console.log(options);
     gm.alert('<div style="padding: 1rem;">微信插件未正常初始化</div>');
   };
 

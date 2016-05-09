@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       },
       // 合并 commonjs
       commonJs: {
-        src: ['assets/lib/require.js', 'assets/lib/require.config.js', 'assets/lib/ice.js', 'assets/lib/ice.scrollY/main.js'],
+        src: ['assets/lib/require.js', 'assets/lib/require.config.js', 'assets/lib/ice.js', 'assets/lib/ice.*/main.js'],
         dest: 'dist/assets/js/common.js'
       }
     },

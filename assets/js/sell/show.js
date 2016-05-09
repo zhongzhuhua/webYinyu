@@ -50,7 +50,7 @@ define(function(require, exports, module) {
     var myModel = '';
     gm.getUser(identify, function(model) {
       // 微信分享配置
-      gm_wechat.init(model);
+      gm_wechat.init(model, bindBuy);
 
       myModel = model;
       try {
@@ -183,9 +183,9 @@ define(function(require, exports, module) {
         gm.close(layer, 0);
         var sendMess = ice.trim(ice.removeAttr(ice.query('#layerSendMess').value));
         if (sendMess.length > 0) {
-          var _layer = gm.loading();
           gm.ajax({
             url: '/wechat/version/previous/user/comment/add.json',
+            async: true,
             data: {
               identify: identify,
               comment: sendMess
@@ -198,7 +198,6 @@ define(function(require, exports, module) {
                   var model = data.value;
                   addMess(model, sendMess, '11');
                 }
-                gm.close(_layer);
               } catch (e) {
                 console.log(e.message);
               }
@@ -226,6 +225,7 @@ define(function(require, exports, module) {
   var inputLayer;
 
   function bindBuy() {
+    ice.removeClass($btnCommont, 'i-disabled');
     $btnWantBuy.addEventListener(ice.tapClick, payMoney);
   };
 
@@ -293,6 +293,5 @@ define(function(require, exports, module) {
 
     // 绑定事件
     bindSend();
-    bindBuy();
   })();
 });
