@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   var gm = require('global');
   var ice = gm.ice;
- 
+
   var $list = ice.query('#list');
   var listTemp = ice.query('#listTemp').innerHTML;
 
@@ -24,7 +24,7 @@ define(function(require, exports, module) {
 
     // 获取列表
     console.log(mydata);
-  
+
     // 执行查询
     gm.ajax({
       url: '/wechat/version/previous/user/ranking.json',
@@ -36,7 +36,6 @@ define(function(require, exports, module) {
             // 列表判断
             data = data.value;
             haveNext = data.next;
-            if(!haveNext) gm.scrollEnd();
 
             $userSort.innerHTML = (data.ranking);
             // 构建列表
@@ -51,10 +50,17 @@ define(function(require, exports, module) {
               var sex = gm.enum.sex[model.sex];
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var img = '<img src="' + photo + '" alt="">';
-              var lv = mydata.type == '2' ? gm.enum.getLevel(model.consumption_level) : 'hidden';
-              var type = mydata.type == '2' ? '消费' : '身价';
+              var lv = 'hidden';
+              var type = '身价';
+              var link = 'javascript:;';
+              if (mydata.type == '2') {
+                lv = gm.enum.getLevel(model.consumption_level);
+                type = '消费';
+              } else {
+                link = '/html/sell/show.html?identify=' + model.identify;
+              }
 
-              html += listTemp.replace('{total}', total).replace('{type}', type).replace('{lv}', lv).replace('{index}', index).replace('{sex}', sex)
+              html += listTemp.replace('{link}', link).replace('{total}', total).replace('{type}', type).replace('{lv}', lv).replace('{index}', index).replace('{sex}', sex)
                 .replace('{img}', img).replace('{name}', name);
             }
             var divs = document.createElement('div');
@@ -67,6 +73,7 @@ define(function(require, exports, module) {
         } catch (e) {
           console.log('findlist error:' + e.message);
         }
+        gm.scrollLoad(!!haveNext);
       }
     });
     gm.close(layer);
@@ -92,7 +99,7 @@ define(function(require, exports, module) {
     gm.bindScroll(function() {
       findList(true);
     });
-    gm.scrollEnd();
+    gm.scrollLoad(false);
 
     // 绑定选择
     navChoose();

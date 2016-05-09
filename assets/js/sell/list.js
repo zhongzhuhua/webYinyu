@@ -21,7 +21,7 @@ define(function(require, exports, module) {
     if (clear) {
       $list.innerHTML = '';
       mydata.index = 1;
-      gm.scrollStart();
+      gm.scrollLoad('i');
       haveNext = true;
       layer = gm.loading();
     };
@@ -38,7 +38,6 @@ define(function(require, exports, module) {
             // 列表判断
             data = data.value;
             haveNext = data.next;
-            if(!haveNext) gm.scrollEnd();
             mydata.index = ice.toEmpty(data.index);
 
             // 构建列表
@@ -73,7 +72,7 @@ define(function(require, exports, module) {
         } catch (e) {
           console.log('findList error:' + e.message);
         }
-        gm.scrollLoadded();
+        gm.scrollLoad(!!haveNext);
       }
     });
   };
@@ -98,7 +97,7 @@ define(function(require, exports, module) {
     }, function() {
       findList(false);
     });
- 
+
     // 绑定选择
     navChoose();
 

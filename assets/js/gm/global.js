@@ -11,50 +11,54 @@ define(function(require, exports, module) {
 
   // 绑定下拉刷新
   var mytimer = null;
-  var $load = null;
+  var $load = ice.query('.ice-load');
+
+  if ($load) {
+    $load.innerHTML = '上拉加载更多';
+  }
   exports.bindScroll = function(_reload, _load) {
     ice.scrollY(domScroll, {
       refreshFun: _reload,
-      loadFun: _load,
-      startFun: function(dom, load) {
-        $load = load;
-        if(load && dom.getAttribute('scroll-load') == '1') {
-          load.innerHTML = '加载更多';
-        }
-      },
+      loadFun: function() {},
       endFun: function(dom, load) {
         var textArr = ['.', '..', '...', '....'];
-        if(load && dom.getAttribute('scroll-load') == '1') {
+        if (load && dom.getAttribute('scroll-load') == '1') {
           var idx = 0;
           clearInterval(mytimer);
           mytimer = setInterval(function() {
-            if(idx == 100) {
+            if (idx == 100) {
               scrollLoadded();
             }
             $load.innerHTML = '数据加载中' + textArr[idx % 4];
             idx++;
-          }, 500);
+          }, 200);
+
+          setTimeout(function() {
+            if (ice.isFunction(_load)) {
+              _load();
+            }
+          }, 1000);
         }
       }
     });
   };
 
-  // 最后一页
-  exports.scrollEnd = function() {
-    ice.scrollY.stop(domMain);
+  // 加载完成 type='i'[初始化] type=false[结束] type=other[普通]
+  function scrollLoad(type) {
+    if($load) {
+      clearInterval(mytimer);
+      if(type === false) {
+        ice.scrollY.stop(domScroll);
+        $load.innerHTML = '已经加载全部数据';
+      } else if (type == 'i') {
+        ice.scrollY.start(domScroll);
+        $load.innerHTML = '上拉加载更多';  
+      } else {
+        $load.innerHTML = '上拉加载更多';  
+      }
+    }
   };
-
-  // 加载完成
-  function scrollLoadded() {
-    clearInterval(mytimer);
-    if($load) $load.innerHTML = '';
-  };
-  exports.scrollLoadded = scrollLoadded;
-
-  // 重置分页
-  exports.scrollStart = function() {
-    ice.scrollY.start(domMain);
-  };
+  exports.scrollLoad = scrollLoad;
 
   if (domNav != null) {
     domNav.addEventListener(ice.tapStart, function(e) {

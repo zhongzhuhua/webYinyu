@@ -116,7 +116,7 @@ define(function(require, exports, module) {
       $list.innerHTML = '';
       mydata.index = 1;
       mydata.flag = '';
-      gm.scrollStart();
+      gm.scrollLoad('i');
       haveNext = true;
     };
 
@@ -133,7 +133,6 @@ define(function(require, exports, module) {
             data = data.value;
             haveNext = data.next;
             mydata.flag = data.flag;
-            if (!haveNext) gm.scrollEnd();
             mydata.index = ice.toEmpty(data.index);
 
             // 构建列表
@@ -157,15 +156,17 @@ define(function(require, exports, module) {
         } catch (e) {
           console.log('findlist error:' + e.message);
         }
+        gm.scrollLoad(!!haveNext);
       }
     });
   };
 
   // 执行查询
   function search(isfirst) {
-    var layer = gm.loading();
+    var layer = null;
 
     if (isfirst) {
+      layer = gm.loading()
       findUser();
       $list.innerHTML = '';
     }

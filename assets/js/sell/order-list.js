@@ -39,13 +39,14 @@ define(function(require, exports, module) {
 
   function findList(clear) {
     if (!haveNext) return;
+    var layer = null;
     if (clear) {
       $list.innerHTML = '';
       mydata.index = 1;
-      gm.scrollStart();
+      gm.scrollLoad('i');
       haveNext = true;
+      layer = gm.loading();
     };
-    var layer = gm.loading();
     console.log(mydata);
 
     // 执行查询
@@ -59,7 +60,6 @@ define(function(require, exports, module) {
             // 列表判断
             data = data.value;
             haveNext = data.next;
-            if (!haveNext) gm.scrollEnd();
             mydata.index = ice.toEmpty(data.index);
 
             $available.innerHTML = data.available;
@@ -89,6 +89,7 @@ define(function(require, exports, module) {
                   .replace('{sex}', sex).replace('{price}', price).replace('{wechat}', wechat).replace('{skill}', skill);
               } else {
                 buyData[id] = {
+                  id: id,
                   price: price,
                   name: name,
                   sex: sexName,
@@ -99,7 +100,6 @@ define(function(require, exports, module) {
                 };
                 html += listTemp[mydata.type].replace('{id}', id).replace('{date}', date).replace('{img}', img).replace('{name}', name);
               }
-
             }
             var divs = document.createElement('div');
             divs.innerHTML = html;
@@ -111,6 +111,7 @@ define(function(require, exports, module) {
         } catch (e) {
           console.log('findlist error:' + e.message);
         }
+        gm.scrollLoad(!!haveNext);
       }
     });
   };
@@ -133,7 +134,7 @@ define(function(require, exports, module) {
         findList(true);
       }
     });
-    if(chooseIndex == '1') {
+    if (chooseIndex == '1') {
       ice.removeClass($listTop[1], 'hidden');
       ice.addClass($listTop[0], 'hidden');
     }
@@ -147,7 +148,7 @@ define(function(require, exports, module) {
         if (node == 'a') {
           if (mydata.type == '2') {
             var data = buyData[e.srcElement.getAttribute('data-value')];
-            var html = winSellTemp.replace('{img}', data['img']).replace('{price}', data['price']).replace('{sex}', data['sex']).replace('{wechat}', data['wechat']).replace('{skill}', data['skill']).replace('{name}', data['name']);
+            var html = winSellTemp.replace('{id}', data['id']).replace('{img}', data['img']).replace('{price}', data['price']).replace('{sex}', data['sex']).replace('{wechat}', data['wechat']).replace('{skill}', data['skill']).replace('{name}', data['name']);
             var index = gm.open(html);
             // 关闭弹窗
             ice.query('#layermbox' + index + ' .icon-close').addEventListener(ice.tapClick, function() {

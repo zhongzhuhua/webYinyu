@@ -17,7 +17,7 @@
         loadFun: options ? options.loadFun : null,
         // 开始执行的函数
         startFun: options ? options.startFun : null,
-        // 结束执行的函数
+        // 结束执行的函数，loadFun 必须不能为空
         endFun: options ? options.endFun : null,
         // 什么样式不执行 scroll 事件
         noClass: 'option',
