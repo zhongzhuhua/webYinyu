@@ -5,6 +5,13 @@
   margin-top: -.3rem;
 } 
 
+/* list-buttons */
+.list-buttons {
+  margin-top: 1rem;
+  margin-bottom: .6rem;
+  text-align: center;
+}
+
 /* list-photo */
 .list-photo {
   position: relative;

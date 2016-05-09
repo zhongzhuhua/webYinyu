@@ -1,21 +1,33 @@
 /* 框架入口 */
-.ice {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+body {
+  margin: 0;
+  padding: 0;
   overflow: hidden;
 }
 
+.ice {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  overflow-y: scroll;
+}
+
 .ice div {
-  z-index: 1;
+  z-index: 1 !important;
+}
+
+/* 主内容 */
+.ice-main {
+  padding-bottom: 2rem;
 }
 
 /* 刷新块 */
+
 .ice-refresh {
   position: fixed;
-  top: 0;
+  top: -3rem;
   width: 100%;
   height: 1rem;
   padding-top: .5rem;
@@ -23,7 +35,7 @@
   text-align: center;
   color: #aaa;
 }
- 
+
 .ice-refresh span {
   font-size: 1.2rem;
   font-weight: 700;
@@ -34,82 +46,20 @@
   content: '↓'
 }
 
-/* 加载块 */
-
-.ice-loading {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 1rem;
-  padding-top: 1.5rem;
+/* 加载更多 */
+.ice-load {
+  height: 3rem;
+  line-height: 3rem;
   text-align: center;
-  color: #aaa;
-}
-
-.ice-loading span:after {
-  content: '上拉加载更多';
-}
-
-.ice-loading.ice-loadend span:after {
-  content: '已加载完所有数据';
-}
-
-/* 顶部 */
-.ice-nav {
-  position: fixed;
-  width: 100%;
-  height: 3rem;
-  line-height: 3rem;
-  background-color: #fff;
-  z-index: 2 !important;
-}
-
-/* 底部 */
-.ice-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 3rem;
-  line-height: 3rem;
-  background-color: #fff;
-  z-index: 2 !important;
-}
-
-
-/* 主内容 */
-.ice-main {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: auto;
-  overflow-x: hidden;
+  color: #ccc;
 }
 
 /* 文字不能选择 */
+
 .ice-user-select {
   user-select: none;
   -moz-user-select: -moz-none;
   -webkit-user-select: none;
   -ms-user-select: -ms-none;
   -o-user-select: none;
-}
-
-/* 其他布局 */
-.ice-refresh.ice-refresh-nav {
-  top: -3rem !important; 
-}
-
-.ice-loading.ice-loading-bar {
-  bottom: -3rem !important; 
-}
-
-.ice-main.ice-main-bar {
-  bottom: 3rem !important;
-}
-
-.ice-main.ice-main-nav {
-  top: 3rem !important;
 }

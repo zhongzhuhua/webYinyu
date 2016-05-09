@@ -6,11 +6,10 @@
 </head>
 
 <body>
-  <div class="ice bg-yellow-low">
-    @@include('../../modules/nav-sellList.html', {"bgcolor": "bg-yellow-low"})
+  @@include('../../modules/nav-sellList.html', {"bgcolor": "bg-yellow-low"})
+  <div class="ice ice-have-nav ice-have-bar bg-yellow-low">
     <div class="ice-refresh"><span></span></div>
-    <div class="ice-loading"><span></span></div>
-    <div class="ice-main ice-main-bar ice-main-nav">
+    <div class="ice-main">
       <!-- 卖家列表 -->
       <div class="user-list" id="list">
       </div>
@@ -90,9 +89,10 @@
         </a>
       </div>
       <!-- 卖家列表 end -->
+      <div class="ice-load"></div>
     </div>
-    @@include('../../modules/user-bottom.html', {"button": "hidden", "shop": "col-orange"})
   </div>
+  @@include('../../modules/user-bottom.html', {"button": "hidden", "shop": "col-orange"})
 </body>
 @@include('../../modules/script.html')
 <script>

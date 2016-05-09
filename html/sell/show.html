@@ -4,12 +4,11 @@
 <head>
   @@include('../../modules/meta.html', {"title": "拍卖秀"})
 </head>
-
+ 
 <body>
   <div class="ice bg-yellow">
-    <div class="ice-refresh ice-refresh-nav"><span></span></div>
-    <div class="ice-loading"><span></span></div>
-    <div class="ice-main ice-main-bar">
+    <div class="ice-refresh"><span></span></div>
+    <div class="ice-main">
       @@include('../../modules/user-mess.html', {"sort": ""})
       <!-- 用户技能 -->
       <div class="pd-lr user-skill bg-yellow-low flex col-grey02">
@@ -62,8 +61,8 @@
       </div>
       <!-- 用户聊天 end -->
     </div>
-    @@include('../../modules/user-bottom.html', {"button": ""})
   </div>
+  @@include('../../modules/user-bottom.html', {"button": ""})
   @@include('../../modules/dialog-inputwx.html')
 </body>
 @@include('../../modules/script.html')

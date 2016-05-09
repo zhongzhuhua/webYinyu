@@ -6,11 +6,10 @@
 </head>
 
 <body>
-  <div class="ice bg-yellow-low">
-    @@include('../../modules/nav-orderList.html', {"bgcolor": "bg-yellow-low"})
+  @@include('../../modules/nav-orderList.html', {"bgcolor": "bg-yellow-low"})
+  <div class="ice ice-have-nav ice-have-bar bg-yellow-low">
     <div class="ice-refresh"><span></span></div>
-    <div class="ice-loading"><span></span></div>
-    <div class="ice-main ice-main-bar ice-main-nav">
+    <div class="ice-main">
       <!-- 我的买卖列表 -->
       <div class="order-list">
         <div class="list-top pd-lr bg-yellow col-grey02 txt-c flex">
@@ -70,8 +69,8 @@
       </div>
       <!-- 我的买卖列表 end -->
     </div>
-    @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
   </div>
+  @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
   @@include('../../modules/dialog-sell.html')
   @@include('../../modules/dialog-moneyup.html')
 </body>

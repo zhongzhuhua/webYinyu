@@ -7,8 +7,8 @@
 
 <body>
   <div class="ice bg-yellow">
-    <div class="ice-refresh ice-refresh-nav"><span></span></div>
-    <div class="ice-main ice-main-bar">
+    <div class="ice-refresh"><span></span></div>
+    <div class="ice-main ice-have-bar">
       @@include('../../modules/user-mess.html', {"shard": "hidden", "sort": "hidden"})
       <!-- 用户编辑 -->
       <div class="user-edit pd-lr col-grey02">
@@ -91,9 +91,11 @@
       </div>
       <!-- 用户编辑 end -->
     </div>
-    <div class="ice-bar txt-c flex">
-      <a class="ice-endbtn i-orange i-disabled" id="submit" href="javascript:;">更新资料</a>
-    </div>
+  </div>
+  <div class="ice-bar txt-c flex">
+    <a class="ice-endbtn i-orange i-disabled" id="submit" href="javascript:;">
+      更新资料
+    </a>
   </div>
 </body>
 @@include('../../modules/script.html')

@@ -181,23 +181,35 @@ img {
 }
 
 /* 框架入口 */
-.ice {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+body {
+  margin: 0;
+  padding: 0;
   overflow: hidden;
 }
 
+.ice {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  overflow-y: scroll;
+}
+
 .ice div {
-  z-index: 1;
+  z-index: 1 !important;
+}
+
+/* 主内容 */
+.ice-main {
+  padding-bottom: 2rem;
 }
 
 /* 刷新块 */
+
 .ice-refresh {
   position: fixed;
-  top: 0;
+  top: -3rem;
   width: 100%;
   height: 1rem;
   padding-top: .5rem;
@@ -205,7 +217,7 @@ img {
   text-align: center;
   color: #aaa;
 }
- 
+
 .ice-refresh span {
   font-size: 1.2rem;
   font-weight: 700;
@@ -216,61 +228,16 @@ img {
   content: '↓'
 }
 
-/* 加载块 */
-
-.ice-loading {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 1rem;
-  padding-top: 1.5rem;
+/* 加载更多 */
+.ice-load {
+  height: 3rem;
+  line-height: 3rem;
   text-align: center;
-  color: #aaa;
-}
-
-.ice-loading span:after {
-  content: '上拉加载更多';
-}
-
-.ice-loading.ice-loadend span:after {
-  content: '已加载完所有数据';
-}
-
-/* 顶部 */
-.ice-nav {
-  position: fixed;
-  width: 100%;
-  height: 3rem;
-  line-height: 3rem;
-  background-color: #fff;
-  z-index: 2 !important;
-}
-
-/* 底部 */
-.ice-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 3rem;
-  line-height: 3rem;
-  background-color: #fff;
-  z-index: 2 !important;
-}
-
-
-/* 主内容 */
-.ice-main {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: auto;
-  overflow-x: hidden;
+  color: #ccc;
 }
 
 /* 文字不能选择 */
+
 .ice-user-select {
   user-select: none;
   -moz-user-select: -moz-none;
@@ -278,54 +245,73 @@ img {
   -ms-user-select: -ms-none;
   -o-user-select: none;
 }
-
-/* 其他布局 */
-.ice-refresh.ice-refresh-nav {
-  top: -3rem !important; 
-}
-
-.ice-loading.ice-loading-bar {
-  bottom: -3rem !important; 
-}
-
-.ice-main.ice-main-bar {
-  bottom: 3rem !important;
-}
-
-.ice-main.ice-main-nav {
-  top: 3rem !important;
-}
-/* ========== 重写框架布局 ========== */
+/* ========== 框架布局 ========== */
 
 a {
   color: inherit;
 }
 
-.ice-bar .i-link {
-  display: block;
-  border-top: 1px solid #D6D4D0;
-  border-right: 1px solid #D6D4D0;
-  font-size: .96rem;
+/* 顶部 */
+.ice-nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  z-index: 2;
 }
 
-.ice-nav-top {}
+.ice-nav a {
+  display: block;
+}
 
-.ice-nav-top >div {
+.ice-nav >div {
   display: block;
   height: 100%;
   font-size: 1rem;
   border-bottom: 1px solid #e6e3da;
   text-align: center;
+  z-index: 2;
 }
 
-.ice-nav-top >div >a {
-  display: block;
-}
-
-.ice-nav-top >div.nav-choose {
+.ice-nav >div.nav-choose {
   height: 2.78rem;
   border-bottom: .3rem solid #fa702a;
   color: #fa702a;
+}
+
+/* 底部 */
+.ice-bar {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.ice-bar .i-link {
+  display: block;
+  border-top: 1px solid #d6d4d0;
+  border-right: 1px solid #d6d4d0;
+  font-size: .96rem;
+}
+
+/* 重写 */
+
+
+.ice.ice-have-nav {
+  top: 3rem;
+}
+
+.ice.ice-have-bar {
+  bottom: 3rem;
+}
+
+.ice.ice-have-nav .ice-refresh {
+  margin-top: 3rem;
 }
 
 
@@ -516,9 +502,28 @@ a {
   background-color: #fa702a;
 }
 
-.i-disabled {
+.ice-listbtn {
+  display: inline-block;
+  padding: .4rem 1.2rem;
+  border-radius: .4rem;
+  font-size: .92rem;
+  color: #fff;
+}
+
+.ice-listbtn.i-orange {
+  border: 1px solid #fa702a;
+  color: #fa702a;
+}
+
+.ice-roundbtn.i-disabled,
+.ice-endbtn.i-disabled {
   background-color: #babbbd !important;
   border-color: #b6b7b8 !important;
+}
+
+.ice-listbtn.i-disabled {
+  border-color: #b6b7b8 !important;
+  color: #b6b7b8 !important;
 }
 
 
@@ -818,6 +823,13 @@ i.icon-close:before {
 .base-name >i {
   margin-top: -.3rem;
 } 
+
+/* list-buttons */
+.list-buttons {
+  margin-top: 1rem;
+  margin-bottom: .6rem;
+  text-align: center;
+}
 
 /* list-photo */
 .list-photo {

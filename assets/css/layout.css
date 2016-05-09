@@ -1,34 +1,70 @@
-/* ========== 重写框架布局 ========== */
+/* ========== 框架布局 ========== */
 
 a {
   color: inherit;
 }
 
-.ice-bar .i-link {
-  display: block;
-  border-top: 1px solid #D6D4D0;
-  border-right: 1px solid #D6D4D0;
-  font-size: .96rem;
+/* 顶部 */
+.ice-nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  z-index: 2;
 }
 
-.ice-nav-top {}
+.ice-nav a {
+  display: block;
+}
 
-.ice-nav-top >div {
+.ice-nav >div {
   display: block;
   height: 100%;
   font-size: 1rem;
   border-bottom: 1px solid #e6e3da;
   text-align: center;
+  z-index: 2;
 }
 
-.ice-nav-top >div >a {
-  display: block;
-}
-
-.ice-nav-top >div.nav-choose {
+.ice-nav >div.nav-choose {
   height: 2.78rem;
   border-bottom: .3rem solid #fa702a;
   color: #fa702a;
+}
+
+/* 底部 */
+.ice-bar {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.ice-bar .i-link {
+  display: block;
+  border-top: 1px solid #d6d4d0;
+  border-right: 1px solid #d6d4d0;
+  font-size: .96rem;
+}
+
+/* 重写 */
+
+
+.ice.ice-have-nav {
+  top: 3rem;
+}
+
+.ice.ice-have-bar {
+  bottom: 3rem;
+}
+
+.ice.ice-have-nav .ice-refresh {
+  margin-top: 3rem;
 }
 
 
@@ -219,9 +255,28 @@ a {
   background-color: #fa702a;
 }
 
-.i-disabled {
+.ice-listbtn {
+  display: inline-block;
+  padding: .4rem 1.2rem;
+  border-radius: .4rem;
+  font-size: .92rem;
+  color: #fff;
+}
+
+.ice-listbtn.i-orange {
+  border: 1px solid #fa702a;
+  color: #fa702a;
+}
+
+.ice-roundbtn.i-disabled,
+.ice-endbtn.i-disabled {
   background-color: #babbbd !important;
   border-color: #b6b7b8 !important;
+}
+
+.ice-listbtn.i-disabled {
+  border-color: #b6b7b8 !important;
+  color: #b6b7b8 !important;
 }
 
 

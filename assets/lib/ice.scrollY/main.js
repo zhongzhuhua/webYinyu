@@ -4,22 +4,23 @@
     ice.scrollY = function(dom, options) {
       if (dom == null || dom.getAttribute('scrollY') == '') {
         return;
-      } 
- 
+      }
+
       // 配置
       var g = {
         // 刷新 dom 元素
-        refresh: options ? options.refresh : null,
-        // 加载更多 dom 元素
-        load: options ? options.load : null,
+        refresh: ice.query('.ice-refresh', dom),
         // 刷新函数
         refreshFun: options ? options.refreshFun : null,
-        // 加载更多函数
+        // 加载更多
+        load: ice.query('.ice-load', dom),
         loadFun: options ? options.loadFun : null,
+        // 开始执行的函数
+        startFun: options ? options.startFun : null,
+        // 结束执行的函数
+        endFun: options ? options.endFun : null,
         // 什么样式不执行 scroll 事件
         noClass: 'option',
-        // 数据加载完成之后的样式
-        loadEndClass: 'ice-loadend',
 
         // 是否按住
         isBegin: false,
@@ -41,12 +42,18 @@
         isRun: false,
         // 目前移动距离
         runDiff: 0,
-        // 按住多少毫秒执行事件
+        // 按住多少毫秒执行刷新事件
         runTime: 500,
+        // 按住多少毫秒执行加载更多事件
+        runTime2: 0,
         runBegin: 0
       };
 
+      // 主内容
+      var domMain = ice.query('.ice-main');
+
       dom.setAttribute('scroll-load', '1');
+
 
       // 计算实际高度
       g.runHeightRealy = g.runHeight * 10 / 0.625;
@@ -75,6 +82,10 @@
         }
         g.isBegin = true;
         g.runBegin = new Date().getTime();
+
+        if(ice.isFunction(g.startFun)) {
+          g.startFun(dom, g.load);
+        }
       });
 
       // 滑动事件
@@ -96,7 +107,6 @@
               });
             }
           } else if (diff < 0 && dom.scrollTop + dom.clientHeight >= dom.scrollHeight - 1) {
-            // 如果是上拉，超出滚动条的时候，才执行事件
             g.isMove = true;
             stopDefault(e);
             stepRun(diff);
@@ -114,14 +124,23 @@
           dom.onselectstart = dom.ondrag = null;
         }
 
-        // 如果超过则执行函数
-        if(new Date().getTime() - g.runBegin > g.runTime) {
+        // 如果按住超过多少秒则执行刷新
+        var runEnd = new Date().getTime();
+        if (runEnd - g.runBegin > g.runTime) {
           if (Math.abs(g.runDiff) > g.runHeightRealy) {
             if (g.runDiff > 0 && g.refresh && g.refreshFun) {
               g.refreshFun();
-            } else if (g.runDiff < 0 && g.load && g.loadFun) {
-              if(dom.getAttribute('scroll-load') !== '0') {
-                g.loadFun();
+            }
+          }
+        }
+
+        // 如果按住超过多少秒则执行加载更多
+        if (runEnd - g.runBegin > g.runTime2) {
+          if (g.runDiff < 0 && g.load && g.loadFun) {
+            if (dom.getAttribute('scroll-load') !== '0') {
+              g.loadFun();
+              if(ice.isFunction(g.endFun)) {
+                g.endFun(dom, g.load);
               }
             }
           }
@@ -139,7 +158,7 @@
       function stepRun(diff) {
         var percentage = (diff / g.height).toFixed(2) * g.moveHeight;
         g.runDiff = percentage;
-        ice.css(dom, {
+        ice.css(domMain, {
           'transform': 'translateY(' + percentage + 'px)'
         });
 
@@ -148,17 +167,12 @@
             'transform': 'translateY(' + percentage + 'px)'
           });
         }
-        if (!!g.load && percentage <= 0) {
-          ice.css(g.load, {
-            'transform': 'translateY(' + percentage + 'px)'
-          });
-        }
       };
 
       // 阻止默认事件
       function stopDefault(e, buildTimer) {
         e.preventDefault();
-        if(window.event) {
+        if (window.event) {
           window.event.cancelBubble = true;
         }
         if (!g.isMove) {
@@ -172,15 +186,13 @@
     };
 
     // 可以滚动
-    ice.scrollY.start = function(dom, load) {
+    ice.scrollY.start = function(dom) {
       dom.setAttribute('scroll-load', '1');
-      ice.removeClass(load, 'ice-loadend');
     };
 
     // 禁用滚动
-    ice.scrollY.stop = function(dom, load) {
+    ice.scrollY.stop = function(dom) {
       dom.setAttribute('scroll-load', '0');
-      ice.addClass(load, 'ice-loadend');
     };
   }
 })(ice);

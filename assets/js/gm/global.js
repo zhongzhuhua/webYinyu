@@ -7,28 +7,53 @@ define(function(require, exports, module) {
 
   // 公用调用
   var domNav = ice.query('.ice-nav');
-  var domMain = ice.query('.ice-main');
-  var domRefresh = ice.query('.ice-refresh');
-  var domLoading = ice.query('.ice-loading');
+  var domScroll = ice.query('.ice');
 
   // 绑定下拉刷新
+  var mytimer = null;
+  var $load = null;
   exports.bindScroll = function(_reload, _load) {
-    ice.scrollY(domMain, {
-      refresh: domRefresh,
-      load: domLoading,
+    ice.scrollY(domScroll, {
       refreshFun: _reload,
-      loadFun: _load
+      loadFun: _load,
+      startFun: function(dom, load) {
+        $load = load;
+        if(load && dom.getAttribute('scroll-load') == '1') {
+          load.innerHTML = '加载更多';
+        }
+      },
+      endFun: function(dom, load) {
+        var textArr = ['.', '..', '...', '....'];
+        if(load && dom.getAttribute('scroll-load') == '1') {
+          var idx = 0;
+          clearInterval(mytimer);
+          mytimer = setInterval(function() {
+            if(idx == 100) {
+              scrollLoadded();
+            }
+            $load.innerHTML = '数据加载中' + textArr[idx % 4];
+            idx++;
+          }, 500);
+        }
+      }
     });
   };
 
   // 最后一页
   exports.scrollEnd = function() {
-    ice.scrollY.stop(domMain, domLoading);
+    ice.scrollY.stop(domMain);
   };
+
+  // 加载完成
+  function scrollLoadded() {
+    clearInterval(mytimer);
+    if($load) $load.innerHTML = '';
+  };
+  exports.scrollLoadded = scrollLoadded;
 
   // 重置分页
   exports.scrollStart = function() {
-    ice.scrollY.start(domMain, domLoading);
+    ice.scrollY.start(domMain);
   };
 
   if (domNav != null) {

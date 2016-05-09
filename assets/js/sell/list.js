@@ -17,13 +17,14 @@ define(function(require, exports, module) {
   // 查询列表
   function findList(clear) {
     if (!haveNext) return;
+    var layer = null;
     if (clear) {
       $list.innerHTML = '';
       mydata.index = 1;
       gm.scrollStart();
       haveNext = true;
+      layer = gm.loading();
     };
-    var layer = gm.loading();
     console.log(mydata);
 
     // 执行查询
@@ -72,6 +73,7 @@ define(function(require, exports, module) {
         } catch (e) {
           console.log('findList error:' + e.message);
         }
+        gm.scrollLoadded();
       }
     });
   };
