@@ -26,11 +26,15 @@ define(function(require, exports, module) {
           var idx = 0;
           clearInterval(mytimer);
           mytimer = setInterval(function() {
-            if (idx == 100) {
-              scrollLoadded();
+            try {
+              if (idx == 100) {
+                scrollLoadded();
+              }
+              $load.innerHTML = '数据加载中' + textArr[idx % 4];
+              idx++;
+            } catch(e) {
+              clearInterval(mytimer);
             }
-            $load.innerHTML = '数据加载中' + textArr[idx % 4];
-            idx++;
           }, 200);
 
           setTimeout(function() {
