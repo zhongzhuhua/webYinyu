@@ -144,10 +144,11 @@ define(function(require, exports, module) {
               var name = ice.toEmpty(model.nick);
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var img = '<img src="' + photo + '" alt="">';
+              var id = ice.toEmpty(model.identify);
               var lv = gm.enum.getLevel(model.consumption_level);
               var content = ice.removeAttr(model.comment);
               var col = model.type === '1' ? 'col-orange' : 'col-grey01';
-              html += listTemp.replace('{lv}', lv).replace('{col}', col).replace('{img}', img).replace('{name}', name).replace('{content}', content);
+              html += listTemp.replace('{lv}', lv).replace('{id}', id).replace('{col}', col).replace('{img}', img).replace(/{name}/g, name).replace('{content}', content);
             }
             var divs = document.createElement('div');
             divs.innerHTML = html;
@@ -178,36 +179,53 @@ define(function(require, exports, module) {
 
   // 绑定发表评论
   function bindSend() {
-    var html = '<input id="layerSendMess" class="input01 col-grey02" placeHolder="请输入您的评论" maxlength="80">';
     $btnCommont.addEventListener(ice.tapClick, function() {
-      var layer = gm.confirm(html, function() {
-        gm.close(layer, 0);
-        var sendMess = ice.trim(ice.removeAttr(ice.query('#layerSendMess').value));
-        if (sendMess.length > 0) {
-          gm.ajax({
-            url: '/wechat/version/previous/user/comment/add.json',
-            async: true,
-            data: {
-              identify: identify,
-              comment: sendMess
-            },
-            success: function(data) {
-              try {
-                // 评论成功
-                var status = data.status;
-                if (status == '200') {
-                  var model = data.value;
-                  addMess(model, sendMess, '11');
-                }
-              } catch (e) {
-                console.log(e.message);
-              }
-            }
-          });
-        }
-      });
-      ice.query('#layerSendMess').focus();
+      openSend();
     });
+    
+    $list.addEventListener(ice.tapClick, function(e) {
+      e = e || window.event;
+      var dom = e.srcElement;
+      var clz = dom.className;
+      if (clz.indexOf('list-mess') > -1) {
+        openSend(dom.getAttribute('data-name'), dom.getAttribute('data-value'));
+      }
+    });
+  };
+
+  // 评论弹窗
+  function openSend(user, id) {
+    user = user == null ? '请输入您的评论' : '@ ' + user;
+    var html = '<input id="layerSendMess" class="input01 col-grey02" placeHolder="' + user + '" maxlength="80"><div class="col-grey03" style="width: 15rem; font-size: .7rem; text-align: left; padding: 0 3rem; margin: 0 auto; margin-top: -1rem; line-height: 1rem; margin-bottom: .8rem;">友情提示：点击评论区，即可回 复TA哦~</div>';
+    var layer = gm.confirm(html, function() {
+      gm.close(layer, 0);
+      var sendMess = ice.trim(ice.removeAttr(ice.query('#layerSendMess').value));
+      if (sendMess.length > 0) {
+        gm.ajax({
+          url: '/wechat/version/previous/user/comment/add.json',
+          async: true,
+          data: {
+            identify: identify,
+            comment: sendMess,
+            touser: ice.toEmpty(id)
+          },
+          success: function(data) {
+            try {
+              // 评论成功
+              var status = data.status;
+              if (status == '200') {
+                var model = data.value;
+                addMess(model, sendMess, '11');
+              }
+            } catch (e) {
+              console.log(e.message);
+            }
+          }
+        });
+      }
+    });
+    var $input = ice.query('#layerSendMess');
+    $input.focus();
   };
 
   // 添加一个信息
@@ -216,9 +234,10 @@ define(function(require, exports, module) {
     var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
     photo = '<img src="' + photo + '" alt="">';
     var lv = gm.enum.getLevel(model.consumption_level);
+    var id = ice.toEmpty(model.identify);
     var col = type === '1' ? 'col-orange' : 'col-grey01';
     var div = document.createElement('div');
-    div.innerHTML = listTemp.replace('{lv}', lv).replace('{col}', col).replace('{img}', photo).replace('{name}', name).replace('{content}', sendMess);
+    div.innerHTML = listTemp.replace('{lv}', lv).replace('{id}', id).replace('{col}', col).replace('{img}', photo).replace(/{name}/g, name).replace('{content}', sendMess);
     $list.insertBefore(div, ice.query('#list div'));
   };
 
