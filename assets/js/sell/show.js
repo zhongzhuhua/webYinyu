@@ -179,11 +179,14 @@ define(function(require, exports, module) {
 
   // 绑定发表评论
   function bindSend() {
-    $btnCommont.addEventListener(ice.tapClick, function() {
+    $btnCommont.addEventListener(ice.tapClick, function(e) {
+      e.stopPropagation();
+      ice.stopDefault(e);
       openSend();
     });
     
-    $list.addEventListener(ice.tapClick, function(e) {
+    // 为了避免和 ice 插件的 touchStart 事件有冲突，使用 click 事件来绑定
+    $list.addEventListener('click', function(e) {
       e = e || window.event;
       var dom = e.srcElement;
       var clz = dom.className;

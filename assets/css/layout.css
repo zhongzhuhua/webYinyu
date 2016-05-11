@@ -4,9 +4,11 @@ a {
   color: inherit;
 }
 
+
 /* 顶部 */
+
 .ice-nav {
-  position: fixed;
+  position: absolute;
   width: 100%;
   top: 0;
   height: 3rem;
@@ -34,9 +36,11 @@ a {
   color: #fa702a;
 }
 
+
 /* 底部 */
+
 .ice-bar {
-  position: fixed;
+  position: absolute;
   width: 100%;
   bottom: 0;
   height: 3rem;
@@ -52,8 +56,8 @@ a {
   font-size: .96rem;
 }
 
-/* 重写 */
 
+/* 重写 */
 
 .ice.ice-have-nav {
   top: 3rem;
@@ -204,7 +208,7 @@ a {
 /* ======== 公用按钮 ======== */
 
 .ice-roundbtn {
-  position: fixed;
+  position: absolute;
   display: block;
   right: 1rem;
   width: 2.8rem;
@@ -217,7 +221,6 @@ a {
   border-width: 2px;
   border-style: solid;
   z-index: 3;
-
   -webkit-border-radius: 50%;
 }
 
@@ -366,7 +369,6 @@ a {
   overflow: hidden;
   border: 1px solid #d6d4d0;
   background-color: #fff;
-
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -533,7 +535,7 @@ a {
   font-family: 'iconfont';
   src: url('//at.alicdn.com/t/font_1461733607_4005296.eot');
   /* IE9*/
-  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot?#iefix') format('rembedded-opentype'), /* IE6-IE8 */
+  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
   url('//at.alicdn.com/t/font_1461733607_4005296.woff') format('woff'), /* chrome、firefox */
   url('//at.alicdn.com/t/font_1461733607_4005296.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('//at.alicdn.com/t/font_1461733607_4005296.svg#iconfont') format('svg');
