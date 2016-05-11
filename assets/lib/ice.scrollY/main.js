@@ -171,10 +171,7 @@
 
       // 阻止默认事件
       function stopDefault(e, buildTimer) {
-        e.preventDefault();
-        if (window.event) {
-          window.event.cancelBubble = true;
-        }
+        ice.stopDefault(e);
         if (!g.isMove) {
           ice.addClass(dom, 'ice-user-select');
           dom.onselectstart = dom.ondrag = function() {

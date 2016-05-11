@@ -193,6 +193,15 @@
     }
   };
 
+  // 阻止浏览器默认事件
+  ice.stopDefault = function(e) {
+    e = e || window.event;
+    e.preventDefault();
+    if (window.event) {
+      window.event.cancelBubble = true;
+    }
+  };
+
   // 阻止事件冒泡
   ice.stopPropagation = function(e) {
     e = e || window.event;
