@@ -28,12 +28,42 @@ section {
 body {
   font-family: 'Microsoft YaHei', 'PingHei', 'Lucida Grande', 'Lucida Sans Unicode', 'STHeiti', 'Helvetica', 'Arial', 'Verdana', 'sans-serif'; 
   color: #7a7c80;
-  font-size: 88%;
+  font-size: 16px;
   overflow-x: hidden;
   /* 关闭字体自动调整大小 */
   -webkit-text-size-adjust: none;
   /* 滚动顺畅 */
   -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 361px) and (max-width: 480px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 640px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 641px) and (max-width: 800px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 801px) {
+  body {
+    font-size: 22px;
+  }
 }
 
 a {

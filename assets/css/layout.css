@@ -102,8 +102,8 @@ a {
 }
 
 .layermbtn {
-  border-radius: 1rem;
-  -webkit-border-radius: 1rem;
+  border-radius: 0 0 1rem 1rem;
+  -webkit-border-radius: 0 0 1rem 1rem;
   overflow: hidden;
 }
 
@@ -533,7 +533,7 @@ a {
   font-family: 'iconfont';
   src: url('//at.alicdn.com/t/font_1461733607_4005296.eot');
   /* IE9*/
-  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  src: url('//at.alicdn.com/t/font_1461733607_4005296.eot?#iefix') format('rembedded-opentype'), /* IE6-IE8 */
   url('//at.alicdn.com/t/font_1461733607_4005296.woff') format('woff'), /* chrome、firefox */
   url('//at.alicdn.com/t/font_1461733607_4005296.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('//at.alicdn.com/t/font_1461733607_4005296.svg#iconfont') format('svg');
