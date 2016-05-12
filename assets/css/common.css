@@ -351,9 +351,23 @@ a {
 
 /* ======= 重写 layer ========= */
 
-.layermmain {
-  font-family: inherit;
+/* 移动端兼容，pc 下去掉 */
+.layermchild {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
 }
+
+.layermanim {
+  animation-name: none;
+  -webkit-animation-name: none;
+  -moz-animation-name: none;
+}
+/* 移动端兼容，pc 下去掉 */
 
 .layermanim {
   border-radius: .68rem;
