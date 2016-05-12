@@ -96,6 +96,9 @@ define(function(require, exports, module) {
   function findUser() {
     gm.getUser(null, function(model) {
       try {
+        if (model.is_auction == '1' && ice.request('url_from').length == 0) {
+          gm.go('/html/sell/show.html');
+        }
         var city = ice.toEmpty(model.city);
         var sex = gm.enum.sex[model.sex];
         var photo = ice.isEmpty(model.face) ? gm.photo : model.face;

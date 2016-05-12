@@ -167,7 +167,7 @@ define(function(require, exports, module) {
 
   // 发起一个支付
   exports.pay = function(options) {
-    gm.alert('<div style="padding: 1rem;">微信插件未正常初始化</div>');
+    gm.alert('<div style="padding: 1rem;">请稍后再进行购买</div>');
   };
 
   // 公用微信端异常处理

@@ -64,8 +64,9 @@ define(function(require, exports, module) {
         SetSellInfo(myModel);
 
         // 如果是自己看自己的
-        if (_self) {
+        if (_self || _self == '1') {
           $bottomEdit.innerHTML = '编辑';
+          $bottomEdit.href = '/html/sell/edit.html?url_from=/html/sell/show.html';
         }
 
       } catch (e) {
