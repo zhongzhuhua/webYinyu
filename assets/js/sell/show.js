@@ -252,7 +252,7 @@ define(function(require, exports, module) {
   var inputLayer;
 
   function bindBuy() {
-    ice.removeClass($btnCommont, 'i-disabled');
+    ice.removeClass($btnWantBuy, 'i-disabled');
     $btnWantBuy.addEventListener(ice.tapClick, payMoney);
   };
 

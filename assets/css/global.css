@@ -165,6 +165,9 @@ img {
   text-align: right;
 }
 
+.line-through {
+  text-decoration: line-through;
+}
 
 /* 超出的字体变省略号 */
 
