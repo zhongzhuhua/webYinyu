@@ -109,6 +109,10 @@ a {
   -webkit-animation-name: none;
   -moz-animation-name: none;
 }
+
+.alert-mess.layermchild {
+  top: 1em;
+}
 /* 移动端兼容，pc 下去掉 */
 
 .layermanim {

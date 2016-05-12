@@ -14,6 +14,7 @@
 			"service_name": "开玩笑",
 			"face": "/assets/images/user.png",
 			"sex": "1",
+			"refer_nick": "大苹果",
 			"consumption_level": "22",
 			"comment": "我是&nbsp;<div></div>\"中国人\",'哈哈'"
   	},{
@@ -24,6 +25,7 @@
 			"service_name": "讲故事",
 			"face": "/assets/images/user.png",
 			"sex": "2",
+			"refer_nick": "",
 			"consumption_level": "17",
 			"comment": "这是我说的话"
   	},{
@@ -31,6 +33,7 @@
   	  "time": "12月17日",
 			"identify": "1003",
 			"nick": "小苹果3",
+			"refer_nick": "大苹果",
 			"face": "/assets/images/user.png",
 			"sex": "2",
 			"consumption_level": "12",
@@ -40,6 +43,7 @@
   	  "time": "12月17日",
 			"identify": "1004",
 			"nick": "小苹果4",
+			"refer_nick": "",
 			"face": "/assets/images/user.png",
 			"sex": "1",
 			"consumption_level": "2",
@@ -49,6 +53,7 @@
   	  "time": "12月17日",
 			"identify": "1003",
 			"nick": "小苹果3",
+			"refer_nick": "大苹果",
 			"face": "/assets/images/user.png",
 			"sex": "2",
 			"consumption_level": "12",
@@ -58,6 +63,7 @@
   	  "time": "12月17日",
 			"identify": "1004",
 			"nick": "小苹果4",
+			"refer_nick": "",
 			"face": "/assets/images/user.png",
 			"sex": "1",
 			"consumption_level": "2",
