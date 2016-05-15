@@ -322,12 +322,19 @@
       if (finish) {
         var result = myhttp.responseText;
         if (options.dataType == 'json') {
-          result = ice.parseJson(result);
+          try {
+            result = ice.parseJson(result);
+          } catch(e) {
+            result = 'json parse error';
+          }
         }
 
         options.success(result);
       } else {
-        options.error('request error');
+        if(ice.isFunction(options.error)) {
+          console.log('request error');
+          options.error(myhttp);  
+        }
       }
     }
   };
