@@ -7,6 +7,8 @@ define(function(require, exports, module) {
 
   // 是否已经初始化
   var isinit = false;
+  // 避免重复支付
+  var _pay = true;
 
   // 获取微信配置
   exports.init = function(config, _fun) {
@@ -51,6 +53,11 @@ define(function(require, exports, module) {
 
       // 用户支付 options.id 要买的用户id options.success = function() {}
       exports.pay = function(options) {
+        if(!_pay) {
+          return;
+        }
+        _pay = false;
+
         gm.ajax({
           url: '/wechat/version/previous/service/buy.json',
           data: {
@@ -73,11 +80,22 @@ define(function(require, exports, module) {
                       options.success(res);
                     }
                   }
+                  _pay = true;
+                },
+                cancel: function() {
+                  _pay = true;
+                },
+                error: function() {
+                  _pay = true;
                 }
               });
             } catch (e) {
               console.log('wxpay error:' + e.message);
             }
+            _pay = false;
+          },
+          error: function() {
+            _pay = true;
           }
         });
       };

@@ -4,6 +4,13 @@ a {
   color: inherit;
 }
 
+.list-photo img,
+.base-photo img,
+.sell-photo img {
+  width: 100%;
+  height: 100%;
+}
+
 
 /* 顶部 */
 
