@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
   var gm = require('global');
   var ice = gm.ice;
+  var gm_wechat = require('wechat');
 
   var $txtSkill = ice.query('#txtSkill');
   var $txtPrice = ice.query('#txtPrice');
@@ -95,6 +96,10 @@ define(function(require, exports, module) {
   // 获取用户信息
   function findUser() {
     gm.getUser(null, function(model) {
+      // 微信配置初始化
+      gm_wechat.init(model);
+      gm_wechat.bindSound();
+
       try {
         if (model.is_auction == '1' && ice.request('url_from').length == 0) {
           gm.go('/html/sell/show.html');

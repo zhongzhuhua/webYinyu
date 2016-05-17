@@ -3,24 +3,28 @@
 .list-name >i,
 .base-name >i {
   margin-top: -.3rem;
-} 
+}
+
 
 /* list-buttons */
+
 .list-buttons {
   margin-top: 1rem;
   margin-bottom: .6rem;
   text-align: center;
 }
 
+
 /* list-photo */
+
 .list-photo {
   position: relative;
 }
 
-  
+
 /* 列表冠军 */
-.
-.list-winner {
+
+. .list-winner {
   position: relative;
   width: 6rem;
   height: 6rem;
@@ -170,7 +174,7 @@
   min-height: 1.4rem;
   border-radius: 1rem;
   border: 1px solid #eee;
-} 
+}
 
 
 /* 交流列表 */
@@ -384,6 +388,21 @@
   color: #fff;
 }
 
+.form-edit .ice-bgbtn {
+  font-size: 1.4rem;
+}
+
+.form-edit .ice-bgbtn i {
+  margin-top: -.2rem
+}
+
+.form-edit .btn-big {
+  font-size: 1.82rem;
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+}
+
 
 /* 表单编辑 */
 
@@ -398,6 +417,7 @@
 
 
 /* 提现弹窗 */
+
 
 /* 输入微信弹窗 */
 

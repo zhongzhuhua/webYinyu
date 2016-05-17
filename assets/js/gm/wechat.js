@@ -36,7 +36,7 @@ define(function(require, exports, module) {
 
   // 初始化微信配置
   function wxconfig(data, config, _fun) {
-    if(isinit) return;
+    if (isinit) return;
     isinit = true;
 
     wx.config({
@@ -45,7 +45,7 @@ define(function(require, exports, module) {
       timestamp: data.timestamp,
       nonceStr: data.random,
       signature: data.signature,
-      jsApiList: ['chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']
+      jsApiList: ['chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone', 'startRecord', 'stopRecord', 'playVoice', 'stopVoice', 'onVoicePlayEnd', 'stopVoice']
     });
 
     // 如果初始化成功
@@ -53,7 +53,7 @@ define(function(require, exports, module) {
 
       // 用户支付 options.id 要买的用户id options.success = function() {}
       exports.pay = function(options) {
-        if(!_pay) {
+        if (!_pay) {
           return;
         }
         _pay = false;
@@ -98,6 +98,11 @@ define(function(require, exports, module) {
             _pay = true;
           }
         });
+      };
+
+      // 录音
+      exports.bindSound = function() {
+        _bindSound();
       };
 
       var shardTemp = {
@@ -156,7 +161,7 @@ define(function(require, exports, module) {
       });
 
       // 初始化方法
-      if(ice.isFunction(_fun)) {
+      if (ice.isFunction(_fun)) {
         _fun();
       }
     });
@@ -186,6 +191,127 @@ define(function(require, exports, module) {
   // 发起一个支付
   exports.pay = function(options) {
     gm.alert('<div style="padding: 1rem;">请稍后再进行购买</div>');
+  };
+
+  // =============== 录音相关 =================
+  var localId = null;
+  var uploadLocalId = null;
+  var isplay = false;
+  var $wxBtnDelete = ice.query('#wxBtnDelete');
+  var $wxBtnSound = ice.query('#wxBtnSound');
+  var $wxBtnMack = ice.query('#wxBtnMack');
+
+  // 绑定录音
+  function _bindSound() {
+
+    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+    wx.onVoiceRecordEnd({
+      complete: function(res) {
+        uploadLocalId = res.localId;
+        if (uploadLocalId != null) {
+          _uploadSound();
+        }
+      }
+    });
+
+    // 录音按钮
+    if ($wxBtnMack) {
+      ice.removeClass($wxBtnMack, 'i-disabled');
+      // 开始录音
+      $wxBtnMack.addEventListener(ice.tapStart, function(e) {
+        ice.stopDefault(e);
+        ice.stopPropagation(e);
+        uploadLocalId = null;
+        ice.addClass($wxBtnMack, 'i-disabled');
+        wx.startRecord();
+      });
+      $wxBtnMack.addEventListener(ice.tapMove, function(e) {
+        ice.stopDefault(e);
+        ice.stopPropagation(e);
+      });
+      // 结束录音
+      $wxBtnMack.addEventListener(ice.tapEnd, function(e) {
+        ice.stopDefault(e);
+        ice.stopPropagation(e);
+        ice.removeClass($wxBtnMack, 'i-disabled');
+        wx.stopRecord({
+          success: function(res) {
+            uploadLocalId = res.localId;
+            if (uploadLocalId != null) {
+              _uploadSound();
+            }
+          }
+        });
+      });
+    }
+
+    // 播放
+    if ($wxBtnSound) {
+      ice.removeClass($wxBtnSound, 'i-disabled');
+      $wxBtnSound.addEventListener('click', function(e) {
+        _playSound();
+      });
+    }
+
+    // 删除
+    if($wxBtnDelete) {
+      ice.removeClass($wxBtnDelete, 'i-disabled');
+      $wxBtnDelete.addEventListener('click', function(e) {
+        _deleteSound();
+      });
+    }
+  };
+
+  exports.bindSound = _bindSound;
+
+
+  // 上传录音
+  function _uploadSound() {
+    if (localId != null && localId != '') {
+      wx.uploadVoice({
+        localId: localId,
+        isShowProgressTips: 1,
+        success: function(res) {
+          var serverId = res.serverId;
+
+          // 上传到服务器
+          gm.ajax({
+            url: '/wechat/wechat/media.json',
+            data: {
+              type: 'voice',
+              media_id: localId
+            },
+            success: function(data) {
+              if(data.status == '200') {
+                localId = uploadLocalId;
+              }
+            }
+          });
+        }
+      });
+    }
+  };
+
+  // 播放录音
+  function _playSound() {
+    if (localId != null && localId != '') {
+      if (isplay) {
+        wx.pauseVoice({
+          localId: localId
+        });
+      } else {
+        wx.playVoice({
+          localId: localId
+        });
+      }
+    }
+  };
+
+  // 删除录音
+  function _deleteSound() {
+    gm.mess('删除录音成功');
+    localId = null;
+    uploadLocalId = null;
   };
 
   // 公用微信端异常处理

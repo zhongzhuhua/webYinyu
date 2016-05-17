@@ -35,7 +35,7 @@ define(function(require, exports, module) {
           if (status == '200') {
             // 列表判断
             data = data.value;
-            haveNext = data.next;
+            haveNext = !!data.next;
 
             $userSort.innerHTML = (data.ranking);
             // 构建列表

@@ -59,7 +59,7 @@ define(function(require, exports, module) {
           if (status == '200') {
             // 列表判断
             data = data.value;
-            haveNext = data.next;
+            haveNext = !!data.next;
             mydata.index = ice.toEmpty(data.index);
 
             $available.innerHTML = data.available;
