@@ -52,39 +52,62 @@ define(function(require, exports, module) {
 
   // 绑定输入框事件
   function bindInput() {
+    // 价格
     $txtPrice.addEventListener(ice.tapKeyup, function() {
-      this.value = ice.trim(this.value);
-      mydata.prices = this.value;
+      mydata.prices = ice.trim(this.value);
       ice.removeClass($choosePrice, 'option-choose');
       checkSubmit();
     });
 
+    $txtPrice.addEventListener('change', function() {
+      if (!gm.edit.prices(ice.trim($txtPrice.value))) {
+        gm.mess('输入的拍卖价格格式错误，请重新输入');
+      }
+    });
+
+    // 拍卖项
     $txtSkill.addEventListener(ice.tapKeyup, function() {
       mydata.skills = ice.trim(this.value);
       ice.removeClass($chooseSkill, 'option-choose');
       checkSubmit();
     });
 
+    $txtSkill.addEventListener('change', function() {
+      if (!gm.edit.skills(ice.trim($txtSkill.value))) {
+        gm.mess('输入的拍卖项格式错误，请重新输入');
+      }
+    });
+
+    // 服务时长
     $txtExpires.addEventListener(ice.tapKeyup, function() {
-      this.value = ice.trim(this.value);
-      mydata.expires = this.value;
+      mydata.expires = ice.trim(this.value);
       ice.removeClass($chooseExpires, 'option-choose');
       checkSubmit();
     });
-  };
 
-  // 绑定微信号 keyup 事件
-  function bindWechat() {
+    $txtExpires.addEventListener('change', function() {
+      if (!gm.edit.expires(ice.trim($txtExpires.value))) {
+        gm.mess('输入的服务时长格式错误，请重新输入');
+      }
+    });
+
+    // 微信号
     $txtWechat.addEventListener(ice.tapKeyup, function() {
-      var val = ice.trim(this.value);
-      mydata.wechat = val;
+      mydata.wechat = ice.trim(this.value);
       checkSubmit();
+    });
+
+    $txtWechat.addEventListener('change', function() {
+      if (!gm.edit.wechat(ice.trim($txtWechat.value))) {
+        gm.mess('输入的微信号格式错误，请重新输入');
+      }
     });
   };
 
+
   // 判断是否可以提交
   function checkSubmit() {
-    if (gm.edit.prices(mydata.prices) && !ice.isEmpty(mydata.skills) && gm.edit.prices(mydata.expires) && !ice.isEmpty(mydata.wechat) && mydata.wechat.length >= 2) {
+    if (gm.edit.prices(mydata.prices) && gm.edit.skills(mydata.skills) && gm.edit.expires(mydata.expires) && gm.edit.wechat(mydata.wechat)) {
       mydata.canSubmit = true;
       ice.removeClass($btnSubmit, 'i-disabled');
     } else {
@@ -101,6 +124,13 @@ define(function(require, exports, module) {
       gm_wechat.bindSound();
 
       try {
+        // 语音
+        var audio = ice.toEmpty(model.audio);
+        if (audio != '') {
+          gm_wechat.initSound(audio);
+        }
+
+        // 基础信息
         if (model.is_auction == '1' && ice.request('url_from').length == 0) {
           gm.go('/html/sell/show.html');
         }
@@ -174,7 +204,6 @@ define(function(require, exports, module) {
     findUser();
     navChoose();
     bindInput();
-    bindWechat();
 
     // 绑定更新按钮事件
     $btnSubmit.addEventListener(ice.tapClick, function() {
@@ -192,7 +221,7 @@ define(function(require, exports, module) {
             price: mydata.prices * 1000,
             expires: mydata.expires,
             wechat: mydata.wechat,
-            audio: ''
+            audio: gm_wechat.getSoundPath()
           },
           success: function(data) {
             try {

@@ -41,6 +41,7 @@ define(function(require, exports, module) {
   var $userPrice = ice.query('#userPrice');
   var $userCitySort = ice.query('#userCitySort');
   var $sortType = ice.query('#sortType');
+  var $wxBtnSound = ice.query('#wxBtnSound');
 
   // 底部菜单
   var $bottomEdit = ice.query('#bottomEdit');
@@ -51,6 +52,7 @@ define(function(require, exports, module) {
     gm.getUser(identify, function(model) {
       // 微信分享配置
       gm_wechat.init(model, bindBuy);
+      gm_wechat.bindSound();
 
       myModel = model;
       try {
@@ -78,6 +80,7 @@ define(function(require, exports, module) {
   // 添加用户信息
   function SetSellInfo(model) {
     try {
+      // 基础信息
       var city = ice.toEmpty(model.city);
       var sex = gm.enum.sex[model.sex];
       var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
@@ -89,11 +92,19 @@ define(function(require, exports, module) {
       var citySort = (model.ranking_city);
       var expires = (model.expires);
 
+      // 性别
       var sexName = ice.toEmpty(gm.enum.sexName[model.sex]);
       if (sexName != '') {
         $sortType.innerHTML = '(' + sexName + ')';
       }
 
+      // 语音
+      var audio = ice.toEmpty(model.audio);
+      if (audio != '') {
+        gm_wechat.initSound(audio, true);
+      }
+
+      // 其他信息
       $userName.innerHTML = name;
       $userPhoto.src = photo;
       $userSort.innerHTML = sort;
@@ -187,7 +198,7 @@ define(function(require, exports, module) {
       ice.stopDefault(e);
       openSend();
     });
-    
+
     // 为了避免和 ice 插件的 touchStart 事件有冲突，使用 click 事件来绑定
     $list.addEventListener('click', function(e) {
       e = e || window.event;

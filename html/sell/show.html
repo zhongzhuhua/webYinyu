@@ -14,7 +14,11 @@
       <div class="pd-lr user-skill bg-yellow-low flex col-grey02">
         <div>拍卖项</div>
         <div class="skill-info flex-1 txt-l textover" id="userSkills"></div>
-        <div><span class="col-orange" id="userBegin"></span></div>
+        <div><span class="col-orange" id="wxBtnSound"></span></div>
+        <!-- 语音 -->
+        <div class="hidden">
+          <audio id="wxSoundSource" src=""></audio>
+        </div>
       </div>
       <!-- 用户技能 end -->
       <!-- 用户身价 -->
@@ -55,7 +59,7 @@
               {name}
               <span class="{lv}"></span>
             </div>
-            <div class="list-mess bg-yellow-low {col}" data-value="{id}" data-name="{name}">{content}</div>
+            <div class="list-mess word-wrap bg-yellow-low {col}" data-value="{id}" data-name="{name}">{content}</div>
           </div>
         </div>
       </div>

@@ -2,8 +2,10 @@ define(function(require, exports, module) {
   require('layer');
 
   // 统一 ajax ，生产线 http://api.haoyoumm.com
-  var ctx = location.host.indexOf('mm') > -1 ? 'http://api.haoyoumm.com' : '';
+  var isprod = location.host.indexOf('mm') > -1;
+  var ctx = isprod ? 'http://api.haoyoumm.com' : '';
   exports.ctx = ctx;
+  exports.isprod = isprod;
 
   // 公用调用
   var domNav = ice.query('.ice-nav');
@@ -16,6 +18,7 @@ define(function(require, exports, module) {
   if ($load) {
     $load.innerHTML = '上拉加载更多';
   }
+
   exports.bindScroll = function(_reload, _load) {
     ice.scrollY(domScroll, {
       refreshFun: _reload,
@@ -32,7 +35,7 @@ define(function(require, exports, module) {
               }
               $load.innerHTML = '数据加载中' + textArr[idx % 4];
               idx++;
-            } catch(e) {
+            } catch (e) {
               clearInterval(mytimer);
             }
           }, 200);
@@ -49,16 +52,16 @@ define(function(require, exports, module) {
 
   // 加载完成 type='i'[初始化] type=false[结束] type=other[普通]
   function scrollLoad(type) {
-    if($load) {
+    if ($load) {
       clearInterval(mytimer);
-      if(type === false) {
+      if (type === false) {
         ice.scrollY.stop(domScroll);
         $load.innerHTML = '已经加载全部数据';
       } else if (type == 'i') {
         ice.scrollY.start(domScroll);
-        $load.innerHTML = '上拉加载更多';  
+        $load.innerHTML = '上拉加载更多';
       } else {
-        $load.innerHTML = '上拉加载更多';  
+        $load.innerHTML = '上拉加载更多';
       }
     }
   };
@@ -140,7 +143,7 @@ define(function(require, exports, module) {
       shade: false,
       className: 'alert-mess',
       content: (m == null || m == '' ? '操作成功' : m),
-      //time: 3
+      time: 3
     });
   };
   exports.mess = mess;
@@ -173,15 +176,34 @@ define(function(require, exports, module) {
   // 默认头像
   exports.photo = '/assets/images/user.png';
 
-  // 身价 
+  // 校验  
+  var reg = {
+    int: /^[+-]?([1-9][0-9]*|0+)$/,
+    float: /^[+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?$/
+  };
+  exports.reg = reg;
+
+  // 编辑校验
   exports.edit = {
-    prices: function(s) {
-      var v = ice.parseFloat(s);
-      return v >= 0.01 && v <= 999.99
+    prices: function(v) {
+      if (reg.float.test(v)) {
+        v = ice.parseFloat(v);
+        return v >= 0.01 && v <= 999.99
+      }
+      return false;
     },
-    expires: function(s) {
-      var v = ice.parseInt(s);
-      return v >= 1 && v <= 180;
+    expires: function(v) {
+      if (reg.int.test(v)) {
+        v = ice.parseInt(v);
+        return v >= 1 && v <= 180;
+      }
+      return false;
+    },
+    skills: function(v) {
+      return /^([0-9a-zA-Z \u4E00-\u9FA5]){1,18}$/.test(v);
+    },
+    wechat: function(v) {
+      return /^([a-zA-Z][a-zA-Z0-9_\-]{1,19}|\d{5,15})$/.test(v);
     }
   };
 

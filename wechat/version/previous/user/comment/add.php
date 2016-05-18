@@ -7,6 +7,7 @@
   	"sex": "1",
   	"face": "/assets/images/user.png",
     "consumption_level": "20",
+    "buyer_ranking": "20",
   	"nick": "小苹果"
   },
   "code": "",

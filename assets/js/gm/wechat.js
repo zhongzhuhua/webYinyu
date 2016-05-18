@@ -45,7 +45,9 @@ define(function(require, exports, module) {
       timestamp: data.timestamp,
       nonceStr: data.random,
       signature: data.signature,
-      jsApiList: ['chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone', 'startRecord', 'stopRecord', 'playVoice', 'stopVoice', 'onVoicePlayEnd', 'stopVoice']
+      jsApiList: ['chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone',
+        'startRecord', 'stopRecord', 'onVoiceRecordEnd', 'uploadVoice'
+      ]
     });
 
     // 如果初始化成功
@@ -195,11 +197,15 @@ define(function(require, exports, module) {
 
   // =============== 录音相关 =================
   var localId = null;
-  var uploadLocalId = null;
+  // 录音路径
+  var audioPath = null;
   var isplay = false;
+  var ismack = false;
   var $wxBtnDelete = ice.query('#wxBtnDelete');
   var $wxBtnSound = ice.query('#wxBtnSound');
   var $wxBtnMack = ice.query('#wxBtnMack');
+  var $wxBtnMackIcon = ice.query('#wxBtnMackIcon');
+  var $wxSoundSource = ice.query('#wxSoundSource');
 
   // 绑定录音
   function _bindSound() {
@@ -207,8 +213,8 @@ define(function(require, exports, module) {
     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
     wx.onVoiceRecordEnd({
       complete: function(res) {
-        uploadLocalId = res.localId;
-        if (uploadLocalId != null) {
+        localId = res.localId;
+        if (localId != null) {
           _uploadSound();
         }
       }
@@ -217,44 +223,55 @@ define(function(require, exports, module) {
     // 录音按钮
     if ($wxBtnMack) {
       ice.removeClass($wxBtnMack, 'i-disabled');
-      // 开始录音
-      $wxBtnMack.addEventListener(ice.tapStart, function(e) {
+      // 录音
+      $wxBtnMack.addEventListener('click', function(e) {
         ice.stopDefault(e);
         ice.stopPropagation(e);
-        uploadLocalId = null;
-        ice.addClass($wxBtnMack, 'i-disabled');
-        wx.startRecord();
-      });
-      $wxBtnMack.addEventListener(ice.tapMove, function(e) {
-        ice.stopDefault(e);
-        ice.stopPropagation(e);
-      });
-      // 结束录音
-      $wxBtnMack.addEventListener(ice.tapEnd, function(e) {
-        ice.stopDefault(e);
-        ice.stopPropagation(e);
-        ice.removeClass($wxBtnMack, 'i-disabled');
-        wx.stopRecord({
-          success: function(res) {
-            uploadLocalId = res.localId;
-            if (uploadLocalId != null) {
-              _uploadSound();
-            }
+        if (ismack) {
+          // 结束录音，上传录音
+          ismack = false;
+          ice.removeClass($wxBtnMack, 'i-disabled');
+          ice.removeClass($wxBtnMackIcon, 'icon-stop');
+          if (gm.isprod) {
+            wx.stopRecord({
+              success: function(res) {
+                localId = res.localId;
+                if (localId != null) {
+                  _uploadSound();
+                }
+              }
+            });
+          } else {
+            console.log('test');
+            localId = 'test';
+            _uploadSound();
           }
-        });
+        } else {
+          // 开始录音，清空 localId
+          gm.mess('正在录音中，再次点击结束录音...');
+          ismack = true;
+          localId = null;
+          ice.addClass($wxBtnMack, 'i-disabled');
+          ice.addClass($wxBtnMackIcon, 'icon-stop');
+          wx.startRecord();
+          // 录音的时候停止播放
+          isplay = true;
+          _playSound();
+        }
       });
     }
 
     // 播放
     if ($wxBtnSound) {
       ice.removeClass($wxBtnSound, 'i-disabled');
+
       $wxBtnSound.addEventListener('click', function(e) {
         _playSound();
       });
     }
 
     // 删除
-    if($wxBtnDelete) {
+    if ($wxBtnDelete) {
       ice.removeClass($wxBtnDelete, 'i-disabled');
       $wxBtnDelete.addEventListener('click', function(e) {
         _deleteSound();
@@ -264,54 +281,88 @@ define(function(require, exports, module) {
 
   exports.bindSound = _bindSound;
 
+  // 初始化录音 needTime 修改按钮文字变成带有秒数的
+  exports.initSound = function(audio, needTime) {
+    if (audio != null && audio != '') {
+      audioPath = audio;
+      $wxSoundSource.setAttribute('src', audio);
+
+      if (!!needTime && $wxBtnSound) {
+        $wxSoundSource.addEventListener('canplaythrough', function() {
+          var time = ice.parseInt($wxSoundSource.duration);
+          if (time != 0) {
+            $wxBtnSound.innerHTML = time + '"' + '<i class="icon-sound"></i>';
+          }
+        });
+      }
+    }
+  };
+
+  // 获取上传的录音地址
+  exports.getSoundPath = function() {
+    return audioPath;
+  };
 
   // 上传录音
   function _uploadSound() {
     if (localId != null && localId != '') {
-      wx.uploadVoice({
-        localId: localId,
-        isShowProgressTips: 1,
-        success: function(res) {
-          var serverId = res.serverId;
-
-          // 上传到服务器
-          gm.ajax({
-            url: '/wechat/wechat/media.json',
-            data: {
-              type: 'voice',
-              media_id: localId
-            },
-            success: function(data) {
-              if(data.status == '200') {
-                localId = uploadLocalId;
-              }
-            }
-          });
-        }
-      });
+      if (gm.isprod) {
+        wx.uploadVoice({
+          localId: localId,
+          isShowProgressTips: 1,
+          success: function(res) {
+            var serverId = res.serverId;
+            _uploadServer(serverId);
+          }
+        });
+      } else {
+        _uploadServer('');
+      }
     }
+  };
+
+  function _uploadServer(serverId) {
+    // 上传到服务器
+    gm.ajax({
+      url: '/wechat/wechat/media.json',
+      data: {
+        type: 'voice',
+        media_id: serverId
+      },
+      success: function(data) {
+        try {
+          if (data.status == '200') {
+            console.log(data);
+            var _uri = data.value.uri;
+            var _url = data.value.url;
+            $wxSoundSource.setAttribute('src', _url);
+            audioPath = _uri;
+          }
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+    });
   };
 
   // 播放录音
   function _playSound() {
-    if (localId != null && localId != '') {
-      if (isplay) {
-        wx.pauseVoice({
-          localId: localId
-        });
-      } else {
-        wx.playVoice({
-          localId: localId
-        });
-      }
-    }
+    if (isplay) {
+      $wxSoundSource.pause();
+      isplay = false;
+    } else {
+      $wxSoundSource.play();
+      isplay = true;
+    } 
   };
 
   // 删除录音
   function _deleteSound() {
     gm.mess('删除录音成功');
     localId = null;
-    uploadLocalId = null;
+    audioPath = null;
+    isplay = false;
+    $wxSoundSource.setAttribute('src', '');
   };
 
   // 公用微信端异常处理
@@ -319,7 +370,7 @@ define(function(require, exports, module) {
   (function() {
     // 绑定分享
     $btnShard.addEventListener(ice.tapClick, function() {
-      var _l = gm.open('<img src="/assets/images/share.png" class="dialogShare" style="width: 10rem; height: 5rem; float: right; padding-right: 2rem; padding-top: .5rem" />', ' background-color: transparent; position:fixed; left:0; top:0; width:100%; height:100%; border:none;');
+      var _l = gm.open('<img src="/assets/images/share.png" class="dialogShare" style="width: 10rem; height: 5rem; float: right; padding-right: 2rem; padding-top: .5rem" />', ' background-color: transparent; position:fixed; width:100%; height:100%; border:none;');
       (ice.query('.dialogShare').parentNode.parentNode).addEventListener(ice.tapClick, function(e) {
         e = e || window.event;
         e.stopPropagation();
@@ -328,3 +379,29 @@ define(function(require, exports, module) {
     });
   })();
 });
+
+// $wxBtnMack.addEventListener(ice.tapStart, function(e) {
+//   ice.stopDefault(e);
+//   ice.stopPropagation(e);
+//   uploadLocalId = null;
+//   ice.addClass($wxBtnMack, 'i-disabled');
+//   wx.startRecord();
+// });
+// $wxBtnMack.addEventListener(ice.tapMove, function(e) {
+//   ice.stopDefault(e);
+//   ice.stopPropagation(e);
+// });
+// // 结束录音
+// $wxBtnMack.addEventListener(ice.tapEnd, function(e) {
+//   ice.stopDefault(e);
+//   ice.stopPropagation(e);
+//   ice.removeClass($wxBtnMack, 'i-disabled');
+//   wx.stopRecord({
+//     success: function(res) {
+//       uploadLocalId = res.localId;
+//       if (uploadLocalId != null) {
+//         _uploadSound();
+//       }
+//     }
+//   });
+// });

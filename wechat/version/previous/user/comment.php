@@ -16,6 +16,7 @@
 			"sex": "1",
 			"refer_nick": "大苹果",
 			"consumption_level": "22",
+			"buyer_ranking": "22",
 			"comment": "我是&nbsp;<div></div>\"中国人\",'哈哈'"
   	},{
   		"type": "11",
@@ -27,6 +28,7 @@
 			"sex": "2",
 			"refer_nick": "",
 			"consumption_level": "17",
+			"buyer_ranking": "17",
 			"comment": "这是我说的话"
   	},{
   		"type": "1",
@@ -37,6 +39,7 @@
 			"face": "/assets/images/user.png",
 			"sex": "2",
 			"consumption_level": "12",
+			"buyer_ranking": "12",
 			"comment": "这是我说的话"
   	},{
   		"type": "11",
@@ -47,6 +50,7 @@
 			"face": "/assets/images/user.png",
 			"sex": "1",
 			"consumption_level": "2",
+			"buyer_ranking": "2",
 			"comment": "zhongzhuhua"
   	},{
   		"type": "1",
@@ -57,6 +61,7 @@
 			"face": "/assets/images/user.png",
 			"sex": "2",
 			"consumption_level": "12",
+			"buyer_ranking": "12",
 			"comment": "测试"
   	},{
   		"type": "11",
@@ -67,6 +72,7 @@
 			"face": "/assets/images/user.png",
 			"sex": "1",
 			"consumption_level": "2",
+			"buyer_ranking": "2",
 			"comment": "哈哈哈"
   	}]
   },

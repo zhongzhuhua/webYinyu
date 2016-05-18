@@ -7,6 +7,7 @@
   	"face": "",
   	"sex": "2",
   	"consumption_level": "2",
+    "buyer_ranking": "2",
   	"comment": "哈哈"
   },
   "code": "",

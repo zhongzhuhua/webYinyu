@@ -6,6 +6,7 @@
   	"nick": "小苹果",
   	"sex": 2,
   	"city": "深圳",
+    "audio": "http://tsmusic128.tc.qq.com/410316.mp3",
   	"recommend": [{
   		"identify": "",
   		"name": ""
@@ -13,7 +14,6 @@
   	"current": "",
   	"price": "2",
   	"expires": "12",
-  	"audio": "",
   	"wechat": ""
   },
   "code": "",
