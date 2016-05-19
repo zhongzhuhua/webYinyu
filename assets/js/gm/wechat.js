@@ -288,12 +288,18 @@ define(function(require, exports, module) {
       $wxSoundSource.setAttribute('src', audio);
 
       if (!!needTime && $wxBtnSound) {
-        $wxSoundSource.addEventListener('canplaythrough', function() {
+        var mytimer = setInterval(function() {
           var time = ice.parseInt($wxSoundSource.duration);
           if (time != 0) {
             $wxBtnSound.innerHTML = time + '"' + '<i class="icon-sound"></i>';
+            clearInterval(mytimer);
+            mytimer = null;
           }
-        });
+        }, 500);
+        setTimeout(function() {
+          clearInterval(mytimer);
+          mytimer = null;
+        }, 10000);
       }
     }
   };
