@@ -279,6 +279,10 @@ a {
 }
 
 
+.line-through {
+  text-decoration: line-through;
+}
+
 /* 顶部 */
 
 .ice-nav {

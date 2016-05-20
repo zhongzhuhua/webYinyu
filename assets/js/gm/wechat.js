@@ -282,9 +282,9 @@ define(function(require, exports, module) {
   exports.bindSound = _bindSound;
 
   // 初始化录音 needTime 修改按钮文字变成带有秒数的
-  exports.initSound = function(audio, needTime) {
+  exports.initSound = function(audio, audio_uri, needTime) {
     if (audio != null && audio != '') {
-      audioPath = audio;
+      audioPath = audio_uri;
       $wxSoundSource.setAttribute('src', audio);
 
       if (!!needTime && $wxBtnSound) {

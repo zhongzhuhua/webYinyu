@@ -126,8 +126,9 @@ define(function(require, exports, module) {
       try {
         // 语音
         var audio = ice.toEmpty(model.audio);
+        var audio_uri = ice.toEmpty(model.audio_uri);
         if (audio != '') {
-          gm_wechat.initSound(audio);
+          gm_wechat.initSound(audio, audio_uri);
         }
 
         // 基础信息

@@ -101,7 +101,7 @@ define(function(require, exports, module) {
       // 语音
       var audio = ice.toEmpty(model.audio);
       if (audio != '') {
-        gm_wechat.initSound(audio, true);
+        gm_wechat.initSound(audio, '', true);
       }
 
       // 其他信息
@@ -287,6 +287,7 @@ define(function(require, exports, module) {
           $_wx.focus();
           $_wx.style['borderColor'] = 'red';
         } else {
+          gm.close(inputLayer, 0);
           mySubmit($_wx.value);
         }
       } catch (e) {
@@ -314,7 +315,6 @@ define(function(require, exports, module) {
         if (data.status == '200') {
           var model = data.value;
           addMess(model, model.comment, '1');
-          gm.close(inputLayer, 0);
         } else {
           gm.alert('<div style="padding: 1rem;">' + data.msg + '</div>', submitWx);
         }
