@@ -2,7 +2,7 @@
   "status": "200",
   "value": {  
     "identify": "1000",
-  	"self": true,
+  	"self": 0,
   	"nick": "小苹果",
     "face": "/assets/images/user.png",
   	"sex": 2,
@@ -15,7 +15,8 @@
     "ranking_city": 200,
     "ranking_country": 400,
     "audio": "http://tsmusic128.tc.qq.com/410316.mp3",
-    "audio_uri": "http://tsmusic128.tc.qq.com/410316.mp3"
+    "audio_uri": "http://tsmusic128.tc.qq.com/410316.mp3",
+    "duration": 30000,
     "share": {
       "type": "link",
       "icon": "",

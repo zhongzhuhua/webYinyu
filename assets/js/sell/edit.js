@@ -207,7 +207,8 @@ define(function(require, exports, module) {
     bindInput();
 
     // 绑定更新按钮事件
-    $btnSubmit.addEventListener(ice.tapClick, function() {
+    $btnSubmit.addEventListener(ice.tapClick, function(e) {
+      ice.stopDefault(e);
 
       console.log(mydata);
       if (mydata.canSubmit) {

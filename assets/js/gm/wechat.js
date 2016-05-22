@@ -281,25 +281,26 @@ define(function(require, exports, module) {
 
   exports.bindSound = _bindSound;
 
-  // 初始化录音 needTime 修改按钮文字变成带有秒数的
-  exports.initSound = function(audio, audio_uri, needTime) {
+  // 初始化录音 duration 修改按钮文字变成带有秒数的
+  exports.initSound = function(audio, audio_uri, duration) {
     if (audio != null && audio != '') {
       audioPath = audio_uri;
       $wxSoundSource.setAttribute('src', audio);
 
-      if (!!needTime && $wxBtnSound) {
-        var mytimer = setInterval(function() {
-          var time = ice.parseInt($wxSoundSource.duration);
-          if (time != 0) {
-            $wxBtnSound.innerHTML = time + '"' + '<i class="icon-sound"></i>';
-            clearInterval(mytimer);
-            mytimer = null;
-          }
-        }, 500);
-        setTimeout(function() {
-          clearInterval(mytimer);
-          mytimer = null;
-        }, 10000);
+      if (duration != null && $wxBtnSound) {
+        $wxBtnSound.innerHTML = duration + '"' + '<i class="icon-sound"></i>';
+        // var mytimer = setInterval(function() {
+        //   var time = ice.parseInt($wxSoundSource.duration);
+        //   if (time != 0) {
+        //     $wxBtnSound.innerHTML = time + '"' + '<i class="icon-sound"></i>';
+        //     clearInterval(mytimer);
+        //     mytimer = null;
+        //   }
+        // }, 500);
+        // setTimeout(function() {
+        //   clearInterval(mytimer);
+        //   mytimer = null;
+        // }, 10000);
       }
     }
   };

@@ -66,7 +66,7 @@ define(function(require, exports, module) {
         SetSellInfo(myModel);
 
         // 如果是自己看自己的
-        if (_self || _self == '1') {
+        if (_self === true || _self == '1') {
           $bottomEdit.innerHTML = '编辑';
           $bottomEdit.href = '/html/sell/edit.html?url_from=/html/sell/show.html';
         }
@@ -91,7 +91,7 @@ define(function(require, exports, module) {
       var price = model.service_price;
       var citySort = (model.ranking_city);
       var expires = (model.expires);
-
+ 
       // 性别
       var sexName = ice.toEmpty(gm.enum.sexName[model.sex]);
       if (sexName != '') {
@@ -100,8 +100,9 @@ define(function(require, exports, module) {
 
       // 语音
       var audio = ice.toEmpty(model.audio);
+      var duration = ice.parseInt(model.duration / 1000);
       if (audio != '') {
-        gm_wechat.initSound(audio, '', true);
+        gm_wechat.initSound(audio, '', duration);
       }
 
       // 其他信息
