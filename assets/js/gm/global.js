@@ -170,6 +170,13 @@ define(function(require, exports, module) {
         return 'hidden';
       }
       return 'bg-lv bg-lv' + l;
+    },
+    getLevelB: function(l) {
+      l = ice.parseInt(l);
+      if (!(l > 0 && l < 21)) {
+        return 'hidden';
+      }
+      return 'bg-lvb bg-lvb' + l;
     }
   };
 

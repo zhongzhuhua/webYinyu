@@ -19,7 +19,7 @@
 			"buyer_ranking": "22",
 			"comment": "我是&nbsp;<div></div>\"中国人\",'哈哈'"
   	},{
-  		"type": "11",
+  		"type": "21",
   	  "time": "12月17日",
 			"identify": "1002",
 			"nick": "小苹果2",

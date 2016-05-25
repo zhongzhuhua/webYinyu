@@ -51,16 +51,18 @@ define(function(require, exports, module) {
               var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
               var img = '<img src="' + photo + '" alt="">';
               var lv = 'hidden';
+              var lvb = 'hidden';
               var type = '身价';
               var link = 'javascript:;';
               if (mydata.type == '2') {
                 lv = gm.enum.getLevel(model.consumption_level);
+                lvb = gm.enum.getLevelB(model.buyer_ranking);
                 type = '消费';
               } else {
                 link = '/html/sell/show.html?identify=' + model.identify;
               }
 
-              html += listTemp.replace('{link}', link).replace('{total}', total).replace('{type}', type).replace('{lv}', lv).replace('{index}', index).replace('{sex}', sex)
+              html += listTemp.replace('{link}', link).replace('{total}', total).replace('{type}', type).replace('{lv}', lv).replace('{lvb}', lvb).replace('{index}', index).replace('{sex}', sex)
                 .replace('{img}', img).replace('{name}', name);
             }
             var divs = document.createElement('div');

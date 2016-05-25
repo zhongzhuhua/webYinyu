@@ -24,7 +24,7 @@
 
 /* 列表冠军 */
 
-. .list-winner {
+.list-winner {
   position: relative;
   width: 6rem;
   height: 6rem;
@@ -94,6 +94,61 @@
 /* 用户基本信息 */
 
 
+/* 个人中心 */
+
+.user-info {
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+}
+
+.user-info .info-photo {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
+.user-info .info-mess {
+  padding-left: 1rem;
+}
+
+.user-info .info-des {
+  display: block;
+  float: left;
+  max-width: 4rem;
+  margin-right: .4rem;
+  margin-top: .4rem;
+  padding: 0 .4rem;
+  height: 1.4rem;
+  line-height: 1.4rem;
+  font-size: .8rem;
+  border-radius: .4rem;
+  overflow: hidden;
+}
+
+.user-info i {
+  margin-top: -.2rem;
+}
+
+.user-info .info-des i {
+  color: #fff !important;
+}
+
+.user-info .info-update {
+  display: block;
+  font-size: .8rem;
+  line-height: 3.4rem;
+}
+
+.user-info .info-title {
+  border-left: .3rem solid #247cff;
+  padding-left: .6rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+}
+
+
+/* 个人中心 */
+
+
 /* 用户技能 [sell/show] */
 
 .user-skill {
@@ -148,6 +203,10 @@
 
 .talk-list {}
 
+.talk-list .bg-lvb {
+  margin-top: -.4rem;
+}
+
 .talk-list .list-row {
   margin-top: 1rem;
 }
@@ -200,10 +259,20 @@
   border-bottom: 1px solid #efefef;
 }
 
-.user-list .list-photo {
+.user-list .list-photo,
+.user-list .list-winner {
   position: relative;
   width: 4.4rem;
   height: 4.4rem;
+}
+
+.user-list .list-winner {
+  line-height: 4.4rem;
+}
+
+.user-list .list-winner .bg-lvb {
+  width: 3rem;
+  height: 3rem;
 }
 
 .user-list .list-photo-mess {
@@ -336,6 +405,26 @@
 
 
 /* 我的买卖 */
+
+
+/* 个人中心 */
+
+.user-photo {
+  height: 5rem;
+}
+
+.user-photo .photo-add,
+.user-photo .photo-arrow {
+  font-size: 2rem;
+  line-height: 4.6rem;
+}
+
+.user-photo .photo-arrow {
+  line-height: 4.2rem !important;
+}
+
+
+/* 个人中心 */
 
 
 /* 表单编辑 [sell/edit] */

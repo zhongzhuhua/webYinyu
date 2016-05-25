@@ -6,15 +6,17 @@ a {
 
 .list-photo img,
 .base-photo img,
-.sell-photo img {
+.sell-photo img,
+.info-photo img,
+.ice-rightbtn img {
   width: 100%;
   height: 100%;
 }
 
-
 .line-through {
   text-decoration: line-through;
 }
+
 
 /* 顶部 */
 
@@ -104,12 +106,13 @@ a {
 
 /* ======= 重写 layer ========= */
 
+
 /* 移动端兼容，pc 下去掉 */
+
 .layermchild {
   position: fixed;
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -124,6 +127,8 @@ a {
 .alert-mess.layermchild {
   top: 1em;
 }
+
+
 /* 移动端兼容，pc 下去掉 */
 
 .layermanim {
@@ -169,6 +174,20 @@ a {
 }
 
 
+/* 蓝色 */
+
+.bg-blue {
+  background-color: #3385ff;
+}
+
+
+/* 粉红 */
+
+.bg-pink {
+  background-color: #ff57e6;
+}
+
+
 /* 淡黄色 */
 
 .bg-yellow-low {
@@ -180,6 +199,10 @@ a {
 
 .col-blue {
   color: #2b7aff;
+}
+
+.col-blue01 {
+  color: #4890fc;
 }
 
 
@@ -236,7 +259,9 @@ a {
 
 /* ======== 公用按钮 ======== */
 
+
 /* 公用右下角按钮 */
+
 .ice-rightbtn {
   position: absolute;
   display: block;
@@ -252,6 +277,7 @@ a {
   border-style: solid;
   z-index: 3;
   -webkit-border-radius: 50%;
+  overflow: hidden;
 }
 
 .ice-rightbtn.i-btn1 {
@@ -260,6 +286,26 @@ a {
 
 .ice-rightbtn.i-btn2 {
   bottom: 7.4rem;
+}
+
+.ice-rightbtn.i-btn3 {
+  bottom: 10.8rem;
+}
+
+.ice-rightbtn .i-mess {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 1rem;
+  line-height: 1rem;
+  font-size: .5rem;
+}
+
+.ice-rightbtn.i-grey {
+  background-color: #eee;
+  border-color: #bbb;
+  border-width: 1px;
 }
 
 .ice-rightbtn.i-blue {
@@ -272,7 +318,9 @@ a {
   border-color: #f98345;
 }
 
+
 /* 底部按钮 */
+
 .ice-endbtn {
   display: block;
   width: 100%;
@@ -285,7 +333,9 @@ a {
   background-color: #fa702a;
 }
 
+
 /* 背景色按钮 */
+
 .ice-bgbtn,
 .ice-bgbtn-round {
   display: inline-block;
@@ -315,6 +365,7 @@ a {
 
 
 /* 列表按钮 */
+
 .ice-listbtn {
   display: inline-block;
   padding: .4rem 1.2rem;
@@ -443,6 +494,16 @@ a {
   -ms-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -o-transform: rotate(180deg);
+}
+
+
+/* ======== 公用边框 ========= */
+
+
+/* ======== 公用边框 ========= */
+
+.border-bottom {
+  border-bottom: 1px solid #e3e3e3;
 }
 
 
@@ -587,6 +648,95 @@ a {
   background-image: url('/assets/images/level/24.png');
 }
 
+.bg-lvb {
+  display: inline-block;
+  width: 2.4rem;
+  height: 2.4rem;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.bg-lvb1 {
+  background-image: url('/assets/images/mlevel/1.png');
+}
+
+.bg-lvb2 {
+  background-image: url('/assets/images/mlevel/2.png');
+}
+
+.bg-lvb3 {
+  background-image: url('/assets/images/mlevel/3.png');
+}
+
+.bg-lvb4 {
+  background-image: url('/assets/images/mlevel/4.png');
+}
+
+.bg-lvb5 {
+  background-image: url('/assets/images/mlevel/5.png');
+}
+
+.bg-lvb6 {
+  background-image: url('/assets/images/mlevel/6.png');
+}
+
+.bg-lvb7 {
+  background-image: url('/assets/images/mlevel/7.png');
+}
+
+.bg-lvb8 {
+  background-image: url('/assets/images/mlevel/8.png');
+}
+
+.bg-lvb9 {
+  background-image: url('/assets/images/mlevel/9.png');
+}
+
+.bg-lvb10 {
+  background-image: url('/assets/images/mlevel/10.png');
+}
+
+.bg-lvb11 {
+  background-image: url('/assets/images/mlevel/11.png');
+}
+
+.bg-lvb12 {
+  background-image: url('/assets/images/mlevel/12.png');
+}
+
+.bg-lvb13 {
+  background-image: url('/assets/images/mlevel/13.png');
+}
+
+.bg-lv14 {
+  background-image: url('/assets/images/mlevel/14.png');
+}
+
+.bg-lvb15 {
+  background-image: url('/assets/images/mlevel/15.png');
+}
+
+.bg-lvb16 {
+  background-image: url('/assets/images/mlevel/16.png');
+}
+
+.bg-lvb17 {
+  background-image: url('/assets/images/mlevel/17.png');
+}
+
+.bg-lvb18 {
+  background-image: url('/assets/images/mlevel/18.png');
+}
+
+.bg-lvb19 {
+  background-image: url('/assets/images/mlevel/19.png');
+}
+
+.bg-lvb20 {
+  background-image: url('/assets/images/mlevel/20.png');
+}
+
 
 /* ======== 公用背景  ============ */
 
@@ -595,11 +745,13 @@ a {
 
 @font-face {
   font-family: 'iconfont';
-  src: url('//at.alicdn.com/t/font_1463549512_9794965.eot'); /* IE9*/
-  src: url('//at.alicdn.com/t/font_1463549512_9794965.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('//at.alicdn.com/t/font_1463549512_9794965.woff') format('woff'), /* chrome、firefox */
-  url('//at.alicdn.com/t/font_1463549512_9794965.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url('//at.alicdn.com/t/font_1463549512_9794965.svg#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('//at.alicdn.com/t/font_1464164858_357016.eot');
+  /* IE9*/
+  src: url('//at.alicdn.com/t/font_1464164858_357016.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1464164858_357016.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1464164858_357016.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1464164858_357016.svg#iconfont') format('svg');
+  /* iOS 4.1- */
 }
 
 i {
@@ -636,5 +788,18 @@ i.icon-delete:before {
 i.icon-stop:before {
   content: '\e608';
 }
+
+i.icon-position:before {
+  content: '\e609';
+}
+
+i.icon-arrowright:before {
+  content: '\e60a';
+}
+
+i.icon-add:before {
+  content: '\e60b';
+}
+
 
 /* iconfont */

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "个人中心"})
+</head>
+ 
+<body>
+  <div class="ice ice-have-bar bg-yellow">
+    <div class="ice-refresh"><span></span></div>
+    <div class="ice-main">
+      <!-- 个人中心 -->
+      <div class="user-info pd-lr flex bg-yellow-low">
+        <div class="info-photo radius-50">
+          <img src="/assets/images/user.png" alt="">
+        </div>
+        <div class="info-mess flex-1">
+          <div class="col-black">
+            <span id="userName">小苹果</span>
+            <span class="bg-lv bg-lv3"></span>
+          </div>
+          <div class="col-white">
+            <div class="info-des bg-blue">
+              <i class="icon-man"></i>
+              <span>21岁</span>
+            </div>
+            <div class="info-des bg-pink">
+              <i class="icon-position"></i>
+              <span>北京</span>
+            </div>
+          </div>
+        </div>
+        <a class="info-update col-grey03" href="javascript:;">
+          <span>修改信息</span>
+          <i class="icon-arrowright"></i>
+        </a>
+      </div>
+      <!-- 个人中心 -->
+
+      <!-- 相册 -->
+      <div class="user-info pd-lr col-grey02">
+        <div class="info-title">个人相册</div>
+      </div>
+      <div class="user-photo border-bottom pd-lr flex bg-yellow-low">
+        <div class="photo-add">
+          <i class="icon-add"></i>
+        </div>
+        <div class="photo-list flex-1"></div>
+        <div class="photo-arrow">
+          <i class="icon-arrowright"></i>
+        </div>
+      </div>
+      <!-- 相册 -->
+    </div>
+  </div>
+  @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
+  @@include('../../modules/dialog-inputwx.html')
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/sell/show.js?v=' + myargs + '003']);
+</script>
+</html>

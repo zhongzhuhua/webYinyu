@@ -17,6 +17,8 @@
     "audio": "http://tsmusic128.tc.qq.com/410316.mp3",
     "audio_uri": "http://tsmusic128.tc.qq.com/410316.mp3",
     "duration": 30000,
+    "photo_amount": "20",
+    "photo_newest": "/assets/images/user.png",
     "share": {
       "type": "link",
       "icon": "",

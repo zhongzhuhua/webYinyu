@@ -22,6 +22,8 @@ define(function(require, exports, module) {
   // 按钮
   var $btnCommont = ice.query('#btnCommont');
   var $btnWantBuy = ice.query('#btnWantBuy');
+  var $btnOpenPhoto = ice.query('#btnOpenPhoto');
+  var btnOpenPhotoTemp = ice.query('#openPhotoTemp').innerHTML;
 
 
   gm.bindScroll(function() {
@@ -63,6 +65,12 @@ define(function(require, exports, module) {
         var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
         photo = '<img src="' + photo + '" alt="">';
 
+        // 设置相册信息
+        var photo_amount = ice.parseInt(model.photo_amount);
+        var photo_newest = ice.isEmpty(model.photo_newest) ? gm.photo : model.photo_newest;
+        photo_newest = '<img src="' + photo_newest + '" alt="">';
+        $btnOpenPhoto.innerHTML = btnOpenPhotoTemp.replace('{img}', photo_newest).replace('{mess}', photo_amount);
+
         SetSellInfo(myModel);
 
         // 如果是自己看自己的
@@ -91,7 +99,7 @@ define(function(require, exports, module) {
       var price = model.service_price;
       var citySort = (model.ranking_city);
       var expires = (model.expires);
- 
+
       // 性别
       var sexName = ice.toEmpty(gm.enum.sexName[model.sex]);
       if (sexName != '') {
@@ -159,11 +167,12 @@ define(function(require, exports, module) {
               var img = '<img src="' + photo + '" alt="">';
               var id = ice.toEmpty(model.identify);
               var lv = gm.enum.getLevel(model.consumption_level);
+              var lvb = gm.enum.getLevelB(model.buyer_ranking);
               var content = ice.removeAttr(model.comment);
               var user = ice.toEmpty(model.refer_nick);
               content = user == '' ? content : '<font class="col-orange">@' + user + '：</font>' + content;
-              var col = model.type === '1' ? 'col-orange' : 'col-grey01';
-              html += listTemp.replace('{lv}', lv).replace('{id}', id).replace('{col}', col).replace('{img}', img).replace(/{name}/g, name).replace('{content}', content);
+              var col = model.type === '1' ? 'col-orange' : model.type === '21' ? 'col-blue01' : 'col-grey01';
+              html += listTemp.replace('{lv}', lv).replace('{lvb}', lvb).replace('{id}', id).replace('{col}', col).replace('{img}', img).replace(/{name}/g, name).replace('{content}', content);
             }
             var divs = document.createElement('div');
             divs.innerHTML = html;
