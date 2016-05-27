@@ -4,6 +4,7 @@ a {
   color: inherit;
 }
 
+.user-photo img,
 .list-photo img,
 .base-photo img,
 .sell-photo img,
@@ -118,6 +119,19 @@ a {
   -moz-transform: translate(-50%, -50%);
 }
 
+.layermchild.screen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  
+  transform: none;
+  -webkit-transform: none;
+  -moz-transform: none;
+}
+
 .layermanim {
   animation-name: none;
   -webkit-animation-name: none;
@@ -181,6 +195,13 @@ a {
 }
 
 
+/* 红色 */
+
+.bg-red {
+  background-color: #f0354b;
+}
+
+
 /* 粉红 */
 
 .bg-pink {
@@ -234,7 +255,7 @@ a {
 /* 灰色 1-4 从深到浅，grey01 是 body 颜色 */
 
 .col-grey01 {
-  color: #494b4c;
+  color: #494b4d;
 }
 
 .col-grey02 {
@@ -709,7 +730,7 @@ a {
   background-image: url('/assets/images/mlevel/13.png');
 }
 
-.bg-lv14 {
+.bg-lvb14 {
   background-image: url('/assets/images/mlevel/14.png');
 }
 

@@ -11,22 +11,22 @@
     <div class="ice-main">
       <!-- 个人中心 -->
       <div class="user-info pd-lr flex bg-yellow-low">
-        <div class="info-photo radius-50">
-          <img src="/assets/images/user.png" alt="">
+        <div class="info-photo radius-50" id="face">
+          
         </div>
         <div class="info-mess flex-1">
           <div class="col-black">
-            <span id="userName">小苹果</span>
-            <span class="bg-lv bg-lv3"></span>
+            <span id="name">-</span>
+            <span class="" id="lv"></span>
           </div>
           <div class="col-white">
             <div class="info-des bg-blue">
               <i class="icon-man"></i>
-              <span>21岁</span>
+              <span id="age">0</span>岁
             </div>
             <div class="info-des bg-pink">
               <i class="icon-position"></i>
-              <span>北京</span>
+              <span id="city">-</span>
             </div>
           </div>
         </div>
@@ -42,22 +42,79 @@
         <div class="info-title">个人相册</div>
       </div>
       <div class="user-photo border-bottom pd-lr flex bg-yellow-low">
-        <div class="photo-add">
-          <i class="icon-add"></i>
+        <div class="photo-add"><i class="icon-add"></i></div>
+        <div class="photo-list flex-1">
+          <div class="photo-images">
+            <div class="photo-image-main" id="photoList">
+              
+            </div>
+            <div class="hidden" id="photoTemp">
+              <div class="photo-image">
+                {img}
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="photo-list flex-1"></div>
-        <div class="photo-arrow">
-          <i class="icon-arrowright"></i>
-        </div>
+        <div class="photo-arrow"><i class="icon-arrowright"></i></div>
       </div>
       <!-- 相册 -->
+
+      <!-- 我的拍卖 -->
+      <div class="user-info pd-lr col-grey02">
+        <div class="info-title">我的拍卖</div>
+      </div>
+      <div class="user-auction pd-lr bg-yellow-low">
+        <div class="flex">
+          <div class="flex-1">
+            <div class="auction-skill col-grey01 textover" id="skills"></div>
+            <div class="auction-info col-grey02 textover">时长：<span id="times">0</span>分钟</div>
+            <div class="auction-info col-grey02 textover">微信号：<span id="wechat">-</span></div>
+          </div>
+          <div class="flex-1 txt-r">
+            <div class="auction-sec auction-mg textover">
+              <span class="auction-memo bg-blue">售价</span>
+              <span class="auction-price col-blue" id="sellPrice">0</span>
+            </div>
+            <div class="auction-sec textover">
+              <span class="auction-memo bg-red">我的身价</span>
+              <span class="auction-price col-blue" id="totalPrice">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 我的拍卖 -->
+
+      <!-- 导航列表 -->
+      <div class="menu-list pd-lr bg-yellow-low">
+        <a href="/html/sell/order-list.html#1" class="list-row flex">
+          <div class="flex-1 col-grey01">购买记录</div>
+          <div class="list-icon col-grey03"><i class="icon-arrowright"></i></div>
+        </a>
+        <a href="/html/sell/order-list.html#0" class="list-row flex">
+          <div class="flex-1 col-grey01">售卖记录</div>
+          <div class="list-icon col-grey03"><i class="icon-arrowright"></i></div>
+        </a>
+        <a href="javascript:;" class="list-row flex">
+          <div class="flex-1 col-grey01">提现</div>
+          <div class="list-money">
+            <div class="list-memo">金额</div>
+            <div class="list-price" id="money">20</div>
+          </div>
+          <div class="list-icon col-grey03"><i class="icon-arrowright"></i></div>
+        </a>
+        <a href="javascript:;" class="list-row flex">
+          <div class="flex-1 col-grey01">帮助中心</div>
+          <div class="list-icon col-grey03"><i class="icon-arrowright"></i></div>
+        </a>
+      </div>
+      <!-- 导航列表 -->
     </div>
   </div>
   @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
-  @@include('../../modules/dialog-inputwx.html')
+  @@include('../../modules/dialog-photo.html')
 </body>
 @@include('../../modules/script.html')
 <script>
-  require(['/assets/js/sell/show.js?v=' + myargs + '003']);
+  require(['/assets/js/user/info.js?v=' + myargs + '003']);
 </script>
 </html>
