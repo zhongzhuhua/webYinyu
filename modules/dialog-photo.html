@@ -1,12 +1,20 @@
 <!-- 相册弹窗 -->
 <div class="dialog-photo hidden" id="winPhoto">
-  <div class="photo-main">
-    <img src="/assets/images/user.png" alt="">
+  <div class="icon-left col-white">
+    <i class="icon-arrowleft"></i>
   </div>
-  <div class="photo-num">
-    <span>2</span>
+  <div class="photo-main" id="winPhotoList">
+  </div>
+  <div class="hidden" id="winPhotoTemp">
+    <div class="hidden">{img}</div>
+  </div>
+  <div class="icon-right col-white">
+    <i class="icon-arrowright"></i>
+  </div>
+  <div class="photo-num txt-c">
+    <span id="winPhotoIndex">0</span>
     <span>/</span>
-    <span>18</span>
+    <span id="winPhotoTotal">0</span>
   </div>
-  <a class="ice-endbtn i-orange photo-close" href="javascript:;">关闭</a>
+  <a class="ice-endbtn i-orange photo-close" id="winPhotoClose" href="javascript:;">关闭</a>
 </div>

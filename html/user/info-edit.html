@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "修改资料"})
+</head>
+ 
+<body>
+  <div class="ice bg-yellow">
+    <div class="ice-refresh"><span></span></div>
+    <div class="ice-main">
+      <div class="uinfo-edit"> 
+        <div class="edit-photo radius-50 list-photo" id="img">
+          {img}
+        </div> 
+        <div class="edit-form border-box bg-yellow-low">
+          <input class="edit-input" id="name" />
+        </div>
+        <div class="edit-form bg-yellow-low">
+          <span id="sex"></span>
+        </div>
+        <div class="edit-form bg-yellow-low">
+          <span id="age">0</span>岁
+        </div>
+        <div class="edit-form bg-yellow-low">
+          <input class="edit-input" id="area" />
+        </div>
+        <div class="edit-btn">
+          <a class="ice-endbtn i-orange" id="submit" href="javascript:;">保存并返回个人中心</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/user/info-edit.js?v=' + myargs + '003']);
+</script>
+</html>

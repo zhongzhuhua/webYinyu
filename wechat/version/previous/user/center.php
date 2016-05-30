@@ -21,32 +21,32 @@
     "wechat": "small-apple",
   	"photo_list": [{
   		"identify": "100",
-  		"album_identify": "001",
+  		"album_identify": "1001",
   		"thumbnail": "/assets/images/user.png",
   		"view": "/assets/images/user.png"
   	},{
   		"identify": "100",
-  		"album_identify": "001",
+  		"album_identify": "1002",
   		"thumbnail": "/assets/images/user.png",
   		"view": "/assets/images/user.png"
   	},{
   		"identify": "100",
-  		"album_identify": "001",
+  		"album_identify": "1003",
   		"thumbnail": "/assets/images/user.png",
   		"view": "/assets/images/user.png"
   	},{
   		"identify": "100",
-  		"album_identify": "001",
+  		"album_identify": "1004",
   		"thumbnail": "/assets/images/user.png",
   		"view": "/assets/images/user.png"
   	},{
   		"identify": "100",
-  		"album_identify": "001",
+  		"album_identify": "1001",
   		"thumbnail": "/assets/images/user.png",
   		"view": "/assets/images/user.png"
   	},{
   		"identify": "100",
-  		"album_identify": "001",
+  		"album_identify": "1001",
   		"thumbnail": "/assets/images/user.png",
   		"view": "/assets/images/user.png"
   	}]

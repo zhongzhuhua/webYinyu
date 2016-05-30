@@ -1106,15 +1106,13 @@ a {
 
 @font-face {
   font-family: 'iconfont';
-  src: url('//at.alicdn.com/t/font_1464164858_357016.eot');
-  /* IE9*/
-  src: url('//at.alicdn.com/t/font_1464164858_357016.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('//at.alicdn.com/t/font_1464164858_357016.woff') format('woff'), /* chrome、firefox */
-  url('//at.alicdn.com/t/font_1464164858_357016.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url('//at.alicdn.com/t/font_1464164858_357016.svg#iconfont') format('svg');
-  /* iOS 4.1- */
+  src: url('//at.alicdn.com/t/font_1464423586_3499613.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1464423586_3499613.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1464423586_3499613.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1464423586_3499613.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1464423586_3499613.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
-
+                    
 i {
   font-family: 'iconfont' !important;
   font-style: normal;
@@ -1156,6 +1154,10 @@ i.icon-position:before {
 
 i.icon-arrowright:before {
   content: '\e60a';
+}
+
+i.icon-arrowleft:before {
+  content: '\e60c';
 }
 
 i.icon-add:before {
@@ -1368,6 +1370,46 @@ i.icon-add:before {
 
 
 /* 个人中心-我的拍卖 */
+
+
+/* 修改用户资料 */
+
+.uinfo-edit .edit-photo {
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
+  text-align: center;
+}
+
+.uinfo-edit .edit-form {
+  margin-bottom: 1rem;
+  width: 100%;
+  padding: .8rem;
+  font-size: .9rem;
+}
+
+.uinfo-edit .edit-input {
+  width: 100%;
+  border: 0;
+}
+
+.uinfo-edit .edit-btn {
+  margin: 2rem 1rem 0;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+}
+
+.uinfo-edit .edit-btn .ice-endbtn {
+  border-radius: .5rem;
+  -webkit-border-radius: .5rem;
+}
+
+
+/* 修改用户资料 */
 
 
 /* 用户技能 [sell/show] */
@@ -1811,7 +1853,7 @@ i.icon-add:before {
   width: 100%;
   height: 100%;
   z-index: 6;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, .88);
 }
 
 .dialog-photo .photo-close {
@@ -1825,21 +1867,50 @@ i.icon-add:before {
 }
 
 .dialog-photo .photo-main {
-  position: relative;
-  width: 80%;
-  max-width: 16rem;
+  position: absolute;
+  top: 25%;
+  width: 100%;
+  height: 50%;
   margin: 0 auto;
-  margin-top: 2rem;
+  overflow: hidden;
+}
+
+.dialog-photo .photo-main >div {
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 .dialog-photo .photo-main img {
   width: 100%;
+  max-width: 16rem;
   max-height: 16rem;
 }
 
 .dialog-photo .photo-num {
+  position: absolute;
+  width: 100%;
+  bottom: 4rem;
   color: #fff;
   font-size: 1.2rem;
+}
+
+.dialog-photo .icon-left,
+.dialog-photo .icon-right {
+  position: absolute;
+  top: 50%;
+  height: 4rem;
+  line-height: 4rem;
+  margin-top: -4rem;
+  width: 2rem;
+}
+
+.dialog-photo .icon-left {
+  left: 1rem;
+}
+
+.dialog-photo .icon-right {
+  right: 1rem;
 }
 
 
