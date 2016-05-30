@@ -9,21 +9,29 @@
   <div class="ice bg-yellow">
     <div class="ice-refresh"><span></span></div>
     <div class="ice-main">
-      <div class="uinfo-edit"> 
-        <div class="edit-photo radius-50 list-photo" id="img">
-          {img}
-        </div> 
+      <div class="uinfo-edit">  
+        <div class="edit-photo">
+          <div class="radius-50 edit-photoimg" id="img">
+            拍卖秀
+          </div>
+          <div class="edit-camera radius-50 col-orange" id="btnUpload">
+            <i class="icon-camera"></i>
+          </div> 
+        </div>
         <div class="edit-form border-box bg-yellow-low">
           <input class="edit-input" id="name" />
         </div>
-        <div class="edit-form bg-yellow-low">
-          <span id="sex"></span>
+        <div class="edit-form border-box bg-yellow-low">
+          <span class="edit-span" id="sex"></span>
         </div>
-        <div class="edit-form bg-yellow-low">
-          <span id="age">0</span>岁
+        <!-- <div class="edit-form bg-yellow-low">
+          <span><label id="age">0</label>岁</span>
+        </div> -->
+        <div class="edit-form border-box bg-yellow-low">
+          <span class="edit-span" id="birthday"></span>
         </div>
-        <div class="edit-form bg-yellow-low">
-          <input class="edit-input" id="area" />
+        <div class="edit-form border-box bg-yellow-low">
+           <span class="edit-span" id="area"></span>
         </div>
         <div class="edit-btn">
           <a class="ice-endbtn i-orange" id="submit" href="javascript:;">保存并返回个人中心</a>
@@ -32,6 +40,7 @@
     </div>
   </div>
 </body>
+@@include('../../modules/dialog-sex.html')
 @@include('../../modules/script.html')
 <script>
   require(['/assets/js/user/info-edit.js?v=' + myargs + '003']);

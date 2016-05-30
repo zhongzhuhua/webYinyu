@@ -1,0 +1,74 @@
+.ice-simpledate {
+  display: none;
+  position: absolute;
+  width: 18.6rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -9.3rem;
+  margin-top: -12rem;
+  border: 1px solid #ddd;
+  border-radius: .5rem;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.ice-simpledate .ic-top,
+.ice-simpledate .ic-button {
+  height: 3rem;
+  line-height: 3rem;
+  color: #999;
+}
+
+.ice-simpledate .ic-top {
+  border-bottom: 1px solid #ddd;
+}
+
+.ice-simpledate .ic-button {
+  border-top: 1px solid #ddd;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ice-simpledate .ic-main {
+  margin: .8rem 0;
+  padding-left: 1rem;
+  padding-bottom: .6rem;
+  font-size: 0;
+}
+
+.ice-simpledate .ic-date {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  margin-top: .6rem;
+  margin-right: .4rem;
+  border-radius: 50%;
+  background-color: #e9e9e9;
+  color: #aaa;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.ice-simpledate .ic-date.ic-choose {
+  color: #fff;
+  background-color: #3385ff;
+}
+
+.ice-simpledate .ic-top-sec {
+  float: left;
+  width: 50%;
+  text-align: center;
+  font-weight: 600;
+}
+
+.ice-simpledate .ic-top-icon {
+  display: inline-block;
+  width: 2rem;
+  height: 3rem;
+  line-height: 3rem;
+  cursor: pointer;
+}

@@ -46,7 +46,7 @@ define(function(require, exports, module) {
       nonceStr: data.random,
       signature: data.signature,
       jsApiList: ['chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone',
-        'startRecord', 'stopRecord', 'onVoiceRecordEnd', 'uploadVoice'
+        'startRecord', 'stopRecord', 'onVoiceRecordEnd', 'uploadVoice', 'chooseImage', 'previewImage', 'uploadImage'
       ]
     });
 
@@ -195,7 +195,7 @@ define(function(require, exports, module) {
     gm.alert('<div style="padding: 1rem;">请稍后再进行购买</div>');
   };
 
-  // =============== 录音相关 =================
+  // =============== 录音相关，没封装好，后期改善 =================
   var localId = null;
   // 录音路径
   var audioPath = null;
@@ -242,7 +242,6 @@ define(function(require, exports, module) {
               }
             });
           } else {
-            console.log('test');
             localId = 'test';
             _uploadSound();
           }
@@ -289,18 +288,6 @@ define(function(require, exports, module) {
 
       if (duration != null && $wxBtnSound) {
         $wxBtnSound.innerHTML = duration + '"' + '<i class="icon-sound"></i>';
-        // var mytimer = setInterval(function() {
-        //   var time = ice.parseInt($wxSoundSource.duration);
-        //   if (time != 0) {
-        //     $wxBtnSound.innerHTML = time + '"' + '<i class="icon-sound"></i>';
-        //     clearInterval(mytimer);
-        //     mytimer = null;
-        //   }
-        // }, 500);
-        // setTimeout(function() {
-        //   clearInterval(mytimer);
-        //   mytimer = null;
-        // }, 10000);
       }
     }
   };
@@ -328,28 +315,13 @@ define(function(require, exports, module) {
     }
   };
 
+  // 上传到服务器
   function _uploadServer(serverId) {
-    // 上传到服务器
-    gm.ajax({
-      url: '/wechat/wechat/media.json',
-      data: {
-        type: 'voice',
-        media_id: serverId
-      },
-      success: function(data) {
-        try {
-          if (data.status == '200') {
-            console.log(data);
-            var _uri = data.value.uri;
-            var _url = data.value.url;
-            $wxSoundSource.setAttribute('src', _url);
-            audioPath = _uri;
-          }
-        } catch (e) {
-          console.log(e.message);
-        }
-      }
-    });
+    var result = _commonUploadServer(serverId, 'voice');
+    if(result != null) {
+      $wxSoundSource.setAttribute('src', result.url);
+      audioPath = result.uri;
+    }
   };
 
   // 播放录音
@@ -360,7 +332,7 @@ define(function(require, exports, module) {
     } else {
       $wxSoundSource.play();
       isplay = true;
-    } 
+    }
   };
 
   // 删除录音
@@ -372,43 +344,101 @@ define(function(require, exports, module) {
     $wxSoundSource.setAttribute('src', '');
   };
 
-  // 公用微信端异常处理
+
+  // =============== 上传相片相关 =================
+  // btn 上传按钮， img 图片
+  exports.imageId = null;
+  exports.bindUploadImage = function($btn, $img) {
+    if(!($btn != null && $img != null)) {
+      return;
+    }
+
+    var imageIds = null;
+    var imageId = null;
+    // 选择图片
+    $btn.addEventListener(ice.tapClick, function(e) {
+      wx.chooseImage({
+        count: 1, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function(res) {
+          imageIds = res.localIds;
+
+          // 上传到微信服务器
+          wx.uploadImage({
+            localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function(res) {
+              imageId = res.serverId;
+
+              var result = _commonUploadServer(imageId, 'image');
+              if(result != null) {
+                addImage(result.uri);
+              }
+            }
+          });
+        }
+      });
+    });
+
+    // 服务器上传
+    function addImage(photo) {
+      gm.ajax({
+        url: '/wechat/sociality/media/photo/add.json',
+        data: {
+          album: '',
+          photo: photo
+        },
+        success: function(data) {
+          try {
+            if(data.status == '200') {
+
+            }
+          } catch(e) {
+            console.log(e.message);
+          }
+        }
+      });
+    };
+  };
+
+  // 公用上传到服务器 type = image|voice|video|thumb
+  function _commonUploadServer(serverId, type) {
+    // 上传到服务器
+    gm.ajax({
+      url: '/wechat/wechat/media.json',
+      data: {
+        type: 'voice',
+        media_id: serverId
+      },
+      success: function(data) {
+        try {
+          if (data.status == '200') {
+            var _uri = data.value.uri;
+            var _url = data.value.url;
+            return {
+              url: _url,
+              uri: _uri
+            };
+          }
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+    });
+  };
 
   (function() {
     // 绑定分享
-    $btnShard.addEventListener(ice.tapClick, function() {
-      var _l = gm.open('<img src="/assets/images/share.png" class="dialogShare" style="width: 10rem; height: 5rem; float: right; padding-right: 2rem; padding-top: .5rem" />', ' background-color: transparent; position:fixed; width:100%; height:100%; border:none;');
-      (ice.query('.dialogShare').parentNode.parentNode).addEventListener(ice.tapClick, function(e) {
-        e = e || window.event;
-        e.stopPropagation();
-        gm.close(_l, 0);
-      });
-    });
+    if($btnShard != null) {
+      $btnShard.addEventListener(ice.tapClick, function() {
+        var _l = gm.open('<img src="/assets/images/share.png" class="dialogShare" style="width: 10rem; height: 5rem; float: right; padding-right: 2rem; padding-top: .5rem" />', ' background-color: transparent; position:fixed; width:100%; height:100%; border:none;');
+        (ice.query('.dialogShare').parentNode.parentNode).addEventListener(ice.tapClick, function(e) {
+          e = e || window.event;
+          e.stopPropagation();
+          gm.close(_l, 0);
+        });
+      }); 
+    }
   })();
 });
-
-// $wxBtnMack.addEventListener(ice.tapStart, function(e) {
-//   ice.stopDefault(e);
-//   ice.stopPropagation(e);
-//   uploadLocalId = null;
-//   ice.addClass($wxBtnMack, 'i-disabled');
-//   wx.startRecord();
-// });
-// $wxBtnMack.addEventListener(ice.tapMove, function(e) {
-//   ice.stopDefault(e);
-//   ice.stopPropagation(e);
-// });
-// // 结束录音
-// $wxBtnMack.addEventListener(ice.tapEnd, function(e) {
-//   ice.stopDefault(e);
-//   ice.stopPropagation(e);
-//   ice.removeClass($wxBtnMack, 'i-disabled');
-//   wx.stopRecord({
-//     success: function(res) {
-//       uploadLocalId = res.localId;
-//       if (uploadLocalId != null) {
-//         _uploadSound();
-//       }
-//     }
-//   });
-// });

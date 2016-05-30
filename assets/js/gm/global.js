@@ -91,11 +91,11 @@ define(function(require, exports, module) {
   };
 
   // 提示
-  exports.alert = function(content, _callback) {
+  exports.alert = function(content, _callback, text) {
     return layer.open({
       content: content,
       shadeClose: false,
-      btn: ['朕知道了'],
+      btn: [text == null ? '朕知道了' : text],
       yes: function(index) {
         if (ice.isFunction(_callback)) {
           _callback();

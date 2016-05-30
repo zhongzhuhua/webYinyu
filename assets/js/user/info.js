@@ -51,6 +51,7 @@ define(function(require, exports, module) {
             buildPhotos(model.photo_list);
 
             // 设置用户信息
+            sessionStorage.setItem('editBirth', model.birthday);
             sessionStorage.setItem('editName', model.nick);
             sessionStorage.setItem('editImage', img);
             sessionStorage.setItem('editSex', model.sex);

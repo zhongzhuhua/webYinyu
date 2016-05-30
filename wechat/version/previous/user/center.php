@@ -6,6 +6,7 @@
   	"face": "/assets/images/user.png",
   	"sex": "2",
   	"age": "18",
+    "birthday": "1990-01-01",
   	"city": "深圳",
   	"consumption_level": "22",
   	"photo_amount": "6",

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no,email=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <title>简单移动日历插件</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <span id="ice-simpledate" data-year="2015" data-month="11" data-date="13">请选择日期</span>
+  
+  <script src="../../ice/ice.js"></script>  
+  <script src="main.js"></script>  
+  <script>
+  ice.simpledate({
+  	btntext: '清空并关闭',
+  	success: function(calendar) {
+  		console.log(calendar.getValue());
+  	},
+  	close: function() {
+  		console.log('yes');
+  	}
+  });
+  </script>
+</body>
+
+</html>

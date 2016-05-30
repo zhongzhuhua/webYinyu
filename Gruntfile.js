@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     concat: {
       // 合并公用 css
       commonCss: {
-        src: ['assets/lib/layer.mobile/layer/need/layer.css', 'assets/css/global.css', 'assets/lib/ice.scrollY/main.css', 'assets/css/layout.css', 'assets/css/dev.css'],
+        src: ['assets/lib/layer.mobile/layer/need/layer.css', 'assets/css/global.css', 'assets/lib/ice.scrollY/main.css', 'assets/lib/ice.simpledate/main.css', 'assets/css/layout.css', 'assets/css/dev.css'],
         dest: 'assets/css/common.css'
       },
       // 合并 commonjs
@@ -175,7 +175,7 @@ module.exports = function(grunt) {
       // 合并压缩 common.css
       commonCss: {
         files: ['assets/css/*.css', 'assets/lib/ice*/*.css'],
-        tasks: ['concat:commonCss', 'cssmin:commonCss' ]
+        tasks: ['concat:commonCss', 'cssmin:commonCss']
       },
 
       // 压缩项目普通脚本
