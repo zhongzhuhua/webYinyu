@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .ice-simpledate {
   display: none;
   position: absolute;
@@ -12,6 +17,14 @@
   -webkit-user-select: none;
   background-color: #fff;
   overflow: hidden;
+}
+
+.ice-simpledate-shadow {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .6);
 }
 
 .ice-simpledate .ic-top,

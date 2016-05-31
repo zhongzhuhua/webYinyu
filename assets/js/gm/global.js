@@ -259,6 +259,128 @@ define(function(require, exports, module) {
   };
   exports.go = go;
 
+  // 城市
+  exports.buildCitySelect = function(dom, yes) {
+    if (!dom) return;
+
+    // 省市县
+    var temp = ice.query('#winCityTemp').innerHTML;
+    var $dialog = ice.query('#winCity');
+    var $province = ice.query('#winCity .province');
+    var $city = ice.query('#winCity .city');
+    var $county = ice.query('#winCity .county');
+    var $btnYes = ice.query('#winCity .yes');
+    var $btnCancel = ice.query('#winCity .cancel');
+
+    // 获取数据
+    function _select(identify, type) {
+      ajax({
+        url: '/wechat/system/district.json',
+        async: false,
+        data: {
+          identify: identify
+        },
+        success: function(data) {
+          try {
+            var list = data.value.list;
+            var len = list == null ? 0 : list.length;
+            var html = '';
+            for (var i = 0; i < len; i++) {
+              var model = list[i];
+              html += temp.replace('{id}', model.identify).replace('{name}', model.brief);
+            }
+            if (type == 'c') {
+              $city.innerHTML = html;
+              ice.addClass($county, 'hidden');
+            } else if (type == 'd') {
+              $county.innerHTML = html;
+            } else {
+              $province.innerHTML = html;
+              ice.addClass($city, 'hidden');
+              ice.addClass($county, 'hidden');
+            }
+          } catch (e) {
+            console.log(e.message);
+          }
+        }
+      });
+    };
+
+    _select('Fzyzwvvvzxw', 'p');
+
+    // 绑定事件
+    var $choose = null;
+    var $cp = null;
+    var $cc = null;
+    var $cd = null;
+    $dialog.addEventListener(ice.tapClick, function(e) {
+      var ele = e.srcElement;
+      var clazz = ele.className;
+      if (clazz == 'city-option') {
+        var id = ele.getAttribute('data-value');
+        var pclazz = ele.parentNode.className;
+        $choose = ele;
+
+        if (pclazz.indexOf('province') > -1) {
+          ice.removeClass($cp, 'col-orange');
+          $cp = ele;
+          $cc = null;
+          $cd = null;
+          _select(id, 'c');
+          ice.removeClass($city, 'hidden');
+        } else if (pclazz.indexOf('city') > -1) {
+          ice.removeClass($cc, 'col-orange');
+          $cc = ele;
+          $cd = null;
+          _select(id, 'd');
+          ice.removeClass($county, 'hidden');
+        } else {
+          ice.removeClass($cd, 'col-orange');
+          $cd = ele;
+        }
+
+        ice.addClass(ele, 'col-orange');
+      }
+    });
+
+    // 打开弹窗
+    dom.addEventListener(ice.tapClick, function() {
+      ice.removeClass($dialog, 'hidden');
+    });
+
+    // 关闭
+    function _close() {
+      ice.addClass($dialog, 'hidden');
+    };
+
+    // 确定事件
+    $btnYes.addEventListener(ice.tapClick, function() {
+      if (ice.isFunction(yes)) {
+        yes($choose);
+      }
+      _close();
+    });
+
+    $btnCancel.addEventListener(ice.tapClick, function() {
+      _close();
+    });
+
+    return {
+      getCity: function() {
+        return $cc == null ? '' : $cc.getAttribute('data-value');
+      },
+      getProvince: function() {
+        return $cp == null ? '' : $cp.getAttribute('data-value');
+      },
+      getCounty: function() {
+        return $cd == null ? '' : $cd.getAttribute('data-value');
+      },
+      getText: function() {
+        return $choose == null ? '' : $choose.innerHTML;
+      }
+    };
+  };
+
   // 公用处理
   function statusDeel(data) {
     try {

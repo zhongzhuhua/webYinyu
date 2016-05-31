@@ -261,6 +261,7 @@
   width: 100%;
 }
 
+
 /* 修改用户资料 */
 
 
@@ -694,6 +695,50 @@
 
 
 /* 提现弹窗 */
+
+
+/* 城市弹窗 */
+
+.dialog-city {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 5;
+  background-color: #fff;
+}
+
+.dialog-city .city-main.flex {
+  height: 60%;
+  font-size: .72rem;
+  overflow: auto;
+}
+
+.dialog-city .city-main .flex-1 {
+  height: 100%;
+  overflow: auto;
+  border-right: 1px solid #ddd;
+  text-align: left;
+}
+
+.dialog-city .city-option {
+  height: 2.4rem;
+  line-height: 2.4rem;
+  padding-left: .4rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.dialog-city .city-button {
+  height: 4rem;
+  border-top: 1px solid #e3e3e3;
+}
+
+.dialog-city .city-button .ice-bgbtn {
+  width: 100%;
+}
+
+/* 城市弹窗 */
 
 
 /* 相册弹窗 */

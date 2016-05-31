@@ -23,6 +23,8 @@
 
     g = ice.extend(g, options);
 
+    _buildShadow();
+
     var $doms = ice.queryAll(g.selector);
     var len = $doms ? $doms.length : 0;
     for (var i = 0; i < len; i++) {
@@ -101,6 +103,7 @@
     function _bindShow($date, $selector) {
       $selector.addEventListener(ice.tapClick, function(e) {
         $date.style['display'] = 'block';
+        ice.query('.ice-simpledate-shadow').style['display'] = 'block';
       });
     };
 
@@ -153,6 +156,7 @@
     // 关闭事件
     function _close($date, $selector) {
       $date.style['display'] = 'none';
+      ice.query('.ice-simpledate-shadow').style['display'] = 'none';
 
       if($selector.innerHTML == '') {
         $selector.innerHTML = '<label style="color: #999;">' + g.nonetext + '</label>';
@@ -183,6 +187,15 @@
     // 默认值
     function _defaultValue() {
       return g.defYear + '-' + g.defMonth + '-' + g.defDate;
+    };
+
+    // 阴影层
+    function _buildShadow() {
+      if(!ice.query('.ice-simpledate-shadow')) {
+        var dom = document.createElement('div');
+        dom.className = 'ice-simpledate-shadow';
+        document.body.appendChild(dom);
+      }
     };
   };
 })(ice);

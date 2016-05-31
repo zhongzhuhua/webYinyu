@@ -120,6 +120,16 @@ define(function(require, exports, module) {
     });
   };
 
+  // 绑定选择省市县
+  function bindChooseCity() {
+    var city = gm.buildCitySelect($area, function() {
+      mydata.province_identify = city.getProvince();
+      mydata.city_identify = city.getCity();
+      mydata.country_identify = city.getCounty();
+      $area.innerHTML = city.getText();
+    });
+  };
+
   // 初始化
   (function() {
 
@@ -131,5 +141,6 @@ define(function(require, exports, module) {
     search();
     bindSimpleDate();
     bindChooseSex();
+    bindChooseCity();
   })();
 });

@@ -338,6 +338,11 @@ body {
   -ms-user-select: -ms-none;
   -o-user-select: none;
 }
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .ice-simpledate {
   display: none;
   position: absolute;
@@ -352,6 +357,14 @@ body {
   -webkit-user-select: none;
   background-color: #fff;
   overflow: hidden;
+}
+
+.ice-simpledate-shadow {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .6);
 }
 
 .ice-simpledate .ic-top,
@@ -798,6 +811,11 @@ a {
 
 .ice-bgbtn.i-blue {
   background-color: #5a9bfa;
+}
+
+.ice-bgbtn.i-grey {
+  background-color: #e9e9e9;
+  color: #999;
 }
 
 
@@ -1509,6 +1527,7 @@ i.icon-camera:before {
   width: 100%;
 }
 
+
 /* 修改用户资料 */
 
 
@@ -1942,6 +1961,50 @@ i.icon-camera:before {
 
 
 /* 提现弹窗 */
+
+
+/* 城市弹窗 */
+
+.dialog-city {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 5;
+  background-color: #fff;
+}
+
+.dialog-city .city-main.flex {
+  height: 60%;
+  font-size: .72rem;
+  overflow: auto;
+}
+
+.dialog-city .city-main .flex-1 {
+  height: 100%;
+  overflow: auto;
+  border-right: 1px solid #ddd;
+  text-align: left;
+}
+
+.dialog-city .city-option {
+  height: 2.4rem;
+  line-height: 2.4rem;
+  padding-left: .4rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.dialog-city .city-button {
+  height: 4rem;
+  border-top: 1px solid #e3e3e3;
+}
+
+.dialog-city .city-button .ice-bgbtn {
+  width: 100%;
+}
+
+/* 城市弹窗 */
 
 
 /* 相册弹窗 */

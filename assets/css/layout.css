@@ -385,6 +385,11 @@ a {
   background-color: #5a9bfa;
 }
 
+.ice-bgbtn.i-grey {
+  background-color: #e9e9e9;
+  color: #999;
+}
+
 
 /* 列表按钮 */
 
