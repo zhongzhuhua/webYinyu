@@ -265,6 +265,23 @@
 /* 修改用户资料 */
 
 
+/* 相册列表 [user/photos] */
+
+.uinfo-photo .photo-img {
+  position: relative;
+  float: left;
+  margin: .6rem .4rem;
+  padding: .4rem;
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid #ccc;
+  background-color: #eee;
+}
+
+
+/* 相册列表 */
+
+
 /* 用户技能 [sell/show] */
 
 .user-skill {
@@ -737,6 +754,7 @@
 .dialog-city .city-button .ice-bgbtn {
   width: 100%;
 }
+
 
 /* 城市弹窗 */
 

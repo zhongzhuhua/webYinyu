@@ -154,7 +154,7 @@ define(function(require, exports, module) {
     // 绑定切换事件
     function bindChange(imgLen) {
       // 移动端绑定滑动事件
-      if(ice.isMobile || 1==1) {
+      if(ice.isMobile) {
         ice.addClass($iconLeft, 'hidden');
         ice.addClass($iconRight, 'hidden');
         var pageX = 0;

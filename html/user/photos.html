@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  @@include('../../modules/meta.html', {"title": "我的相册"})
+</head>
+ 
+<body>
+  <div class="ice ice-have-bar bg-yellow">
+    <div class="ice-refresh"><span></span></div>
+    <div class="ice-main">
+      <!-- 相册列表 begin -->
+      <div class="uinfo-photo" id="list"> 
+      </div>
+      <div class="hidden" id="listTemp">
+        <div class="photo-img">
+          {img}
+        </div> 
+      </div>
+      <!-- 相册列表 -->
+    </div>
+  </div>
+  <div class="ice-bar txt-c flex">
+    <a class="ice-endbtn i-orange" id="upload" href="javascript:;">拍照</a>
+  </div>
+</body>
+@@include('../../modules/script.html')
+<script>
+  require(['/assets/js/user/photos.js?v=' + myargs + '003']);
+</script>
+</html>
