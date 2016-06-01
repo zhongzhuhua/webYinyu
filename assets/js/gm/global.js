@@ -332,8 +332,8 @@ define(function(require, exports, module) {
           ice.removeClass($cc, 'col-orange');
           $cc = ele;
           $cd = null;
-          _select(id, 'd');
-          ice.removeClass($county, 'hidden');
+          // _select(id, 'd');
+          // ice.removeClass($county, 'hidden');
         } else {
           ice.removeClass($cd, 'col-orange');
           $cd = ele;

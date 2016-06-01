@@ -1,7 +1,9 @@
 define(function(require, exports, module) {
   var gm = require('global');
   var ice = gm.ice;
+  var gm_wechat = require('wechat');
 
+  var $upload = ice.query('#upload');
   // 个人信息
   var $name = ice.query('#name');
   var $lv = ice.query('#lv');
@@ -14,6 +16,7 @@ define(function(require, exports, module) {
   var $skills = ice.query('#skills');
   var $times = ice.query('#times');
   var $money = ice.query('#money');
+  var $sex = ice.query('#sex');
 
   // 相册
   var $photoList = ice.query('#photoList');
@@ -29,14 +32,21 @@ define(function(require, exports, module) {
           var status = data.status;
           if (status == '200') {
             var model = data.value;
+            console.log(model);
             $name.innerHTML = model.nick;
 
             $city.innerHTML = model.city;
+
+            if(model.age == '-1') {
+              model.age = '0';
+            }
             $age.innerHTML = model.age;
 
             var photo = ice.isEmpty(model.face) ? gm.photo : model.face;
             var img = '<img src="' + photo + '" alt="">';
             $face.innerHTML = img;
+
+            $sex.className = 'icon-' + gm.enum.sex[model.sex];
 
             var lv = gm.enum.getLevel(model.consumption_level);
             $lv.className = lv;
@@ -241,7 +251,7 @@ define(function(require, exports, module) {
 
   // 初始化
   (function() {
-
+    gm_wechat.init();
     // 绑定滚动加载
     gm.bindScroll(function() {
       search();
@@ -251,5 +261,7 @@ define(function(require, exports, module) {
 
     bindOpenPhoto();
 
+    // 绑定上传照片
+    gm_wechat.bindUploadImage($upload);
   })();
 });

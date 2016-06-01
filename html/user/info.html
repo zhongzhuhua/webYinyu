@@ -21,7 +21,7 @@
           </div>
           <div class="col-white">
             <div class="info-des bg-blue">
-              <i class="icon-{sex}"></i>
+              <i class="" id="sex"></i>
               <span id="age">0</span>岁
             </div>
             <div class="info-des bg-pink">
@@ -42,7 +42,7 @@
         <div class="info-title">个人相册</div>
       </div>
       <div class="user-photo border-bottom pd-lr flex bg-yellow-low">
-        <div class="photo-add"><i class="icon-add"></i></div>
+        <div class="photo-add" id="upload"><i class="icon-add"></i></div>
         <div class="photo-list flex-1">
           <div class="photo-images">
             <div class="photo-image-main" id="photoList">
@@ -76,7 +76,7 @@
               <span class="auction-price col-blue" id="sellPrice">0</span>
             </div>
             <div class="auction-sec textover">
-              <span class="auction-memo bg-red">我的身价</span>
+              <span class="auction-memo bg-red">本周身价</span>
               <span class="auction-price col-blue" id="totalPrice">0</span>
             </div>
           </div>
@@ -110,7 +110,7 @@
       <!-- 导航列表 -->
     </div>
   </div>
-  @@include('../../modules/user-bottom.html', {"button": "hidden", "order": "col-orange"})
+  @@include('../../modules/user-bottom.html', {"button": "hidden"})
   @@include('../../modules/dialog-photo.html')
 </body>
 @@include('../../modules/script.html')

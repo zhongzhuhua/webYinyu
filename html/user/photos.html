@@ -13,16 +13,28 @@
       <div class="uinfo-photo" id="list"> 
       </div>
       <div class="hidden" id="listTemp">
-        <div class="photo-img">
+        <div class="photo-img" data-value="{id}">
           {img}
+          <div class="photo-icon radius-50"><i class="icon-yes"></i></div>
         </div> 
       </div>
       <!-- 相册列表 -->
     </div>
   </div>
-  <div class="ice-bar txt-c flex">
-    <a class="ice-endbtn i-orange" id="upload" href="javascript:;">拍照</a>
+  <div class="ice-bar bg-yellow-low col-grey02 flex">
+    <div class="flex-1">
+      <a class="i-link" href="/html/user/info.html">个人中心</a>
+    </div>
+    <div class="flex-1">
+      <a class="i-link" id="upload" href="javascript:;">上传图片</a>
+    </div>
+    <div class="flex-1">
+      <a class="i-link" id="delete" href="javascript:;">删除选中图片</a>
+    </div>
   </div>
+  <!-- <div class="ice-bar txt-c flex">
+    <a class="ice-endbtn i-orange" id="upload" href="javascript:;">拍照</a>
+  </div> -->
 </body>
 @@include('../../modules/script.html')
 <script>

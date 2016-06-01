@@ -12,7 +12,7 @@
       selector: '#ice-simpledate',
       // 初始化值，必须是 yyyy-MM-dd，如果是 null ，默认 def****，如果是 dom 的话，则或者 data-value
       initValue: null,
-      defYear: '1955',
+      defYear: '1900',
       defMonth: '1',
       defDate: '1',
       btntext: '关闭',

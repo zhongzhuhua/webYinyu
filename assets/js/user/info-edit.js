@@ -10,6 +10,7 @@ define(function(require, exports, module) {
   var $age = ice.query('#age');
   var $birthday = ice.query('#birthday');
   var $btnUpload = ice.query('#btnUpload');
+  var birth;
 
   var mydata = {
     face: '',
@@ -37,7 +38,7 @@ define(function(require, exports, module) {
 
     $sex.innerHTML = gm.enum.sexName[sex];
     // $age.innerHTML = ice.parseInt(sessionStorage.getItem('editAge'));
-    var birth = ice.toEmpty(sessionStorage.getItem('editBirth'))
+    birth = ice.toEmpty(sessionStorage.getItem('editBirth'));
     if (birth != '') {
       $birthday.innerHTML = birth;
     } else {
@@ -86,7 +87,8 @@ define(function(require, exports, module) {
     // 绑定日历选择
     ice.simpledate({
       selector: '#birthday',
-      initValue: $birthday.innerHTML,
+      initValue: birth,
+      defYear: '1995',
       success: function(calendar) {
         var arrs = calendar.getValue().split('-');
         $birthday.innerHTML = arrs[0] + '-' + ice.dateFormatZero(arrs[1]) + '-' + ice.dateFormatZero(arrs[2]);
@@ -132,6 +134,7 @@ define(function(require, exports, module) {
 
   // 初始化
   (function() {
+    gm_wechat.init();
 
     // 绑定滚动加载_previous_user_brief_edit
     gm.bindScroll(function() {

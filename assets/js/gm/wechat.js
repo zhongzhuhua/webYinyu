@@ -348,10 +348,8 @@ define(function(require, exports, module) {
   // =============== 上传相片相关 =================
   // btn 上传按钮， img 图片
   exports.imageId = null;
-  exports.bindUploadImage = function($btn, $img) {
-    if(!($btn != null && $img != null)) {
-      return;
-    }
+  exports.bindUploadImage = function($btn) {
+    if($btn == null) return;
 
     var imageIds = null;
     var imageId = null;
@@ -392,7 +390,7 @@ define(function(require, exports, module) {
         success: function(data) {
           try {
             if(data.status == '200') {
-
+              gm.reload();
             }
           } catch(e) {
             console.log(e.message);

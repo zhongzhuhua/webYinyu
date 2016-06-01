@@ -78,6 +78,18 @@
         }
       }
     },
+    // 删除元素
+    remove: function(dom) {
+      if(dom != null) {
+        if(this.isElement(dom)) {
+          dom.parentNode.removeChild(dom);
+        } else {
+          for(var k in dom) {
+            this.remove(dom[k]);
+          }
+        }
+      }
+    },
     // css3 选择器
     query: function(s, dom) {
       dom = dom == null ? document : dom;

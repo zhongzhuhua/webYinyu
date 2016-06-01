@@ -278,6 +278,18 @@
   background-color: #eee;
 }
 
+.uinfo-photo .photo-icon {
+  position: absolute;
+  width: 1.2rem;
+  height: 1.2rem;
+  line-height: 1rem;
+  bottom: .2rem;
+  right: .2rem;
+  color: #fff;
+  background-color: #000;
+  text-align: center;
+}
+
 
 /* 相册列表 */
 
