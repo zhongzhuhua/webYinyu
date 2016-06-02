@@ -1,6 +1,8 @@
 define(function(require, exports, module) {
   require('layer');
 
+  exports.defaultBirthday = '1995-01-01';
+
   // 统一 ajax ，生产线 http://api.haoyoumm.com
   var isprod = location.host.indexOf('mm') > -1;
   var ctx = isprod ? 'http://api.haoyoumm.com' : '';

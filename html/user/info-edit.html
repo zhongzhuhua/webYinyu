@@ -19,7 +19,7 @@
           </div> 
         </div>
         <div class="edit-form border-box bg-yellow-low">
-          <input class="edit-input" id="name" />
+          <input class="edit-input" id="name" placeholder="请输入昵称" maxlength="20" />
         </div>
         <div class="edit-form border-box bg-yellow-low">
           <span class="edit-span" id="sex"></span>
@@ -28,7 +28,8 @@
           <span><label id="age">0</label>岁</span>
         </div> -->
         <div class="edit-form border-box bg-yellow-low">
-          <span class="edit-span" id="birthday"></span>
+          <!-- <span class="edit-span" id="birthday"></span> -->
+          <input class="edit-input" id="birthday" />
         </div>
         <div class="edit-form border-box bg-yellow-low">
            <span class="edit-span" id="area"></span>
@@ -42,6 +43,7 @@
 </body>
 @@include('../../modules/dialog-sex.html')
 @@include('../../modules/dialog-city.html')
+<script src="/assets/lib/My97DatePicker/WdatePicker.js"></script>
 @@include('../../modules/script.html')
 <script>
   require(['/assets/js/user/info-edit.js?v=' + myargs + '003']);

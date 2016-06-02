@@ -39,11 +39,15 @@ define(function(require, exports, module) {
     $sex.innerHTML = gm.enum.sexName[sex];
     // $age.innerHTML = ice.parseInt(sessionStorage.getItem('editAge'));
     birth = ice.toEmpty(sessionStorage.getItem('editBirth'));
-    if (birth != '') {
-      $birthday.innerHTML = birth;
-    } else {
-      $birthday.innerHTML = '<label class="col-grey03">点击选择出生日期</label>';
+    if(birth == '') {
+      birth = gm.defaultBirthday;
     }
+    $birthday.value = birth;
+    // if (birth != '') {
+    //   $birthday.value = birth;
+    // } else {
+    //   $birthday.innerHTML = '<label class="col-grey03">点击选择出生日期</label>';
+    // }
 
 
     // 绑定上传事件
@@ -61,6 +65,26 @@ define(function(require, exports, module) {
       issubmit = false;
 
       ice.stopDefault(e);
+
+      mydata.name = ice.trim(ice.toEmpty($name.value));
+      mydata.birthday = $birthday.value;
+
+      if(name == '') {
+        gm.mess('昵称不能为空');
+        return;
+      }
+      if(mydata.sex == '') {
+        gm.mess('请选择性别');
+        return;
+      }
+      if(mydata.birthday == '') {
+        gm.mess('请填写出生日期');
+        return;
+      }
+      if(mydata.province_identify == '' || mydata.city_identify == '') {
+        gm.mess('请选择城市');
+        return;
+      }
 
       // 更新资料
       gm.ajax({
@@ -84,16 +108,19 @@ define(function(require, exports, module) {
 
   // 日期选择
   function bindSimpleDate() {
-    // 绑定日历选择
-    ice.simpledate({
-      selector: '#birthday',
-      initValue: birth,
-      defYear: '1995',
-      success: function(calendar) {
-        var arrs = calendar.getValue().split('-');
-        $birthday.innerHTML = arrs[0] + '-' + ice.dateFormatZero(arrs[1]) + '-' + ice.dateFormatZero(arrs[2]);
-      }
+    $birthday.addEventListener(ice.tapClick, function() {
+      WdatePicker();
     });
+    // 绑定日历选择
+    // ice.simpledate({
+    //   selector: '#birthday',
+    //   initValue: birth,
+    //   defYear: '1995',
+    //   success: function(calendar) {
+    //     var arrs = calendar.getValue().split('-');
+    //     $birthday.innerHTML = arrs[0] + '-' + ice.dateFormatZero(arrs[1]) + '-' + ice.dateFormatZero(arrs[2]);
+    //   }
+    // });
   };
 
   // 选择性别
@@ -142,6 +169,7 @@ define(function(require, exports, module) {
     }, null);
 
     search();
+    bindUpdate();
     bindSimpleDate();
     bindChooseSex();
     bindChooseCity();
