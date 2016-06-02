@@ -64,7 +64,7 @@
         <div class="info-title">我的拍卖</div>
       </div>
       <div class="user-auction pd-lr bg-yellow-low">
-        <div class="flex">
+        <div class="flex" id="auction">
           <div class="flex-1">
             <div class="auction-skill col-grey01 textover" id="skills"></div>
             <div class="auction-info col-grey02 textover">时长：<span id="times">0</span>分钟</div>
@@ -81,6 +81,9 @@
             </div>
           </div>
         </div>
+        <div class="col-orange auction-none hidden" id="auctionNone">
+          <a href="/html/sell/edit.html">创建我的拍卖</a>
+        </div>
       </div>
       <!-- 我的拍卖 -->
 
@@ -94,7 +97,7 @@
           <div class="flex-1 col-grey01">售卖记录</div>
           <div class="list-icon col-grey03"><i class="icon-arrowright"></i></div>
         </a>
-        <a href="javascript:;" class="list-row flex">
+        <a href="/html/help/money.html" class="list-row flex">
           <div class="flex-1 col-grey01">提现</div>
           <div class="list-money">
             <div class="list-memo">金额</div>
@@ -102,10 +105,10 @@
           </div>
           <div class="list-icon col-grey03"><i class="icon-arrowright"></i></div>
         </a>
-        <a href="javascript:;" class="list-row flex">
+        <!-- <a href="javascript:;" class="list-row flex">
           <div class="flex-1 col-grey01">帮助中心</div>
           <div class="list-icon col-grey03"><i class="icon-arrowright"></i></div>
-        </a>
+        </a> -->
       </div>
       <!-- 导航列表 -->
     </div>

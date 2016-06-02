@@ -439,7 +439,8 @@ a {
 .info-photo img,
 .ice-rightbtn img,
 .edit-photoimg img,
-.uinfo-photo img {
+.uinfo-photo img,
+.help-money img {
   width: 100%;
   height: 100%;
 }
@@ -667,6 +668,9 @@ a {
   color: #383a3d;
 }
 
+.col-black02 {
+  color: #494b4d;
+}
 
 /* 白色 */
 
@@ -1474,6 +1478,12 @@ i.icon-yes:before {
   min-width: 4.6rem;
 }
 
+.user-auction .auction-none {
+  height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+}
+
 
 /* 个人中心-我的拍卖 */
 
@@ -1987,6 +1997,40 @@ i.icon-yes:before {
 
 
 /* 表单编辑 */
+
+
+/* 提现帮助 [help/money] */
+
+.help-money .money-img {
+  margin: 4rem auto 1rem;
+  width: 10rem;
+  height: 10rem;
+}
+
+.help-money .money-mess {
+  padding: 0 1rem;
+  font-weight: 600;
+}
+
+.help-money .money-rules {
+  font-size: .92rem;
+}
+
+.help-money .money-rule {
+  line-height: 1.08rem;
+  padding-bottom: .4rem;
+}
+
+.help-money .money-des {
+  padding-left: 2rem;
+}
+
+.help-money .money-title {
+  line-height: 2rem;
+}
+
+
+/* 提现帮助  */
 
 
 /* 提现弹窗 */

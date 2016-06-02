@@ -199,6 +199,12 @@
   min-width: 4.6rem;
 }
 
+.user-auction .auction-none {
+  height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+}
+
 
 /* 个人中心-我的拍卖 */
 
@@ -712,6 +718,40 @@
 
 
 /* 表单编辑 */
+
+
+/* 提现帮助 [help/money] */
+
+.help-money .money-img {
+  margin: 4rem auto 1rem;
+  width: 10rem;
+  height: 10rem;
+}
+
+.help-money .money-mess {
+  padding: 0 1rem;
+  font-weight: 600;
+}
+
+.help-money .money-rules {
+  font-size: .92rem;
+}
+
+.help-money .money-rule {
+  line-height: 1.08rem;
+  padding-bottom: .4rem;
+}
+
+.help-money .money-des {
+  padding-left: 2rem;
+}
+
+.help-money .money-title {
+  line-height: 2rem;
+}
+
+
+/* 提现帮助  */
 
 
 /* 提现弹窗 */

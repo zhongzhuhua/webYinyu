@@ -137,11 +137,15 @@ define(function(require, exports, module) {
       var $woman = ice.query('.layermbox .sex-woman');
 
       $man.addEventListener(ice.tapClick, function(e) {
+        ice.stopPropagation(e);
+        ice.stopDefault(e);
         mydata.sex = 1;
         $sex.innerHTML = '男';
         gm.close(layer, 0);
       });
       $woman.addEventListener(ice.tapClick, function(e) {
+        ice.stopPropagation(e);
+        ice.stopDefault(e);
         mydata.sex = 2;
         $sex.innerHTML = '女';
         gm.close(layer, 0);

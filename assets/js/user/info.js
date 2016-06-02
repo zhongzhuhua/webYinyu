@@ -17,6 +17,8 @@ define(function(require, exports, module) {
   var $times = ice.query('#times');
   var $money = ice.query('#money');
   var $sex = ice.query('#sex');
+  var $auction = ice.query('#auction');
+  var $auctionNone = ice.query('#auctionNone');
 
   // 相册
   var $photoList = ice.query('#photoList');
@@ -59,6 +61,12 @@ define(function(require, exports, module) {
             $wechat.innerHTML = model.wechat;
 
             buildPhotos(model.photo_list);
+
+            // 用户未开始拍卖
+            if(!model.is_auction) {
+              ice.removeClass($auctionNone, 'hidden');
+              ice.addClass($auction, 'hidden');
+            }
 
             // 设置用户信息
             sessionStorage.setItem('editBirth', model.birthday);
