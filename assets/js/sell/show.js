@@ -339,6 +339,8 @@ define(function(require, exports, module) {
   (function() {
     search(true);
 
+    gm.bindOpenPhoto($btnOpenPhoto);
+
     // 绑定事件
     bindSend();
   })();

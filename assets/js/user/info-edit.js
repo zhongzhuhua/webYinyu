@@ -42,17 +42,21 @@ define(function(require, exports, module) {
     if(birth == '') {
       birth = gm.defaultBirthday;
     }
-    $birthday.value = birth;
-    // if (birth != '') {
-    //   $birthday.value = birth;
-    // } else {
-    //   $birthday.innerHTML = '<label class="col-grey03">点击选择出生日期</label>';
-    // }
 
+    // $birthday.value = birth;
+    $birthday.innerHTML = birth;
+    if (birth == '') {
+      $birthday.innerHTML = '<label class="col-grey03">点击选择出生日期</label>';
+    }
 
     // 绑定上传事件
     var $image = ice.query('img', $img);
-    gm_wechat.bindUploadImage($btnUpload, $image);
+    gm_wechat.bindUploadImage($img, function(result) {
+      if(result != null && result.length == 1) {
+        $image.src = result.url;
+        mydata.face = result.uri;
+      }
+    }, 1);
 
   };
 
@@ -67,9 +71,10 @@ define(function(require, exports, module) {
       ice.stopDefault(e);
 
       mydata.name = ice.trim(ice.toEmpty($name.value));
-      mydata.birthday = $birthday.value;
+      mydata.birthday = ice.trim($birthday.innerHTML);
+      // mydata.birthday = $birthday.value;
 
-      if(name == '') {
+      if(mydata.name == '') {
         gm.mess('昵称不能为空');
         return;
       }
@@ -81,7 +86,7 @@ define(function(require, exports, module) {
         gm.mess('请填写出生日期');
         return;
       }
-      if(mydata.province_identify == '' || mydata.city_identify == '') {
+      if(mydata.province_identify != '') {
         gm.mess('请选择城市');
         return;
       }
@@ -108,19 +113,19 @@ define(function(require, exports, module) {
 
   // 日期选择
   function bindSimpleDate() {
-    $birthday.addEventListener(ice.tapClick, function() {
-      WdatePicker();
-    });
-    // 绑定日历选择
-    // ice.simpledate({
-    //   selector: '#birthday',
-    //   initValue: birth,
-    //   defYear: '1995',
-    //   success: function(calendar) {
-    //     var arrs = calendar.getValue().split('-');
-    //     $birthday.innerHTML = arrs[0] + '-' + ice.dateFormatZero(arrs[1]) + '-' + ice.dateFormatZero(arrs[2]);
-    //   }
+    // $birthday.addEventListener(ice.tapClick, function() {
+    //   WdatePicker();
     // });
+    // 绑定日历选择
+    ice.simpledate({
+      selector: '#birthday',
+      initValue: birth,
+      defYear: '1995',
+      success: function(calendar) {
+        var arrs = calendar.getValue().split('-');
+        $birthday.innerHTML = arrs[0] + '-' + ice.dateFormatZero(arrs[1]) + '-' + ice.dateFormatZero(arrs[2]);
+      }
+    });
   };
 
   // 选择性别

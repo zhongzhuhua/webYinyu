@@ -348,7 +348,7 @@ define(function(require, exports, module) {
   // =============== 上传相片相关 =================
   // btn 上传按钮， img 图片
   exports.imageId = null;
-  exports.bindUploadImage = function($btn) {
+  exports.bindUploadImage = function($btn, success, count) {
     if($btn == null) return;
 
     var imageIds = null;
@@ -356,25 +356,29 @@ define(function(require, exports, module) {
     // 选择图片
     $btn.addEventListener(ice.tapClick, function(e) {
       wx.chooseImage({
-        count: 1, // 默认9
+        count: count == null ? 9 : count, // 默认9
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function(res) {
           imageIds = res.localIds;
+          var result = [];
 
           // 上传到微信服务器
-          wx.uploadImage({
-            localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
-            isShowProgressTips: 1, // 默认为1，显示进度提示
-            success: function(res) {
-              imageId = res.serverId;
+          for(var key in imageIds) {
+            wx.uploadImage({
+              localId: imageIds[key], // 需要上传的图片的本地ID，由chooseImage接口获得
+              isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function(res) {
+                imageId = res.serverId;
 
-              var result = _commonUploadServer(imageId, 'image');
-              if(result != null) {
-                addImage(result.uri);
+                result.push(_commonUploadServer(imageId, 'image'));
               }
-            }
-          });
+            });  
+          }
+
+          if(ice.isFunction(success)) {
+            success(result)
+          }
         }
       });
     });

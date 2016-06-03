@@ -10,7 +10,7 @@
   	"city": "深圳",
   	"consumption_level": "22",
   	"photo_amount": "6",
-    "is_auction": "1",
+    "is_auction": "2",
     "service_record_identify": "1000",
     "service_name": "陪你看月亮",
     "service_price": "20.00",
