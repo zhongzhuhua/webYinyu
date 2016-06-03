@@ -168,7 +168,7 @@ define(function(require, exports, module) {
               var id = ice.toEmpty(model.identify);
               var lv = gm.enum.getLevel(model.consumption_level);
               var lvb = gm.enum.getLevelB(model.buyer_ranking);
-              var content = ice.removeAttr(model.comment);
+              var content = ice.replaceHtml(model.comment);
               var user = ice.toEmpty(model.refer_nick);
               content = user == '' ? content : '<font class="col-orange">@' + user + '：</font>' + content;
               var col = model.type === '1' ? 'col-orange' : model.type === '21' ? 'col-blue01' : 'col-grey01';
@@ -226,7 +226,7 @@ define(function(require, exports, module) {
     var html = '<input id="layerSendMess" class="input01 col-grey02" placeHolder="' + text + '" maxlength="80"><div class="col-grey03" style="width: 15rem; font-size: .7rem; text-align: left; padding: 0 3rem; margin: 0 auto; margin-top: -1rem; line-height: 1rem; margin-bottom: .8rem;">友情提示：点击评论区，即可回 复TA哦~</div>';
     var layer = gm.confirm(html, function() {
       gm.close(layer, 0);
-      var sendMess = ice.trim(ice.removeAttr(ice.query('#layerSendMess').value));
+      var sendMess = ice.trim(ice.query('#layerSendMess').value);
       if (sendMess.length > 0) {
         gm.ajax({
           url: '/wechat/version/previous/user/comment/add.json',
@@ -257,6 +257,7 @@ define(function(require, exports, module) {
 
   // 添加一个信息
   function addMess(model, sendMess, type, user) {
+    sendMess = ice.replaceHtml(sendMess);
     sendMess = user == null ? sendMess : '<font class="col-orange">@' + user + '：</font>' + sendMess;
     var name = ice.toEmpty(model.nick);
     var photo = ice.isEmpty(model.face) ? gm.photo : model.face;

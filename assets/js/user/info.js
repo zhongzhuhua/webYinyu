@@ -72,7 +72,10 @@ define(function(require, exports, module) {
             sessionStorage.setItem('editBirth', model.birthday);
             sessionStorage.setItem('editName', model.nick);
             sessionStorage.setItem('editImage', img);
+            sessionStorage.setItem('editImageId', model.face_identify);
             sessionStorage.setItem('editSex', model.sex);
+            sessionStorage.setItem('editProvince', model.province_identify);
+            sessionStorage.setItem('editCity', model.city_identify);
             sessionStorage.setItem('editArea', model.city);
             sessionStorage.setItem('editAge', model.age);
           }

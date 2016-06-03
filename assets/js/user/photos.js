@@ -15,7 +15,7 @@ define(function(require, exports, module) {
       url: '/wechat/sociality/media/photo/list.json',
       async: false,
       data: {
-        size: 10000
+        size: ''
       },
       success: function(data) {
         try {

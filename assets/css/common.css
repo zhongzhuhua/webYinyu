@@ -1431,6 +1431,7 @@ i.icon-yes:before {
 /* 个人中心-我的拍卖 */
 
 .user-auction {
+  display: block;
   padding-top: .8rem;
   padding-bottom: .8rem;
 }

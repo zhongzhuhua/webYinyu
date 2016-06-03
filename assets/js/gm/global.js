@@ -261,8 +261,8 @@ define(function(require, exports, module) {
   };
   exports.go = go;
 
-  // 城市
-  exports.buildCitySelect = function(dom, yes) {
+  // 城市 val = { p: '省', }
+  exports.buildCitySelect = function(dom, yes, val) {
     if (!dom) return;
 
     // 省市县
@@ -307,8 +307,6 @@ define(function(require, exports, module) {
         }
       });
     };
-
-    _select('Fzyzwvvvzxw', 'p');
 
     // 绑定事件
     var $choose = null;
@@ -366,6 +364,22 @@ define(function(require, exports, module) {
     $btnCancel.addEventListener(ice.tapClick, function() {
       _close();
     });
+
+    _select('Fzyzwvvvzxw', 'p');
+    if (val != null) {
+      if (val.p != null && val.p != '') {
+        $cp = ice.query('.city-option[data-value="' + val.p + '"]', $province);
+        if ($cp != null) $choose = $cp;
+        ice.addClass($cp, 'col-orange');
+        _select(val.p, 'c');
+        ice.removeClass($city, 'hidden');
+      }
+      if (val.c != null && val.c != '') {
+        $cc = ice.query('.city-option[data-value="' + val.c + '"]', $city);
+        if ($cc != null) $choose = $cc;
+        ice.addClass($cc, 'col-orange');
+      }
+    }
 
     return {
       getCity: function() {
@@ -483,7 +497,7 @@ define(function(require, exports, module) {
           url: '/wechat/sociality/media/photo/list.json',
           async: false,
           data: {
-            size: 10000
+            size: ''
           },
           success: function(data) {
             try {
@@ -547,7 +561,7 @@ define(function(require, exports, module) {
     // 绑定切换事件
     function bindChange(imgLen) {
       // 移动端绑定滑动事件
-      if(ice.isMobile) {
+      if (ice.isMobile) {
         ice.addClass($iconLeft, 'hidden');
         ice.addClass($iconRight, 'hidden');
         var pageX = 0;
@@ -564,13 +578,13 @@ define(function(require, exports, module) {
         });
 
         $winPhoto.addEventListener(ice.tapEnd, function(e) {
-          if(min < 0)  {
+          if (min < 0) {
             chooseIndex = chooseIndex + 1;
             if (chooseIndex >= imgLen) {
               chooseIndex = 0;
             }
             changeIamge();
-          } else if(min > 0) {
+          } else if (min > 0) {
             chooseIndex = chooseIndex - 1;
             if (chooseIndex < 0) {
               chooseIndex = imgLen - 1;

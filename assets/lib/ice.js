@@ -16,6 +16,10 @@
     removeAttr: function(s) {
       return s == null ? '' : s.replace(/<|>|\&/g, ' ');
     },
+    replaceHtml: function(s) {
+      if (s == null || s == '') return '';
+      return s.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    },
     // innerText
     innerText: function(dom, text) {
       if (dom != null) {
@@ -80,11 +84,11 @@
     },
     // 删除元素
     remove: function(dom) {
-      if(dom != null) {
-        if(this.isElement(dom)) {
+      if (dom != null) {
+        if (this.isElement(dom)) {
           dom.parentNode.removeChild(dom);
         } else {
-          for(var k in dom) {
+          for (var k in dom) {
             this.remove(dom[k]);
           }
         }
@@ -354,6 +358,6 @@
       }
     }
   };
-  
+
   window.ice = ice;
 })();

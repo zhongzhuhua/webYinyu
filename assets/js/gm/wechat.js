@@ -361,7 +361,6 @@ define(function(require, exports, module) {
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function(res) {
           imageIds = res.localIds;
-          var result = [];
 
           // 上传到微信服务器
           for(var key in imageIds) {
@@ -371,13 +370,16 @@ define(function(require, exports, module) {
               success: function(res) {
                 imageId = res.serverId;
 
-                result.push(_commonUploadServer(imageId, 'image'));
+                var result = _commonUploadServer(imageId, 'image');
+                if(result != null) {
+                  addImage([result.uri]);
+                }
+
+                if(count != null && count == 1 && ice.isFunction(success)) {
+                  success(result)
+                }
               }
             });  
-          }
-
-          if(ice.isFunction(success)) {
-            success(result)
           }
         }
       });
@@ -410,7 +412,7 @@ define(function(require, exports, module) {
     gm.ajax({
       url: '/wechat/wechat/media.json',
       data: {
-        type: 'voice',
+        type: type,
         media_id: serverId
       },
       success: function(data) {

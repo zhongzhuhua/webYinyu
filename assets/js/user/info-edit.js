@@ -30,9 +30,13 @@ define(function(require, exports, module) {
     sex = sex == null ? '1' : sex;
     mydata.sex = sex;
     mydata.nick = sessionStorage.getItem('editName');
+    mydata.face = sessionStorage.getItem('editImageId');
 
     $img.innerHTML = sessionStorage.getItem('editImage');
     $area.innerHTML = sessionStorage.getItem('editArea');
+
+    mydata.province_identify = sessionStorage.getItem('editProvince');
+    mydata.city_identify = sessionStorage.getItem('editCity');
 
     $name.value = mydata.nick;
 
@@ -70,11 +74,11 @@ define(function(require, exports, module) {
 
       ice.stopDefault(e);
 
-      mydata.name = ice.trim(ice.toEmpty($name.value));
+      mydata.nick = ice.trim(ice.toEmpty($name.value));
       mydata.birthday = ice.trim($birthday.innerHTML);
       // mydata.birthday = $birthday.value;
 
-      if(mydata.name == '') {
+      if(mydata.nick == '') {
         gm.mess('昵称不能为空');
         return;
       }
@@ -86,20 +90,22 @@ define(function(require, exports, module) {
         gm.mess('请填写出生日期');
         return;
       }
-      if(mydata.province_identify != '') {
+      if(mydata.province_identify == '') {
         gm.mess('请选择城市');
         return;
       }
 
+      console.log(mydata);
+
       // 更新资料
       gm.ajax({
-        url: '/wechat/previous/user/brief/edit.json',
+        url: '/wechat/version/previous/user/brief/edit.json',
         async: false,
         data: mydata,
         success: function(data) {
           try {
             if (data.status == '200') {
-              gm.go('/html/user/info.html');
+              // gm.go('/html/user/info.html');
             }
           } catch (e) {
             console.log(e.message);
@@ -165,6 +171,9 @@ define(function(require, exports, module) {
       mydata.city_identify = city.getCity();
       mydata.country_identify = city.getCounty();
       $area.innerHTML = city.getText();
+    }, {
+      p: mydata.province_identify,
+      c: mydata.city_identify
     });
   };
 
