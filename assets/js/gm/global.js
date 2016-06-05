@@ -492,7 +492,7 @@ define(function(require, exports, module) {
     $list.addEventListener('click', function(e) {
       // 如果还没有加载数据，则进行数据加载
       if (!isload) {
-        isload = false;
+        isload = true;
         ajax({
           url: '/wechat/sociality/media/photo/list.json',
           async: false,
@@ -626,6 +626,12 @@ define(function(require, exports, module) {
       }
 
       $choose = $imgList[chooseIndex];
+    };
+
+    return {
+      reset: function() {
+        isload = false;
+      }
     };
   };
 

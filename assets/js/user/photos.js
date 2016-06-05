@@ -123,6 +123,17 @@ define(function(require, exports, module) {
     bindDelete();
 
     // 绑定上传照片
-    gm_wechat.bindUploadImage($upload);
+    gm_wechat.bindUploadImage($upload, function(model) {
+      var imgId = ice.toEmpty(model.album_identify);
+      var imgPath = ice.removeAttr(ice.toEmpty(model.thumbnail));
+      var imgBigPath = ice.removeAttr(ice.toEmpty(model.view));
+      if (imgId != '') {
+        var img = '<img src="' + imgPath + '" data-src="' + imgBigPath + '" alt="">';
+        var $dom = document.createElement('div');
+        $dom.innerHTML = listTemp.replace('{id}', imgId).replace('{img}', img);
+        bindChange($dom.children[0]);
+        $list.appendChild($dom.children[0]);
+      } 
+    });
   })();
 });

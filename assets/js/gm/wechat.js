@@ -318,7 +318,7 @@ define(function(require, exports, module) {
   // 上传到服务器
   function _uploadServer(serverId) {
     var result = _commonUploadServer(serverId, 'voice');
-    if(result != null) {
+    if (result != null) {
       $wxSoundSource.setAttribute('src', result.url);
       audioPath = result.uri;
     }
@@ -349,10 +349,26 @@ define(function(require, exports, module) {
   // btn 上传按钮， img 图片
   exports.imageId = null;
   exports.bindUploadImage = function($btn, success, count) {
-    if($btn == null) return;
+    if ($btn == null) return;
+
+    if (!gm.isprod) {
+      $btn.addEventListener(ice.tapClick, function() {
+        if (ice.isFunction(success)) {
+          var photo = {};
+          photo.url = '/assets/images/user.png';
+          photo.uri = '/assets/images/user.png';
+          photo.album_identify = '1005';
+          photo.thumbnail = '/assets/images/user.png';
+          photo.view = '/assets/images/user.png';
+          success(photo);
+        }
+      });
+      return;
+    }
 
     var imageIds = null;
     var imageId = null;
+
     // 选择图片
     $btn.addEventListener(ice.tapClick, function(e) {
       wx.chooseImage({
@@ -363,7 +379,7 @@ define(function(require, exports, module) {
           imageIds = res.localIds;
 
           // 上传到微信服务器
-          for(var key in imageIds) {
+          for (var key in imageIds) {
             wx.uploadImage({
               localId: imageIds[key], // 需要上传的图片的本地ID，由chooseImage接口获得
               isShowProgressTips: 1, // 默认为1，显示进度提示
@@ -371,38 +387,87 @@ define(function(require, exports, module) {
                 imageId = res.serverId;
 
                 var result = _commonUploadServer(imageId, 'image');
-                if(result != null) {
-                  addImage([result.uri]);
-                }
-
-                if(count != null && count == 1 && ice.isFunction(success)) {
-                  success(result)
+                if (result != null) {
+                  addImage(result);
                 }
               }
-            });  
+            });
           }
         }
       });
     });
 
     // 服务器上传
-    function addImage(photo) {
+    function addImage(photos, success) {
       gm.ajax({
         url: '/wechat/sociality/media/photo/add.json',
+        async: false,
         data: {
           album: '',
-          photo: photo
+          photo: [photos.uri]
         },
         success: function(data) {
           try {
-            if(data.status == '200') {
-              gm.reload();
+            if (data.status == '200') {
+              var model = data.value.list[0];
+              if (ice.isFunction(success)) {
+                photo.album_identify = model.album_identify;
+                photo.thumbnail = model.thumbnail;
+                photo.view = model.view;
+                success(photo);
+              }
             }
-          } catch(e) {
+          } catch (e) {
             console.log(e.message);
           }
         }
       });
+    };
+  };
+
+  // 浏览相片相关
+  exports.buildPhotoView = function($dom, currentPath) {
+    var isload = false;
+    var images = [];
+    $dom.addEventListener(ice.tapClick, function() {
+      // 加载相册
+      if (!isload) {
+        isload = true;
+        ajax({
+          url: '/wechat/sociality/media/photo/list.json',
+          async: false,
+          data: {
+            size: ''
+          },
+          success: function(data) {
+            try {
+              imgIds = [];
+              if (data.status == '200') {
+                var list = data.value.list;
+
+                var len = list == null ? 0 : list.length;
+
+                for (var i = 0; i < len; i++) {
+                  images.push(list[i].view);
+                }
+              }
+            } catch (e) {
+              console.log(e.message);
+            }
+          }
+        });
+      }
+
+      wx.previewImage({
+        current: currentPath == null ? '' : currentPath, // 当前显示图片的http链接
+        urls: [] // 需要预览的图片http链接列表
+      });
+    });
+
+    return {
+      addImage: function(imgPath) {
+        images.push(imgPath);
+      }
     };
   };
 
@@ -411,6 +476,7 @@ define(function(require, exports, module) {
     // 上传到服务器
     gm.ajax({
       url: '/wechat/wechat/media.json',
+      async: false,
       data: {
         type: type,
         media_id: serverId
@@ -434,7 +500,7 @@ define(function(require, exports, module) {
 
   (function() {
     // 绑定分享
-    if($btnShard != null) {
+    if ($btnShard != null) {
       $btnShard.addEventListener(ice.tapClick, function() {
         var _l = gm.open('<img src="/assets/images/share.png" class="dialogShare" style="width: 10rem; height: 5rem; float: right; padding-right: 2rem; padding-top: .5rem" />', ' background-color: transparent; position:fixed; width:100%; height:100%; border:none;');
         (ice.query('.dialogShare').parentNode.parentNode).addEventListener(ice.tapClick, function(e) {
@@ -442,7 +508,7 @@ define(function(require, exports, module) {
           e.stopPropagation();
           gm.close(_l, 0);
         });
-      }); 
+      });
     }
   })();
 });

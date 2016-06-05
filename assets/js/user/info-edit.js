@@ -56,7 +56,7 @@ define(function(require, exports, module) {
     // 绑定上传事件
     var $image = ice.query('img', $img);
     gm_wechat.bindUploadImage($img, function(result) {
-      if(result != null && result.length == 1) {
+      if(result != null) {
         $image.src = result.url;
         mydata.face = result.uri;
       }

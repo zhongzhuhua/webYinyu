@@ -3,6 +3,7 @@ define(function(require, exports, module) {
   var ice = gm.ice;
   var gm_wechat = require('wechat');
 
+  var openPhoto;
   var $upload = ice.query('#upload');
   // 个人信息
   var $name = ice.query('#name');
@@ -113,11 +114,15 @@ define(function(require, exports, module) {
 
     search();
 
-    gm.bindOpenPhoto($photoList);
+    // openPhoto = gm.bindOpenPhoto($photoList);
+    openPhoto = gm_wechat.buildPhotoView($photoList);
 
-    // 绑定上传照片
-    gm_wechat.bindUploadImage($upload, function() {
-      gm.reload();
-    });
+    // 绑定上传照片 
+    gm_wechat.bindUploadImage($upload, function(model) {
+      if(openPhoto && model) {
+        // openPhoto.reset();
+        openPhoto.addImage(model.view);
+      }
+    }); 
   })();
 });
