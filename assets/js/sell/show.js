@@ -340,7 +340,8 @@ define(function(require, exports, module) {
   (function() {
     search(true);
 
-    gm.bindOpenPhoto($btnOpenPhoto);
+    gm.bindOpenPhoto($btnOpenPhoto, identify);
+    // gm_wechat.buildPhotoView($photoList, '', identify);
 
     // 绑定事件
     bindSend();

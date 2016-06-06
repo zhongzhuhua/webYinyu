@@ -10,6 +10,8 @@
     "birthday": "1990-02-04",
     "province_identify": "1001",
     "city_identify": "1002",
+    "province_code": "2001",
+    "city_code": "2002",
   	"city": "深圳",
   	"consumption_level": "22",
   	"photo_amount": "6",

@@ -317,11 +317,12 @@ define(function(require, exports, module) {
 
   // 上传到服务器
   function _uploadServer(serverId) {
-    var result = _commonUploadServer(serverId, 'voice');
-    if (result != null) {
-      $wxSoundSource.setAttribute('src', result.url);
-      audioPath = result.uri;
-    }
+    _commonUploadServer(serverId, 'voice', function(data) {
+      if (data != null) {
+        $wxSoundSource.setAttribute('src', data.url);
+        audioPath = data.uri;
+      }
+    });
   };
 
   // 播放录音
@@ -386,10 +387,11 @@ define(function(require, exports, module) {
               success: function(res) {
                 imageId = res.serverId;
 
-                var result = _commonUploadServer(imageId, 'image');
-                if (result != null) {
-                  addImage(result);
-                }
+                _commonUploadServer(imageId, 'image', function(data) {
+                  if (data != null) {
+                    addImage(data);
+                  }
+                });
               }
             });
           }
@@ -426,17 +428,19 @@ define(function(require, exports, module) {
   };
 
   // 浏览相片相关
-  exports.buildPhotoView = function($dom, currentPath) {
+  exports.buildPhotoView = function($dom, currentPath, identify) {
+    console.log('buildPhotoView');
+    console.log(identify);
     var isload = false;
     var images = [];
     $dom.addEventListener(ice.tapClick, function() {
       // 加载相册
       if (!isload) {
         isload = true;
-        ajax({
+        gm.ajax({
           url: '/wechat/sociality/media/photo/list.json',
-          async: false,
           data: {
+            identify: identify,
             size: ''
           },
           success: function(data) {
@@ -451,17 +455,17 @@ define(function(require, exports, module) {
                   images.push(list[i].view);
                 }
               }
+
+              wx.previewImage({
+                current: currentPath == null ? '' : currentPath, // 当前显示图片的http链接
+                urls: images // 需要预览的图片http链接列表
+              });
             } catch (e) {
               console.log(e.message);
             }
           }
         });
       }
-
-      wx.previewImage({
-        current: currentPath == null ? '' : currentPath, // 当前显示图片的http链接
-        urls: [] // 需要预览的图片http链接列表
-      });
     });
 
     return {
@@ -472,7 +476,7 @@ define(function(require, exports, module) {
   };
 
   // 公用上传到服务器 type = image|voice|video|thumb
-  function _commonUploadServer(serverId, type) {
+  function _commonUploadServer(serverId, type, success) {
     // 上传到服务器
     gm.ajax({
       url: '/wechat/wechat/media.json',
@@ -486,10 +490,13 @@ define(function(require, exports, module) {
           if (data.status == '200') {
             var _uri = data.value.uri;
             var _url = data.value.url;
-            return {
-              url: _url,
-              uri: _uri
-            };
+
+            if (ice.isFunction(success)) {
+              success({
+                url: _url,
+                uri: _uri
+              })
+            }
           }
         } catch (e) {
           console.log(e.message);

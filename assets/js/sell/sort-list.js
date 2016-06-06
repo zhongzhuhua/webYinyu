@@ -14,6 +14,9 @@ define(function(require, exports, module) {
     status: mydataChoose[1]
   };
 
+  // 卖家奖金列表
+  var priceList = [100, 50, 20, 15, 12, 10, 8, 5, 2, 1];
+
   // 查询列表
   function findList(clear) {
     if (clear) {
@@ -54,15 +57,27 @@ define(function(require, exports, module) {
               var lvb = 'hidden';
               var type = '身价';
               var link = 'javascript:;';
+              var price = 0;
+              var isPrice = 'hidden';
+              var priceText = '即将获得';
               if (mydata.type == '2') {
                 lv = gm.enum.getLevel(model.consumption_level);
                 lvb = gm.enum.getLevelB(model.buyer_ranking);
                 type = '消费';
               } else {
                 link = '/html/sell/show.html?identify=' + model.identify;
+
+                if (i < 10) {
+                  price = priceList[i];
+                  isPrice = '';
+                }
+
+                if (mydata.status == '2') {
+                  priceText = '已经获得';
+                }
               }
 
-              html += listTemp.replace('{link}', link).replace('{total}', total).replace('{type}', type).replace('{lv}', lv).replace('{lvb}', lvb).replace('{index}', index).replace('{sex}', sex)
+              html += listTemp.replace('{p}', price).replace('{pt}', priceText).replace('{isprice}', isPrice).replace('{link}', link).replace('{total}', total).replace('{type}', type).replace('{lv}', lv).replace('{lvb}', lvb).replace('{index}', index).replace('{sex}', sex)
                 .replace('{img}', img).replace('{name}', name);
             }
             var divs = document.createElement('div');

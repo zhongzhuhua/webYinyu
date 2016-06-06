@@ -11,7 +11,7 @@
   	"list": [{
       "level": "0",
       "identify": "1001",
-      "code": "code",
+      "code": "2001",
       "name": "广东省",
       "brief": "广东",
       "english": "",
@@ -19,7 +19,7 @@
   	},{
       "level": "0",
       "identify": "1002",
-      "code": "code",
+      "code": "2002",
       "name": "湖南省",
       "brief": "湖南",
       "english": "",
@@ -27,7 +27,7 @@
     },{
       "level": "0",
       "identify": "1003",
-      "code": "code",
+      "code": "2003",
       "name": "北京市",
       "brief": "北京",
       "english": "",
@@ -35,7 +35,7 @@
     },{
       "level": "0",
       "identify": "1004",
-      "code": "code",
+      "code": "2004",
       "name": "上海市",
       "brief": "上海",
       "english": "",

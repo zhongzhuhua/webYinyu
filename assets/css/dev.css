@@ -201,6 +201,7 @@
 }
 
 .user-auction .auction-none {
+  display: block;
   height: 4rem;
   line-height: 4rem;
   text-align: center;
@@ -476,6 +477,25 @@
 
 .user-list .list-price-mess {
   font-size: .92rem;
+}
+
+.user-list .list-pack {
+  position: relative;
+  width: 4rem;
+  height: 3.6rem;
+}
+
+.user-list .list-pack-num,
+.user-list .list-pack-mess {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: .8rem;
+}
+
+.user-list .list-pack-num {
+  bottom: .6rem;
+  color: #fff;
 }
 
 

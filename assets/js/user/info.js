@@ -76,7 +76,9 @@ define(function(require, exports, module) {
             sessionStorage.setItem('editImageId', model.face_identify);
             sessionStorage.setItem('editSex', model.sex);
             sessionStorage.setItem('editProvince', model.province_identify);
+            sessionStorage.setItem('editProvinceCode', model.province_code);
             sessionStorage.setItem('editCity', model.city_identify);
+            sessionStorage.setItem('editCityCode', model.city_code);
             sessionStorage.setItem('editArea', model.city);
             sessionStorage.setItem('editAge', model.age);
           }
@@ -114,14 +116,14 @@ define(function(require, exports, module) {
 
     search();
 
-    // openPhoto = gm.bindOpenPhoto($photoList);
-    openPhoto = gm_wechat.buildPhotoView($photoList);
+    openPhoto = gm.bindOpenPhoto($photoList, '');
+    // openPhoto = gm_wechat.buildPhotoView($photoList);
 
     // 绑定上传照片 
     gm_wechat.bindUploadImage($upload, function(model) {
       if(openPhoto && model) {
-        // openPhoto.reset();
-        openPhoto.addImage(model.view);
+        openPhoto.reset();
+        // openPhoto.addImage(model.view);
       }
     }); 
   })();

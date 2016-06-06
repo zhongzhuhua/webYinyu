@@ -289,7 +289,7 @@ define(function(require, exports, module) {
             var html = '';
             for (var i = 0; i < len; i++) {
               var model = list[i];
-              html += temp.replace('{id}', model.identify).replace('{name}', model.brief);
+              html += temp.replace('{id}', model.identify).replace('{code}', model.code).replace('{name}', model.brief);
             }
             if (type == 'c') {
               $city.innerHTML = html;
@@ -317,7 +317,7 @@ define(function(require, exports, module) {
       var ele = e.srcElement;
       var clazz = ele.className;
       if (clazz == 'city-option') {
-        var id = ele.getAttribute('data-value');
+        var id = ele.getAttribute('data-code');
         var pclazz = ele.parentNode.className;
         $choose = ele;
 
@@ -367,15 +367,16 @@ define(function(require, exports, module) {
 
     _select('Fzyzwvvvzxw', 'p');
     if (val != null) {
+      console.log(val);
       if (val.p != null && val.p != '') {
-        $cp = ice.query('.city-option[data-value="' + val.p + '"]', $province);
+        $cp = ice.query('.city-option[data-code="' + val.p + '"]', $province);
         if ($cp != null) $choose = $cp;
         ice.addClass($cp, 'col-orange');
         _select(val.p, 'c');
         ice.removeClass($city, 'hidden');
       }
       if (val.c != null && val.c != '') {
-        $cc = ice.query('.city-option[data-value="' + val.c + '"]', $city);
+        $cc = ice.query('.city-option[data-code="' + val.c + '"]', $city);
         if ($cc != null) $choose = $cc;
         ice.addClass($cc, 'col-orange');
       }
@@ -473,7 +474,7 @@ define(function(require, exports, module) {
   exports.ajax = ajax;
 
   // 绑定打开相册事件
-  function bindOpenPhoto($list) {
+  function bindOpenPhoto($list, identify) {
     var isload = false;
     var $winPhoto = ice.query('#winPhoto');
     var $winPhotoClose = ice.query('#winPhotoClose');
@@ -497,6 +498,7 @@ define(function(require, exports, module) {
           url: '/wechat/sociality/media/photo/list.json',
           async: false,
           data: {
+            identify: identify,
             size: ''
           },
           success: function(data) {
@@ -630,6 +632,7 @@ define(function(require, exports, module) {
 
     return {
       reset: function() {
+        console.log('reset');
         isload = false;
       }
     };

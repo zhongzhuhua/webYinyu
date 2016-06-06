@@ -21,6 +21,10 @@ define(function(require, exports, module) {
     province_identify: '',
     city_identify: ''
   };
+  var cityData = {
+    province_code: '',
+    city_code: ''
+  };
 
   // 查询个人资料
   function search() {
@@ -37,6 +41,8 @@ define(function(require, exports, module) {
 
     mydata.province_identify = sessionStorage.getItem('editProvince');
     mydata.city_identify = sessionStorage.getItem('editCity');
+    cityData.province_code = sessionStorage.getItem('editProvinceCode');
+    cityData.city_code = sessionStorage.getItem('editCityCode');
 
     $name.value = mydata.nick;
 
@@ -105,7 +111,11 @@ define(function(require, exports, module) {
         success: function(data) {
           try {
             if (data.status == '200') {
-              // gm.go('/html/user/info.html');
+              if(gm.isprod) {
+                gm.go('/html/user/info.html');
+              } else {
+                gm.mess('成功');
+              }
             }
           } catch (e) {
             console.log(e.message);
@@ -172,8 +182,8 @@ define(function(require, exports, module) {
       mydata.country_identify = city.getCounty();
       $area.innerHTML = city.getText();
     }, {
-      p: mydata.province_identify,
-      c: mydata.city_identify
+      p: cityData.province_code,
+      c: cityData.city_code
     });
   };
 
